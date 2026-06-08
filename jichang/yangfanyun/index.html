@@ -43,50 +43,17 @@ gtag('config', 'G-TDFNZBNTH0');
 <body>
 <header class="header">
   <div class="container">
-    <div class="logo"><a href="/"><img src="/img/logo.png" alt="Clash节点">Clash节点</a></div>
+    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="Clash节点">Clash节点</a></div>
   </div>
 </header>
 
-<nav class="top-navbar">
-  <div class="container" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-    <a href="/" class="nav-item">首页</a>
-    <a href="/jichang/" class="nav-item active">机场推荐</a>
-    <a href="/tutorial/" class="nav-item">使用教程</a>
-    <a href="/guide/avoid-traps/" class="nav-item">避坑指南</a>
-  </div>
-</nav>
+<nav class="top-navbar" id="top-navbar"></nav>
 
 <section class="container container-page">
   <div class="pageside">
-    <div class="pagemenus">
-      <ul class="site-nav site-navbar">
-        <li><a href="/">首页</a></li>
-        <li class="active"><a href="/jichang/">机场推荐</a></li>
-        <li><a href="/tutorial/">使用教程</a></li>
-        <li><a href="/guide/avoid-traps/">避坑指南</a></li>
-      </ul>
-    </div>
-
-    <div class="pagemenus" style="margin-top: 20px;">
-      <h4 style="font-size: 12px; color: var(--text-muted); padding: 10px 28px; margin: 0;">机场列表</h4>
-      <ul class="site-nav site-navbar">
-        <li><a href="/jichang/dageyun/">大哥云</a></li>
-        <li><a href="/jichang/feimiaoyun/">肥猫云</a></li>
-        <li><a href="/jichang/feiniaoyun/">飞鸟云</a></li>
-        <li><a href="/jichang/guangnian/">光年</a></li>
-        <li><a href="/jichang/jilianyun/">极连云</a></li>
-        <li><a href="/jichang/jinglingxueyuan/">精灵学院</a></li>
-        <li><a href="/jichang/longmiaoyun/">龙猫云</a></li>
-        <li><a href="/jichang/ny/">奈云</a></li>
-        <li><a href="/jichang/sy/">瞬云</a></li>
-        <li class="active"><a href="/jichang/yangfanyun/">扬帆云</a></li>
-        <li><a href="/jichang/yuzhouyun/">宇宙云</a></li>
-        <li><a href="/jichang/tnt/">TNT Cloud</a></li>
-        <li><a href="/jichang/youxinyun/">优信云</a></li>
-        <li><a href="/jichang/wanxiang/">万象加速</a></li>
-      </ul>
-    </div>
+    <div id="page-sidebar"></div>
   </div>
+
   <div class="content">
     <header class="article-header">
       <h1 class="article-title">扬帆云</h1>
@@ -97,7 +64,7 @@ gtag('config', 'G-TDFNZBNTH0');
       <p>使用隧道中转优化线路与IPLC国际专线，使用 V2Ray 协议，多达条优质线路节点主要集中在日本、韩国、香港、法国、台湾、美国等中国用户常用国家与地区。节点套餐定价灵活，从月付15元到88元均可支持流媒体解锁及 ChatGPT 解锁，能够满足绝大部分的应用落地与不同的用户科学上网需求，优质价比机场梯子工具。</p>
 
       <div style="text-align: center;">
-        <a class="btn-primary" href="https://yawtt.net/register?code=2y3GoMfp" target="_blank">官网入口</a>
+        <a class="btn-primary" href="https://yangfan73.net/register?code=2y3GoMfp" target="_blank">官网入口</a>
       </div>
 
       <p>下面是扬帆云VIP套餐介绍：<span style="color: rgb(255, 0, 0);">###套餐不同时间会所波动，所有套餐以官方为准###</span></p>
@@ -116,7 +83,7 @@ gtag('config', 'G-TDFNZBNTH0');
       </div>
     </article>
 
-    <!-- Waline 评论区 -->
+    <!-- giscus 评论区 -->
     <div class="giscus"></div>
   </div>
 </section>
@@ -139,5 +106,6 @@ gtag('config', 'G-TDFNZBNTH0');
         crossorigin="anonymous"
         async>
 </script>
+<script src="/js/nav.js"></script>
 </body>
 </html>

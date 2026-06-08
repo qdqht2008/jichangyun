@@ -11,31 +11,56 @@ gtag('js', new Date());
 gtag('config', 'G-TDFNZBNTH0');
 </script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:image" content="https://www.clashvpn.shop/img/clash-300x300.png">
+<meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Clash节点",
-  "url": "https://www.clashvpn.shop/",
-  "logo": "https://www.clashvpn.shop/img/logo.png"
+  "name": "优质机场推荐",
+  "url": "https://www.jichangyun.top/",
+  "logo": "https://www.jichangyun.top/img/logo.png"
 }
 </script>
 
 <title>Proxy SwitchyOmega 使用教程 - 浏览器代理扩展 | Clash节点</title>
 <meta name="description" content="Proxy SwitchyOmega 浏览器扩展使用教程，介绍如何控制哪些页面走直连，减少代理流量消耗，解决公司内网访问限制。">
 <meta name="keywords" content="SwitchyOmega, 浏览器代理, 直连, 代理扩展, Chrome代理, 网络优化">
+<meta name="author" content="优质机场推荐">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.clashvpn.shop/tutorial/switchyomega/">
+<link rel="canonical" href="https://www.jichangyun.top/tutorial/switchyomega/">
 <meta property="og:title" content="Proxy SwitchyOmega 使用教程 - 浏览器代理扩展 | Clash节点">
 <meta property="og:description" content="Proxy SwitchyOmega 浏览器扩展使用教程，介绍如何控制哪些页面走直连，减少代理流量消耗，解决公司内网访问限制。">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.clashvpn.shop/tutorial/switchyomega/">
-<meta property="og:site_name" content="Clash节点">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.jichangyun.top/tutorial/switchyomega/">
+<meta property="og:site_name" content="优质机场推荐">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Proxy SwitchyOmega 使用教程 - 浏览器代理扩展">
 <meta name="twitter:description" content="SwitchyOmega 浏览器扩展使用教程，控制哪些页面走直连，减少代理流量消耗。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/clash-300x300.png">
 <meta property="og:locale" content="zh_CN">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Proxy SwitchyOmega 使用教程 - 浏览器代理扩展",
+  "description": "Proxy SwitchyOmega 浏览器扩展使用教程，介绍如何控制哪些页面走直连，减少代理流量消耗，解决公司内网访问限制。",
+  "image": "https://www.jichangyun.top/img/clash-300x300.png",
+  "author": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "datePublished": "2026-01-01", "dateModified": "2026-01-01",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/tutorial/switchyomega/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
+    {"@type": "ListItem", "position": 2, "name": "使用教程", "item": "https://www.jichangyun.top/tutorial/"},
+    {"@type": "ListItem", "position": 3, "name": "SwitchyOmega 教程", "item": "https://www.jichangyun.top/tutorial/switchyomega/"}
+  ]
+}
+</script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/main.css">
@@ -43,44 +68,17 @@ gtag('config', 'G-TDFNZBNTH0');
 <body>
 <header class="header">
   <div class="container">
-    <div class="logo"><a href="/"><img src="/img/logo.png" alt="Clash节点">Clash节点</a></div>
+    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
   </div>
 </header>
 
-<nav class="top-navbar">
-  <div class="container" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-    <a href="/" class="nav-item">首页</a>
-    <a href="/jichang/" class="nav-item">机场推荐</a>
-    <a href="/tutorial/" class="nav-item active">使用教程</a>
-    <a href="/guide/avoid-traps/" class="nav-item">避坑指南</a>
-  </div>
-</nav>
+<nav class="top-navbar" id="top-navbar"></nav>
 
 <section class="container container-page">
   <div class="pageside">
-    <div class="pagemenus">
-      <ul class="site-nav site-navbar">
-        <li><a href="/">首页</a></li>
-        <li><a href="/jichang/">机场推荐</a></li>
-        <li class="active"><a href="/tutorial/">使用教程</a></li>
-        <li><a href="/guide/avoid-traps/">避坑指南</a></li>
-      </ul>
-    </div>
-    <div class="pagemenus" style="margin-top: 20px;">
-      <h4 style="font-size: 12px; color: var(--text-muted); padding: 10px 28px; margin: 0;">教程分类</h4>
-      <ul class="site-nav site-navbar">
-        <li><a href="/tutorial/clash-verge/">Clash Verge 教程</a></li>
-        <li><a href="/tutorial/clash-for-windows/">Clash for Windows 教程</a></li>
-        <li><a href="/tutorial/flclash/">FlClash 教程</a></li>
-        <li><a href="/tutorial/clash-meta-for-android/">Clash Meta for Android 教程</a></li>
-        <li><a href="/tutorial/clash-for-android/">Clash for Android 教程</a></li>
-        <li><a href="/tutorial/clashx/">ClashX Pro 教程</a></li>
-        <li><a href="/tutorial/potatso/">Potatso 教程</a></li>
-        <li><a href="/tutorial/line-selection/">线路选择教程</a></li>
-        <li class="active"><a href="/tutorial/switchyomega/">SwitchyOmega 教程</a></li>
-      </ul>
-    </div>
+    <div id="page-sidebar"></div>
   </div>
+
   <div class="content">
     <header class="article-header">
       <h1 class="article-title">Proxy SwitchyOmega 使用教程</h1>
@@ -216,7 +214,7 @@ gtag('config', 'G-TDFNZBNTH0');
 
     </article>
 
-    <!-- Waline 评论区 -->
+    <!-- giscus 评论区 -->
     <div class="giscus"></div>
   </div>
 </section>
@@ -239,5 +237,6 @@ gtag('config', 'G-TDFNZBNTH0');
         crossorigin="anonymous"
         async>
 </script>
+<script src="/js/nav.js"></script>
 </body>
 </html>

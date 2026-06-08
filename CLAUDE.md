@@ -28,7 +28,6 @@ Then open http://localhost:8080
 - `jichang/` - Airport recommendation pages (各机场详情页)
 - `tutorial/` - Tutorial pages (使用教程)
 - `download/` - Client download pages (下载中心)
-- `waline/` - Waline comment system (独立部署)
 - `docs/superpowers/` - Project planning docs
 
 ## Key Technologies
@@ -36,7 +35,7 @@ Then open http://localhost:8080
 - HTML5, CSS3 (CSS Variables for theming)
 - Bootstrap 4.6, jQuery 3.7, Font Awesome 4.7
 - Google Fonts (DM Serif Display, Inter, Noto Sans SC)
-- Waline v2 for comments (serverURL: https://waline-seven-theta-30.vercel.app)
+- Giscus for comments
 
 ## CSS Architecture
 
@@ -57,17 +56,6 @@ Pages use a sidebar + content layout:
 
 1. Create HTML file in appropriate directory
 2. Use consistent page structure (header, sidebar nav, content, footer)
-3. Add Waline comment div: `<div id="waline"></div>` and initialize with:
-```javascript
-Waline.init({
-  el: '#waline',
-  path: window.location.pathname,
-  serverURL: 'https://waline-seven-theta-30.vercel.app',
-  placeholder: '写下你的留言...',
-  requiredMeta: ['nick', 'comment'],
-  login: 'enable',
-});
-```
 
 ## Vercel Deployment
 

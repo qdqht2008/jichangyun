@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.clashvpn.shop/sitemap.xml
+Sitemap: https://www.jichangyun.top/sitemap.xml
 
 # Crawl-delay for Bing
 Crawl-delay: 1
@@ -26,4 +26,4 @@ Allow: /
 
 # Sitemap for Baidu
 User-agent: Baiduspider
-Sitemap: https://www.clashvpn.shop/sitemap.xml
+Sitemap: https://www.jichangyun.top/sitemap.xml

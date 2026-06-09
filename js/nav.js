@@ -50,6 +50,7 @@ const SIDEBAR_SECTIONS = {
     basePath: '/jichang/',
     items: [
       { href: '/jichang/ny/', label: '奈云' },
+      { href: '/jichang/yangfanyun/', label: '扬帆云' },
       { href: '/jichang/hongxing/', label: '红杏云' },
       { href: '/jichang/quickcloud/', label: 'Quick Cloud' },
       { href: '/jichang/feiniaoyun/', label: '飞鸟云' },
@@ -58,7 +59,6 @@ const SIDEBAR_SECTIONS = {
       { href: '/jichang/jinglingxueyuan/', label: '精灵学院' },
       { href: '/jichang/longmiaoyun/', label: '龙猫云' },
       { href: '/jichang/sy/', label: '瞬云' },
-      { href: '/jichang/yangfanyun/', label: '扬帆云' },
       { href: '/jichang/yuzhouyun/', label: '宇宙云' },
       { href: '/jichang/tnt/', label: 'TNT Cloud' },
       { href: '/jichang/youxinyun/', label: '优信云' },

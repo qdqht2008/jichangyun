@@ -55,7 +55,6 @@ const SIDEBAR_SECTIONS = {
       { href: '/jichang/feiniaoyun/', label: '飞鸟云' },
       { href: '/jichang/dageyun/', label: '大哥云' },
       { href: '/jichang/feimiaoyun/', label: '肥猫云' },
-      { href: '/jichang/jilianyun/', label: '极连云' },
       { href: '/jichang/jinglingxueyuan/', label: '精灵学院' },
       { href: '/jichang/longmiaoyun/', label: '龙猫云' },
       { href: '/jichang/sy/', label: '瞬云' },

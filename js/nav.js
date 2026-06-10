@@ -61,7 +61,6 @@ const SIDEBAR_SECTIONS = {
       { href: '/jichang/longmiaoyun/', label: '龙猫云' },
       { href: '/jichang/sy/', label: '瞬云' },
       { href: '/jichang/tnt/', label: 'TNT Cloud' },
-      { href: '/jichang/youxinyun/', label: '优信云' },
       { href: '/jichang/wanxiang/', label: '万象加速' }
     ]
   }

@@ -82,65 +82,6 @@ gtag('config', 'G-HPYY57ECEX');
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/main.css">
-<style>
-.airport-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 30px;
-}
-
-.airport-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 28px;
-  transition: all 0.3s ease;
-}
-
-.airport-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(224,122,95,0.12);
-  border-color: var(--accent-primary);
-}
-
-.airport-card h2 {
-  font-family: var(--font-display);
-  font-size: 22px;
-  color: var(--accent-tertiary);
-  margin: 0 0 12px;
-}
-
-.airport-desc {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 16px;
-  line-height: 1.6;
-}
-
-.airport-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px;
-}
-
-.airport-features li {
-  color: var(--text-secondary);
-  font-size: 13px;
-  padding: 6px 0;
-  border-bottom: 1px dashed var(--border-color);
-}
-
-.airport-features li:last-child {
-  border-bottom: none;
-}
-
-.airport-features li::before {
-  content: '✓ ';
-  color: var(--accent-secondary);
-  font-weight: bold;
-}
-</style>
 </head>
 <body>
 <header class="header">
@@ -169,131 +110,207 @@ gtag('config', 'G-HPYY57ECEX');
 
     <div class="airport-grid">
       <div class="airport-card">
-        <h2>奈云</h2>
-        <p class="airport-desc">优质节点服务，Netflix全时段解锁，IPLC专线节点</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(224,122,95,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e07a5f" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">奈云</h3>
+        </div>
+        <p class="airport-card-desc">优质节点服务，Netflix全时段解锁，IPLC专线节点</p>
         <ul class="airport-features">
           <li>Netflix全时段解锁</li>
           <li>原生节点</li>
           <li>ChatGPT/Google加速</li>
         </ul>
-        <a href="/jichang/ny/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/ny/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>扬帆云</h2>
-        <p class="airport-desc">实力老牌机场旗下新开便宜机场，V2Ray协议</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(129,178,154,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#81b29a" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">扬帆云</h3>
+        </div>
+        <p class="airport-card-desc">实力老牌机场旗下新开便宜机场，V2Ray协议</p>
         <ul class="airport-features">
           <li>隧道中转优化</li>
           <li>IPLC国际专线</li>
           <li>多地区覆盖</li>
         </ul>
-        <a href="/jichang/yangfanyun/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/yangfanyun/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>红杏云</h2>
-        <p class="airport-desc">遍布全球的高速节点，极速稳定的网络体验，流媒体全解锁</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(220,80,80,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#dc5050" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">红杏云</h3>
+        </div>
+        <p class="airport-card-desc">遍布全球的高速节点，极速稳定的网络体验，流媒体全解锁</p>
         <ul class="airport-features">
           <li>全球节点</li>
           <li>极速体验</li>
           <li>流媒体解锁</li>
           <li>多设备支持</li>
         </ul>
-        <a href="/jichang/hongxing/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/hongxing/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>Quick Cloud</h2>
-        <p class="airport-desc">IEPL+ 高速线路，全球 60+ 节点，含住宅家宽节点</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(61,64,91,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3d405b" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">Quick Cloud</h3>
+        </div>
+        <p class="airport-card-desc">IEPL+ 高速线路，全球 60+ 节点，含住宅家宽节点</p>
         <ul class="airport-features">
           <li>IEPL+ 专线</li>
           <li>住宅家宽节点</li>
           <li>流媒体全解锁</li>
         </ul>
-        <a href="/jichang/quickcloud/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/quickcloud/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>大哥云</h2>
-        <p class="airport-desc">2020年成立的老牌机场，Trojan/V2Ray协议，IPLC国际专线</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(45,55,72,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2d3748" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">大哥云</h3>
+        </div>
+        <p class="airport-card-desc">2020年成立的老牌机场，Trojan/V2Ray协议，IPLC国际专线</p>
         <ul class="airport-features">
           <li>中高端线路节点</li>
           <li>隧道中转优化</li>
           <li>IPLC专线</li>
         </ul>
-        <a href="/jichang/dageyun/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/dageyun/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>肥猫云</h2>
-        <p class="airport-desc">2023年成立的优质机场，Trojan协议，多平台客户端支持</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(246,135,179,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f687b3" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">肥猫云</h3>
+        </div>
+        <p class="airport-card-desc">2023年成立的优质机场，Trojan协议，多平台客户端支持</p>
         <ul class="airport-features">
           <li>香港、日本、台湾、美国、新加坡节点</li>
           <li>支持支付宝、微信支付</li>
           <li>多平台客户端</li>
         </ul>
-        <a href="/jichang/feimiaoyun/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/feimiaoyun/" class="btn btn-primary">查看详情 →</a>
       </div>
 
-
       <div class="airport-card">
-        <h2>精灵学院</h2>
-        <p class="airport-desc">TUIC V5协议，EMOY影音服务，全方位流媒体解锁</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(159,122,234,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9f7aea" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">精灵学院</h3>
+        </div>
+        <p class="airport-card-desc">TUIC V5协议，EMOY影音服务，全方位流媒体解锁</p>
         <ul class="airport-features">
           <li>TUIC V5协议</li>
           <li>Netflix/ChatGPT解锁</li>
           <li>游戏加速</li>
         </ul>
-        <a href="/jichang/jinglingxueyuan/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/jinglingxueyuan/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>龙猫云</h2>
-        <p class="airport-desc">Totoro Cloud新锐机场，Shadowsocks协议，IPLC专线</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(151,90,22,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#975a16" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">龙猫云</h3>
+        </div>
+        <p class="airport-card-desc">Totoro Cloud新锐机场，Shadowsocks协议，IPLC专线</p>
         <ul class="airport-features">
           <li>Shadowsocks协议</li>
           <li>Netflix/Disney+解锁</li>
           <li>贴心客服支持</li>
         </ul>
-        <a href="/jichang/longmiaoyun/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/longmiaoyun/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>瞬云</h2>
-        <p class="airport-desc">不限速节点服务，ChatGPT/Gemini AI解锁，TikTok支持</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(56,178,172,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38b2ac" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">瞬云</h3>
+        </div>
+        <p class="airport-card-desc">不限速节点服务，ChatGPT/Gemini AI解锁，TikTok支持</p>
         <ul class="airport-features">
           <li>不限速</li>
           <li>无倍率</li>
           <li>不限制设备数量</li>
         </ul>
-        <a href="/jichang/sy/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/sy/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>宇宙云</h2>
-        <p class="airport-desc">优质机场服务，高速稳定线路，多地区节点覆盖</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(26,32,44,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1a202c" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">宇宙云</h3>
+        </div>
+        <p class="airport-card-desc">优质机场服务，高速稳定线路，多地区节点覆盖</p>
         <ul class="airport-features">
           <li>高速稳定线路</li>
           <li>多地区节点</li>
           <li>优质客服支持</li>
         </ul>
-        <a href="/jichang/yuzhouyun/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/yuzhouyun/" class="btn btn-primary">查看详情 →</a>
       </div>
 
       <div class="airport-card">
-        <h2>TNT Cloud</h2>
-        <p class="airport-desc">IPLC 内网专线机场，原生 IP 节点，全线路不限速不限设备数量</p>
-        <ul class="airport-features">
-          <li>2000Mbps 高速带宽</li>
-          <li>流媒体全解锁</li>
-          <li>ChatGPT/TikTok 解锁</li>
-        </ul>
-        <a href="/jichang/tnt/" class="btn btn-primary">查看详情</a>
-      </div>
-
-      <div class="airport-card">
-        <h2>优信云</h2>
-        <p class="airport-desc">Trojan协议，IPLC国际专线，流媒体/ChatGPT解锁</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(160,174,192,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">优信云</h3>
+        </div>
+        <p class="airport-card-desc">Trojan协议，IPLC国际专线，流媒体/ChatGPT解锁</p>
         <ul class="airport-features">
           <li>高速IPLC专线</li>
           <li>多地区节点</li>
@@ -302,14 +319,22 @@ gtag('config', 'G-HPYY57ECEX');
       </div>
 
       <div class="airport-card">
-        <h2>万象加速</h2>
-        <p class="airport-desc">高速稳定线路，多地区节点覆盖，优质机场服务</p>
+        <div class="airport-card-header">
+          <div class="airport-card-icon" style="background: rgba(160,174,192,0.12);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3 class="airport-card-title">万象加速</h3>
+        </div>
+        <p class="airport-card-desc">高速稳定线路，多地区节点覆盖，优质机场服务</p>
         <ul class="airport-features">
           <li>高速稳定线路</li>
           <li>多地区节点</li>
           <li>流媒体解锁</li>
         </ul>
-        <a href="/jichang/wanxiang/" class="btn btn-primary">查看详情</a>
+        <a href="/jichang/wanxiang/" class="btn btn-primary">查看详情 →</a>
       </div>
     </div>
 

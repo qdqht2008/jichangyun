@@ -75,13 +75,13 @@
 
 | 类名 | 用途 |
 |------|------|
-| `.address-block` | 美国地址示例块（浅灰底 + 等宽字体，2 个示例并列） |
-| `.step-card` | 第一/二/三/四步卡片（左侧主色边、序号、标题、内容） |
-| `.faq-item` | Q1-Q4 列表项（左侧问号图标 + 折叠式展开） |
-| `.pitfall-item` | 避坑指南条目（左侧红色边 + ⚠ 图标） |
-| `.summary-grid` / `.summary-card` | 与 line-selection 一致，文末总结卡片 |
+| `.address-block` | 美国地址示例块（`var(--bg-secondary)` 浅灰底 + 等宽字体，2 个示例上下排列，非并列） |
+| `.step-card` | 第一/二/三/四步卡片（左侧 `var(--accent-primary)` 主色边 + 序号徽章 + 标题 + 内容） |
+| `.faq-item` | Q1-Q4 列表项（左侧 Q 图标 + 问题标题 + 答案段落，**纯静态展示，无 JS 折叠**） |
+| `.pitfall-item` | 避坑指南条目（左侧 `var(--accent-primary)` 红色边 + ⚠ emoji 图标 + 标题 + 描述） |
+| `.summary-grid` / `.summary-card` | 文末总结卡片，**复制 line-selection 的 `.summary-grid` 与 `.summary-card` 实现**（grid auto-fit + linear-gradient 背景），用于替代原文 ✅ emoji 列表 |
 
-不复用全局 `.notice`/`.notice-light`——本页面用 `.notice-highlight`（与 line-selection 同）。
+**注意**：`.summary-grid` / `.summary-card` 在 line-selection 中以 per-page `<style>` 定义，未放入 `css/main.css`。新页面需在自身 `<style>` 块中重新声明相同规则（保持与 line-selection 完全一致），不修改全局 CSS。
 
 ## 5. 涉及的 4 个文件
 
@@ -90,7 +90,7 @@
 | 1 | `/tutorial/us-apple-id/index.html` | **新建** | 整页 HTML（含 meta、JSON-LD、per-page style、正文、Giscus） |
 | 2 | `/tutorial/index.html` | **编辑** | 在 `进阶配置教程` 区块下方新增 `<div class="platform-section">`，含 1 张 `tutorial-card` |
 | 3 | `/js/nav.js` | **编辑** | `SIDEBAR_SECTIONS.tutorial.items` 末尾追加 `{ href: '/tutorial/us-apple-id/', label: '美区 Apple ID 注册' }` |
-| 4 | `/sitemap.xml` | **编辑** | 末尾追加 `<url>` 块：`loc`、`lastmod 2026-06-13`、`changefreq monthly`、`priority 0.7` |
+| 4 | `/sitemap.xml` | **编辑** | 在 `</urlset>` 标签之前插入新的 `<url>` 块：`loc`、`lastmod 2026-06-13`、`changefreq monthly`、`priority 0.7` |
 
 ## 6. 不做的事（范围控制）
 

@@ -1,0 +1,876 @@
+# 美区 Apple ID 注册教程 加入使用教程板块 实施计划
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** 在 `/tutorial/us-apple-id/` 下新建一篇"如何注册美区 Apple ID"教程（基于 gate-rank.com 原文改写），并接入列表页、侧边栏、sitemap。
+
+**Architecture:** 完全照搬现有 `/tutorial/line-selection/index.html` 的 HTML 骨架（head/body/JSON-LD/Giscus/`.notice-highlight` 等），新增 5 个 per-page `<style>` 类（`.address-block`/`.step-card`/`.faq-item`/`.pitfall-item`/`.summary-grid`），保留事实内容、删除竞品 affiliate 链接、替换文末 GateRank 推广为站内 `/jichang/` 引导。
+
+**Tech Stack:** 纯 HTML/CSS。无 JS、无构建步骤、无自动化测试（静态站点）。验证手段：grep 检查禁出现域名 + 本地 `python3 -m http.server` 预览 + `git diff` 视觉对比。
+
+**Spec:** `docs/superpowers/specs/2026-06-13-us-apple-id-tutorial-design.md`
+
+---
+
+## 文件结构
+
+```
+新建文件:
+- tutorial/us-apple-id/index.html          # 整篇文章 HTML（含 per-page style + Giscus）
+
+修改文件:
+- tutorial/index.html                      # 在「进阶配置教程」下方新增「海外账号」section
+- js/nav.js                                # SIDEBAR_SECTIONS.tutorial.items 末尾追加一项
+- sitemap.xml                              # </urlset> 之前插入新 <url> 块
+```
+
+---
+
+## Task 1: 创建美区 Apple ID 注册教程文章 HTML
+
+**Files:**
+- Create: `tutorial/us-apple-id/index.html`
+
+- [ ] **Step 1: 创建目录**
+
+```bash
+mkdir -p /Users/qiao/Documents/workspase/jichangyun/tutorial/us-apple-id
+```
+
+- [ ] **Step 2: 写入完整 HTML 文件**
+
+使用 Write 工具创建 `/Users/qiao/Documents/workspase/jichangyun/tutorial/us-apple-id/index.html`，写入以下完整内容：
+
+```html
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPYY57ECEX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HPYY57ECEX');
+</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "优质机场推荐",
+  "url": "https://www.jichangyun.top/",
+  "logo": "https://www.jichangyun.top/img/logo.png"
+}
+</script>
+
+<title>如何注册美区 Apple ID？大陆用户从零开始完整教程 - 优质机场推荐</title>
+<meta name="description" content="中国大陆用户注册美区 Apple ID 完整教程：注册步骤、美国地址示例、付款方式选择、ChatGPT Plus 订阅、双账号方案、常见问题与避坑指南。">
+<meta name="keywords" content="美区 Apple ID, 注册 Apple ID, 美区账号, ChatGPT Plus 订阅, 大陆用户 Apple ID, iOS 美区, App Store 美区">
+<meta name="author" content="优质机场推荐">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/tutorial/us-apple-id/">
+<meta property="og:title" content="如何注册美区 Apple ID？大陆用户从零开始完整教程">
+<meta property="og:description" content="中国大陆用户注册美区 Apple ID 完整教程：注册步骤、美国地址示例、付款方式选择、ChatGPT Plus 订阅、双账号方案、常见问题与避坑指南。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jichangyun.top/tutorial/us-apple-id/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_large">
+<meta name="twitter:title" content="如何注册美区 Apple ID？大陆用户从零开始完整教程">
+<meta name="twitter:description" content="中国大陆用户注册美区 Apple ID 完整教程：注册步骤、美国地址示例、付款方式选择、ChatGPT Plus 订阅、双账号方案、常见问题与避坑指南。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/clash-300x300.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "如何注册美区 Apple ID？大陆用户从零开始完整教程",
+  "description": "中国大陆用户注册美区 Apple ID 完整教程：注册步骤、美国地址示例、付款方式选择、ChatGPT Plus 订阅、双账号方案、常见问题与避坑指南。",
+  "image": "https://www.jichangyun.top/img/clash-300x300.png",
+  "author": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "datePublished": "2026-06-13", "dateModified": "2026-06-13",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/tutorial/us-apple-id/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
+    {"@type": "ListItem", "position": 2, "name": "使用教程", "item": "https://www.jichangyun.top/tutorial/"},
+    {"@type": "ListItem", "position": 3, "name": "美区 Apple ID 注册", "item": "https://www.jichangyun.top/tutorial/us-apple-id/"}
+  ]
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+<style>
+.notice-highlight {
+  background: linear-gradient(135deg, rgba(224,122,95,0.1), rgba(129,178,154,0.1));
+  border-left: 4px solid var(--accent-primary);
+  padding: 16px 20px;
+  border-radius: 0 12px 12px 0;
+  margin: 20px 0;
+}
+.step-card {
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+  position: relative;
+}
+.step-card .step-num {
+  display: inline-block;
+  background: var(--accent-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.step-card h3 {
+  font-family: var(--font-display);
+  color: var(--accent-tertiary);
+  margin: 4px 0 12px;
+  font-size: 18px;
+}
+.address-block {
+  background: #f7f5f1;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+.faq-item {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 14px 0;
+}
+.faq-item .q {
+  color: var(--accent-tertiary);
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.faq-item .a {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.pitfall-item {
+  background: linear-gradient(135deg, rgba(224,122,95,0.06), rgba(224,122,95,0.02));
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.pitfall-item .pitfall-title {
+  color: var(--accent-primary);
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+.pitfall-item .pitfall-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.summary-card {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.summary-card .icon { font-size: 28px; margin-bottom: 10px; }
+.summary-card h4 { color: var(--accent-tertiary); margin-bottom: 8px; font-size: 15px; }
+.summary-card p { color: var(--text-secondary); font-size: 13px; margin: 0; line-height: 1.6; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
+  </div>
+</header>
+
+<nav class="top-navbar" id="top-navbar"></nav>
+
+<section class="container container-page">
+  <div class="pageside">
+    <div id="page-sidebar"></div>
+  </div>
+
+  <div class="content">
+    <header class="article-header">
+      <h1 class="article-title">如何注册美区 Apple ID？大陆用户从零开始完整教程</h1>
+      <p style="color: var(--text-secondary); margin-top: 10px;">2026 最新版 · 包含注册步骤、付款方式与避坑指南</p>
+    </header>
+
+    <article class="article-content">
+      <div class="notice-highlight">
+        <p><strong>核心场景：</strong>机场节点开通后，能打开 Google、能用 ChatGPT 网页版了——但当你打开 iPhone 的 App Store 搜索 ChatGPT，提示"该应用在您所在的国家或地区不可用"。这时候你需要的，是一个<strong>美区 Apple ID</strong>。</p>
+      </div>
+
+      <p>这篇教程将带你从零注册美区 Apple ID，并完成首次下载、订阅 ChatGPT Plus 等付费应用。整个过程无需海外手机号、无需美国信用卡，普通用户在 15 分钟内可以完成。</p>
+
+      <h2>一、为什么要注册美区 Apple ID</h2>
+      <p>相比中国区 Apple ID，美区账号拥有以下优势：</p>
+      <ul>
+        <li>可以下载 <strong>ChatGPT、Claude、Perplexity</strong> 等海外 AI 应用（中国区无）</li>
+        <li>可以订阅部分仅支持美区的数字服务</li>
+        <li>获取海外应用更新速度更快</li>
+        <li>不影响原有中国区 Apple ID 的正常使用</li>
+      </ul>
+      <p>最推荐的方式：<strong>保留中国区 Apple ID 作为 iCloud 账号，再额外注册一个美区 Apple ID 专门用于 App Store 下载应用</strong>。两个账号长期共存，互不干扰。</p>
+
+      <h2>二、注册前准备</h2>
+      <p>注册前需要准备以下材料：</p>
+      <ul>
+        <li>一个<strong>未注册过 Apple ID 的邮箱</strong>（推荐 Gmail / Outlook / iCloud / Proton 等）</li>
+        <li>中国大陆手机号（+86，目前 Apple 允许 +86 注册美区账号，<strong>无需海外手机号</strong>）</li>
+        <li>一个能正常访问 <code>account.apple.com</code> 的网络环境（注册时如有困难，可切换美国节点）</li>
+      </ul>
+
+      <h2>三、第一步：创建美区 Apple ID</h2>
+      <div class="step-card">
+        <span class="step-num">第 1 步</span>
+        <h3>访问 Apple 官方账号注册页面</h3>
+        <p>打开浏览器，访问 <a href="https://account.apple.com" target="_blank" rel="noopener">https://account.apple.com</a>。</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">第 2 步</span>
+        <h3>点击 Create Apple Account</h3>
+        <p>在账号登录页面，点击 <strong>Create Apple Account</strong> 按钮进入注册流程。</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">第 3 步</span>
+        <h3>填写账号信息</h3>
+        <p>按以下信息填写：</p>
+        <ul>
+          <li><strong>国家或地区：</strong>United States</li>
+          <li><strong>姓名：</strong>建议使用拼音或英文</li>
+          <li><strong>出生日期：</strong>真实出生日期（影响后续密码重置）</li>
+          <li><strong>邮箱地址：</strong>未注册过 Apple ID 的邮箱</li>
+          <li><strong>密码：</strong>大写字母 + 小写字母 + 数字，至少 8 位</li>
+          <li><strong>手机号：</strong>+86 中国大陆手机号</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <span class="step-num">第 4 步</span>
+        <h3>完成双重验证</h3>
+        <ul>
+          <li>填写收到的<strong>邮箱验证码</strong></li>
+          <li>填写收到的<strong>手机短信验证码</strong></li>
+        </ul>
+        <p>验证通过后，美区 Apple ID 创建成功。</p>
+      </div>
+
+      <h2>四、第二步：填写美国地址</h2>
+      <p>首次登录美区 App Store 时，系统可能要求填写账单地址。可参考以下两个示例，<strong>格式符合美国地址规范即可</strong>（城市、州、邮编三者对应）。</p>
+
+      <p><strong>示例地址一（加州库比蒂诺 · Apple 总部地址）：</strong></p>
+      <div class="address-block">
+Street: 1 Apple Park Way<br>
+City: Cupertino<br>
+State: CA<br>
+ZIP: 95014<br>
+Phone: 4089961010
+      </div>
+
+      <p><strong>示例地址二（纽约）：</strong></p>
+      <div class="address-block">
+Street: 350 5th Ave<br>
+City: New York<br>
+State: NY<br>
+ZIP: 10118<br>
+Phone: 2127363100
+      </div>
+
+      <h2>五、第三步：登录美区 App Store</h2>
+      <p>在 iPhone 上：</p>
+      <ol>
+        <li>打开 <strong>设置 → Apple Account → 媒体与购买项目</strong></li>
+        <li>点击 <strong>退出登录</strong>，退出当前 App Store 账号</li>
+        <li>打开 <strong>App Store</strong>，点击右上角头像</li>
+        <li>登录刚注册的美区 Apple ID</li>
+      </ol>
+      <p>此时 App Store 会自动切换到美国区。</p>
+      <div class="notice-highlight">
+        <p><strong>重要：</strong>不要用美区账号登录 iCloud。iCloud 仍保持中国区账号，否则可能导致数据同步混乱、订阅冲突、App 更新异常。</p>
+      </div>
+
+      <h2>六、第四步：首次下载应用</h2>
+      <p>首次下载免费应用时，按以下步骤完成验证：</p>
+      <ol>
+        <li>在 App Store 搜索并点击任意免费应用</li>
+        <li>系统弹出付款方式选择时，选 <strong>None</strong></li>
+        <li>填写<strong>美国地址</strong>（复用第二步的示例）</li>
+        <li>填写邮编、联系电话</li>
+        <li>点击完成，开始下载</li>
+      </ol>
+      <p>完成后，App Store 已完整激活美区状态。</p>
+
+      <h2>七、如何下载 ChatGPT</h2>
+      <p>登录美区 App Store 后：</p>
+      <ol>
+        <li>搜索 <code>ChatGPT</code></li>
+        <li>开发者显示为 <strong>OpenAI</strong></li>
+        <li>点击获取，下载安装</li>
+      </ol>
+      <p>如果搜索不到 ChatGPT，尝试：</p>
+      <ul>
+        <li>完全退出 App Store（从后台划掉）</li>
+        <li>重新登录美区账号</li>
+        <li>等待数分钟同步</li>
+      </ul>
+      <p>通常即可恢复正常。同样的方法可以下载 Claude、Perplexity、Gemini 等海外 AI 应用。</p>
+
+      <h2>八、如何订阅 ChatGPT Plus</h2>
+      <p>目前最常见的方案有两种：</p>
+
+      <h3>方案一：美区 Apple Gift Card（推荐）</h3>
+      <p>这是成功率最高、风险最低的方案：</p>
+      <ol>
+        <li>在淘宝、拼多多等渠道<strong>购买美区 Apple Gift Card</strong>（通常 100/200/500 美元面值）</li>
+        <li>在 iPhone 上打开 <strong>设置 → Apple ID → 付款与配送 → 兑换礼品卡或代码</strong></li>
+        <li>输入礼品卡背面 16 位代码，充值至 Apple ID</li>
+        <li>账户余额即可用于订阅 ChatGPT Plus、Claude Pro、Perplexity Pro 等</li>
+      </ol>
+      <p><strong>优点：</strong>无需美国信用卡 / 成功率高 / 风控风险低 / 充值即用。</p>
+
+      <h3>方案二：美国银行卡</h3>
+      <p>如已有美国银行卡，可直接绑定美区 Apple ID：</p>
+      <p><strong>支持的银行：</strong>Wise / Capital One / Chase / Bank of America</p>
+      <p><strong>不支持：</strong>中国银联卡 / 国内 Visa / 国内 Mastercard —— 大部分情况下无法正常绑定，会触发风控。</p>
+
+      <h2>九、推荐双账号方案</h2>
+      <p>对于绝大多数大陆用户，长期稳定的使用方案是双账号共存：</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>用途</th>
+            <th>使用账号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>iCloud</strong>（照片、通讯录、备份）</td>
+            <td>中国区 Apple ID</td>
+          </tr>
+          <tr>
+            <td><strong>App Store</strong>（应用下载、订阅）</td>
+            <td>美区 Apple ID</td>
+          </tr>
+          <tr>
+            <td><strong>付款方式</strong></td>
+            <td>美区 Apple Gift Card</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>优点：</strong></p>
+      <ul>
+        <li>照片、通讯录、iCloud 备份同步正常</li>
+        <li>中国区应用（微信、支付宝、淘宝等）更新正常</li>
+        <li>美区应用（ChatGPT、Claude 等）可正常下载和订阅</li>
+        <li>两账号长期稳定共存，互不干扰</li>
+      </ul>
+
+      <h2>十、常见问题</h2>
+
+      <div class="faq-item">
+        <div class="q">Q1：为什么付款方式里没有 None 选项？</div>
+        <div class="a">通常有以下三个原因：
+          <ul>
+            <li><strong>已经存在订阅：</strong>Apple Music / iCloud+ / Apple TV+ 等 —— 需要先取消所有订阅</li>
+            <li><strong>账户余额未清空：</strong>即使只有 $0.01 余额，也可能导致无法修改付款方式</li>
+            <li><strong>加入了家庭共享：</strong>Family Sharing 用户经常无法切换国家地区 —— 需要先退出家庭组</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q">Q2：能直接把中国区账号切换到美国区吗？</div>
+        <div class="a">技术上可以，但需要同时满足：
+          <ul>
+            <li>没有订阅</li>
+            <li>没有余额</li>
+            <li>没有家庭共享</li>
+            <li>提供美国付款方式</li>
+          </ul>
+          <p>由于限制多、操作复杂、容易触发风控，<strong>并不推荐</strong>。更推荐：中国区 Apple ID + 美区 Apple ID 双账号长期共存。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q">Q3：中国手机号可以注册吗？</div>
+        <div class="a">可以。Apple 目前允许 +86 手机号用于注册和双重认证验证，<strong>无需购买海外手机号</strong>。短信验证码会发到 +86 国内手机。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q">Q4：注册时一定要使用美国 IP 吗？</div>
+        <div class="a">不一定。很多用户使用中国网络即可完成注册。但如果出现：
+          <ul>
+            <li><code>Your request could not be completed.</code></li>
+            <li><code>Account cannot be created at this time.</code></li>
+          </ul>
+          则可以尝试：
+          <ul>
+            <li>切换网络环境（用机场节点切美国）</li>
+            <li>更换浏览器</li>
+            <li>稍后重试</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>十一、避坑指南</h2>
+
+      <div class="pitfall-item">
+        <div class="pitfall-title">⚠ 不要购买现成账号</div>
+        <div class="pitfall-desc">风险极高。常见问题：被卖家找回、被多人共享、开启双重认证后无法登录、被 Apple 风控封禁。<strong>建议：自己注册最安全。</strong></div>
+      </div>
+
+      <div class="pitfall-item">
+        <div class="pitfall-title">⚠ 不要用美区账号登录 iCloud</div>
+        <div class="pitfall-desc">错误示范：iCloud 用美区 Apple ID。容易导致：数据同步混乱、订阅冲突、App 更新异常。<strong>推荐：iCloud 中国区账号 + App Store 美区账号。</strong></div>
+      </div>
+
+      <div class="pitfall-item">
+        <div class="pitfall-title">⚠ 不要频繁切换国家</div>
+        <div class="pitfall-desc">Apple 会记录：登录地点、IP 变化、设备变化。频繁切换（中国区 → 美国区 → 中国区 → 美国区）容易触发风控。注册完成后保持稳定，不要反复横跳。</div>
+      </div>
+
+      <div class="pitfall-item">
+        <div class="pitfall-title">⚠ 不要随意填写付款信息</div>
+        <div class="pitfall-desc">即使当前选择 None，未来绑定付款方式时：地址、国家、支付卡 最好保持一致。否则后续订阅或下载付费 App 时可能被风控拦截。</div>
+      </div>
+
+      <h2>十二、总结</h2>
+      <p>对于中国大陆用户，目前最稳定的方案是：</p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="icon">🆔</div>
+          <h4>iCloud 用中国区</h4>
+          <p>照片、通讯录、备份数据同步正常。</p>
+        </div>
+        <div class="summary-card">
+          <div class="icon">🍎</div>
+          <h4>App Store 用美区</h4>
+          <p>下载 ChatGPT、Claude 等海外应用。</p>
+        </div>
+        <div class="summary-card">
+          <div class="icon">💳</div>
+          <h4>美区 Gift Card</h4>
+          <p>无信用卡、成功率高、风控风险低。</p>
+        </div>
+        <div class="summary-card">
+          <div class="icon">✅</div>
+          <h4>双账号共存</h4>
+          <p>长期稳定，互不干扰，最推荐。</p>
+        </div>
+      </div>
+
+      <p>完成美区 Apple ID 注册后，就可以下载 ChatGPT、Claude、Perplexity 等海外 AI 应用了。但访问这些应用本身需要稳定的海外网络——</p>
+
+      <div class="notice-highlight">
+        <p><strong>下一步：</strong>选一个稳定机场 → <a href="/jichang/">查看机场推荐</a></p>
+      </div>
+
+      <h2>相关教程</h2>
+      <ul>
+        <li><a href="/tutorial/clash-for-ios/">Clash iOS 客户端教程</a>（推荐阅读：搭配机场使用）</li>
+        <li><a href="/tutorial/line-selection/">机场线路怎么选</a>（直连、中转、专线三段链路详解）</li>
+        <li><a href="/tutorial/switchyomega/">Proxy SwitchyOmega 教程</a>（浏览器代理扩展使用技巧）</li>
+        <li><a href="/jichang/">机场推荐</a>（查看更多机场选择）</li>
+      </ul>
+
+      <p style="color: var(--text-muted); font-size: 13px; margin-top: 32px;">最后更新：2026-06 · 本教程基于公开信息整理，Apple 注册流程可能随时间调整，如遇差异以 Apple 官方页面为准。</p>
+
+      <div class="giscus"></div>
+    </article>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://giscus.app/client.js"
+        data-repo="qdqht2008/calshvpn"
+        data-repo-id="R_kgDOSNBV3g"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSNBV3s4C-KRW"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+<script src="/js/nav.js"></script>
+</body>
+</html>
+```
+
+- [ ] **Step 3: 验证 HTML 文件结构**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+test -f tutorial/us-apple-id/index.html && echo "EXISTS"
+wc -l tutorial/us-apple-id/index.html
+grep -c '</html>' tutorial/us-apple-id/index.html
+grep -c '</head>' tutorial/us-apple-id/index.html
+grep -c '</body>' tutorial/us-apple-id/index.html
+grep -c 'BreadcrumbList' tutorial/us-apple-id/index.html
+grep -c '"@type": "Article"' tutorial/us-apple-id/index.html
+```
+
+预期输出：
+- `EXISTS`
+- 行数约 300-400 行
+- `</html>` 计数：1
+- `</head>` 计数：1
+- `</body>` 计数：1
+- `BreadcrumbList` 计数：1
+- `"@type": "Article"` 计数：1
+
+- [ ] **Step 4: 检查禁出现域名（必须为 0）**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+for domain in gate-rank.com jichang.best elphantroute nowjiasu xlw.app dawangyun yangda yunshang; do
+  count=$(grep -c "$domain" tutorial/us-apple-id/index.html || true)
+  echo "$domain: $count"
+done
+```
+
+预期：所有域名计数均为 `0`（即 grep -c 输出 `0`）。如果有任何一项非 0，立即停止并检查泄漏点。
+
+- [ ] **Step 5: 提交**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+git add tutorial/us-apple-id/index.html
+git commit -m "$(cat <<'EOF'
+feat: 新增美区 Apple ID 注册教程（/tutorial/us-apple-id/）
+
+为 VPN/海外应用用户提供完整美区 Apple ID 注册指南。
+基于公开信息改写，含注册步骤、美国地址示例、付款方式、
+ChatGPT Plus 订阅、双账号方案、FAQ 与避坑指南。
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task 2: 在 /tutorial/index.html 新增「海外账号」section 卡片
+
+**Files:**
+- Modify: `tutorial/index.html:236-254`（在 `进阶配置教程` 区块之后、`notice-light` 之前）
+
+- [ ] **Step 1: 编辑 tutorial/index.html**
+
+定位到 `tutorial/index.html` 文件中第 253 行（`</div>` 结束"进阶配置教程"区块的位置）。在该 `</div>` 之后、第 256 行的 `<div class="notice-light"` 之前，**插入**以下 HTML 块：
+
+```html
+    <div class="platform-section">
+      <h2>海外账号教程</h2>
+      <div class="tutorial-grid">
+        <div class="tutorial-card">
+          <span class="platform">iOS / 通用</span>
+          <div class="icon">🍏</div>
+          <h3>美区 Apple ID 注册教程</h3>
+          <p>从零注册美区 Apple ID，含注册步骤、美国地址示例、付款方式、ChatGPT Plus 订阅、双账号方案与避坑指南。</p>
+          <a href="/tutorial/us-apple-id/" class="btn btn-primary">查看教程</a>
+        </div>
+      </div>
+    </div>
+```
+
+使用 Edit 工具的 old_string / new_string 方式：
+
+- old_string:
+```
+    <div class="notice-light" style="margin-top: 40px;">
+```
+
+- new_string: 在 `old_string` 前面插入上面的 `<div class="platform-section">...</div>` 块。
+
+实际 Edit 操作的 old_string 应该是包含该 `notice-light` 行上下文（让 old_string 唯一）。完整 old_string：
+
+```
+    </div>
+
+    <div class="notice-light" style="margin-top: 40px;">
+```
+
+完整 new_string：
+
+```
+    </div>
+
+    <div class="platform-section">
+      <h2>海外账号教程</h2>
+      <div class="tutorial-grid">
+        <div class="tutorial-card">
+          <span class="platform">iOS / 通用</span>
+          <div class="icon">🍏</div>
+          <h3>美区 Apple ID 注册教程</h3>
+          <p>从零注册美区 Apple ID，含注册步骤、美国地址示例、付款方式、ChatGPT Plus 订阅、双账号方案与避坑指南。</p>
+          <a href="/tutorial/us-apple-id/" class="btn btn-primary">查看教程</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice-light" style="margin-top: 40px;">
+```
+
+- [ ] **Step 2: 验证**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+grep -c "美区 Apple ID 注册教程" tutorial/index.html
+grep -c "海外账号教程" tutorial/index.html
+grep -c 'href="/tutorial/us-apple-id/"' tutorial/index.html
+```
+
+预期输出（每项各 1）：
+- `美区 Apple ID 注册教程` 计数：1
+- `海外账号教程` 计数：1
+- `href="/tutorial/us-apple-id/"` 计数：1
+
+- [ ] **Step 3: 提交**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+git add tutorial/index.html
+git commit -m "$(cat <<'EOF'
+feat: tutorial 列表页新增「海外账号教程」section 与 Apple ID 卡片
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task 3: 在 /js/nav.js 侧边栏添加 Apple ID 教程入口
+
+**Files:**
+- Modify: `js/nav.js:34`（`SIDEBAR_SECTIONS.tutorial.items` 数组末尾）
+
+- [ ] **Step 1: 编辑 nav.js**
+
+使用 Edit 工具：
+
+- old_string:
+```
+      { href: '/tutorial/potatso/', label: 'Potatso 教程' }
+    ]
+  },
+```
+
+- new_string:
+```
+      { href: '/tutorial/potatso/', label: 'Potatso 教程' },
+      { href: '/tutorial/us-apple-id/', label: '美区 Apple ID 注册' }
+    ]
+  },
+```
+
+注意：`Potatso 教程` 这一行原本没有逗号（数组最后一项），现在它变成中间项，**必须加逗号**。`new_string` 已经处理好这点。
+
+- [ ] **Step 2: 验证 JS 语法**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+node --check js/nav.js && echo "JS_OK"
+grep -c "美区 Apple ID 注册" js/nav.js
+```
+
+预期：
+- `JS_OK` 输出（无语法错误）
+- `美区 Apple ID 注册` 计数：1
+
+- [ ] **Step 3: 提交**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+git add js/nav.js
+git commit -m "$(cat <<'EOF'
+feat: 侧边栏新增「美区 Apple ID 注册」教程入口
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task 4: 在 /sitemap.xml 插入新 URL
+
+**Files:**
+- Modify: `sitemap.xml`（在 `</urlset>` 之前插入新 `<url>` 块）
+
+- [ ] **Step 1: 定位插入位置**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+grep -n '</urlset>' sitemap.xml
+grep -n 'tutorial/' sitemap.xml | tail -3
+```
+
+预期：找到 `</urlset>` 行号以及已有的 tutorial URL 作为参考。
+
+- [ ] **Step 2: 编辑 sitemap.xml**
+
+使用 Edit 工具在 `</urlset>` 之前插入新的 `<url>` 块：
+
+- old_string（最后一段 `<url>` + `</urlset>`，必须唯一，参照 grep 输出）：
+```
+  <url>
+    <loc>https://www.jichangyun.top/tutorial/line-selection/</loc>
+    <lastmod>2026-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
+```
+
+- new_string:
+```
+  <url>
+    <loc>https://www.jichangyun.top/tutorial/line-selection/</loc>
+    <lastmod>2026-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jichangyun.top/tutorial/us-apple-id/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
+```
+
+如果 line-selection 不是 sitemap 最后一项，请按实际最后一项的 `<url>` 块定位，确保 old_string 唯一。
+
+- [ ] **Step 3: 验证 XML 合法**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+xmllint --noout sitemap.xml && echo "XML_OK"
+grep -c 'us-apple-id' sitemap.xml
+```
+
+预期：
+- `XML_OK` 输出
+- `us-apple-id` 计数：1
+
+如果 `xmllint` 未安装，可改用 `python3 -c "import xml.etree.ElementTree as ET; ET.parse('sitemap.xml'); print('XML_OK')"` 作为替代。
+
+- [ ] **Step 4: 提交**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+git add sitemap.xml
+git commit -m "$(cat <<'EOF'
+feat: sitemap 新增美区 Apple ID 注册教程 URL
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task 5: 最终验证
+
+- [ ] **Step 1: 全文件禁出现域名复检**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+for domain in gate-rank.com jichang.best elphantroute nowjiasu xlw.app; do
+  hits=$(grep -r "$domain" tutorial/ js/ sitemap.xml 2>/dev/null | wc -l | tr -d ' ')
+  echo "$domain: $hits"
+done
+```
+
+预期：所有域名为 `0`。
+
+- [ ] **Step 2: git status 检查**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+git status
+```
+
+预期：4 个文件已全部提交（`tutorial/us-apple-id/index.html`、`tutorial/index.html`、`js/nav.js`、`sitemap.xml`）。`git status` 应输出 clean working tree（除未完成的既存改动 `jichang/tnt/index.html` 删除、`tutorial/line-selection/index.html` 修改等）。
+
+- [ ] **Step 3: 本地预览（手动浏览器检查）**
+
+```bash
+cd /Users/qiao/Documents/workspase/jichangyun
+python3 -m http.server 8080
+```
+
+在另一个终端或浏览器打开：
+
+- `http://localhost:8080/tutorial/us-apple-id/` — 文章页应正常渲染
+- `http://localhost:8080/tutorial/` — 列表页底部应看到"美区 Apple ID 注册教程"卡片
+- 浏览器开发者工具 Console：无报错
+
+视觉对比（手动）：
+- 与 `http://localhost:8080/tutorial/line-selection/` 对比字体、色板、卡片间距应一致
+- 侧边栏正确显示"美区 Apple ID 注册"项
+- 文末应看到"下一步：选一个稳定机场 → 查看机场推荐"链接到 `/jichang/`
+
+完成后按 `Ctrl+C` 关闭本地服务器。
+
+- [ ] **Step 4: 最终完成记录**
+
+如以上验证均通过，向用户汇报：
+- 4 个文件的 commit hash
+- 文章 URL
+- 关键改动摘要
+
+如任何一步失败，**不要**宣称完成。回到对应 Task 检查。
+
+---
+
+## 验收清单（对应 spec §7）
+
+- [ ] `/tutorial/us-apple-id/index.html` 文件存在（Task 1 Step 3）
+- [ ] 侧边栏显示"美区 Apple ID 注册"（Task 3 + Task 5 Step 3）
+- [ ] `/tutorial/index.html` 列表页可见新卡片（Task 2 + Task 5 Step 3）
+- [ ] `js/nav.js` `SIDEBAR_SECTIONS.tutorial.items` 长度从 9 增加到 10（Task 3 Step 2）
+- [ ] `sitemap.xml` 末尾出现新的 `<url>` 块（Task 4 Step 3）
+- [ ] 全文不出现 `gate-rank.com` / `jichang.best` / `elphantroute` / `nowjiasu` / `xlw.app`（Task 1 Step 4 + Task 5 Step 1）
+- [ ] 文末包含指向 `/jichang/` 的引导链接（Task 1 Step 2）
+- [ ] 浏览器预览视觉风格与 line-selection 一致（Task 5 Step 3）

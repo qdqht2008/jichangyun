@@ -31,7 +31,8 @@ const SIDEBAR_SECTIONS = {
       { href: '/tutorial/clash-meta-for-android/', label: 'Clash Meta for Android 教程' },
       { href: '/tutorial/clash-for-android/', label: 'Clash for Android 教程' },
       { href: '/tutorial/clashx/', label: 'ClashX Pro 教程' },
-      { href: '/tutorial/potatso/', label: 'Potatso 教程' }
+      { href: '/tutorial/potatso/', label: 'Potatso 教程' },
+      { href: '/tutorial/us-apple-id/', label: '美区 Apple ID 注册' }
     ]
   },
   guide: {

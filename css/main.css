@@ -338,6 +338,8 @@ body::before {
 }
 
 .article-content img {
+  max-width: 100%;
+  height: auto;
   border-radius: 16px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
@@ -588,14 +590,21 @@ body::before {
     padding: 0;
   }
 
+  .top-navbar-inner {
+    justify-content: center;
+    width: max-content;
+    min-width: 100%;
+    padding: 0 8px;
+  }
+
   .top-navbar::-webkit-scrollbar {
     display: none;
   }
 
   .top-navbar .nav-item {
     white-space: nowrap;
-    padding: 12px 20px;
-    font-size: 14px;
+    padding: 12px 11px;
+    font-size: 13px;
   }
 }
 

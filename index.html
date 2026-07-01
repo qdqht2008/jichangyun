@@ -251,6 +251,294 @@ gtag('config', 'G-HPYY57ECEX');
   }
 }
 
+/* ===== Homepage Content Hub ===== */
+.home-sections {
+  padding: 56px 40px 20px;
+}
+
+.home-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.home-section-kicker {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.home-section-title {
+  margin: 0;
+  color: var(--accent-tertiary);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.home-section-note {
+  max-width: 390px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+.home-featured {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 18px;
+  margin-bottom: 48px;
+}
+
+.featured-story {
+  min-height: 184px;
+  padding: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  color: var(--text-primary);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-story::after {
+  content: '→';
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+  color: var(--accent-tertiary);
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+.featured-story:hover {
+  border-color: rgba(224, 122, 95, 0.35);
+  color: var(--text-primary);
+  text-decoration: none;
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(61, 64, 91, 0.08);
+}
+
+.featured-story:hover::after {
+  transform: translateX(5px);
+}
+
+.featured-story-primary {
+  background: linear-gradient(135deg, rgba(224,122,95,0.12), rgba(242,204,143,0.14));
+}
+
+.featured-story-secondary {
+  background: linear-gradient(135deg, rgba(129,178,154,0.14), rgba(61,64,91,0.05));
+}
+
+.featured-label {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--accent-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.featured-story-secondary .featured-label {
+  color: #5f927b;
+}
+
+.featured-story h2 {
+  max-width: 420px;
+  margin: 0 0 10px;
+  color: var(--accent-tertiary);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.featured-story p {
+  max-width: 440px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 48px;
+}
+
+.resource-column {
+  padding: 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+}
+
+.resource-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.resource-column h2 {
+  margin: 0;
+  color: var(--accent-tertiary);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.resource-column-header a {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.resource-links {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.resource-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(235, 230, 224, 0.7);
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.resource-links li:last-child a {
+  border-bottom: 0;
+}
+
+.resource-links a::after {
+  content: '↗';
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.resource-links a:hover {
+  padding-left: 4px;
+  color: var(--accent-primary);
+}
+
+.home-updates {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 30px;
+  padding: 26px 28px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+}
+
+.home-updates h2 {
+  margin: 0 0 6px;
+  color: var(--accent-tertiary);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.home-updates p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.update-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.update-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.update-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.update-list a:hover {
+  color: var(--accent-primary);
+}
+
+.update-list time {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .home-featured,
+  .home-updates {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-sections {
+    padding: 42px 0 8px;
+  }
+
+  .home-section-heading {
+    display: block;
+  }
+
+  .home-section-note {
+    margin-top: 8px;
+    text-align: left;
+  }
+
+  .featured-story {
+    min-height: 170px;
+    padding: 22px;
+  }
+
+  .featured-story h2 {
+    padding-right: 24px;
+    font-size: 22px;
+  }
+
+  .home-updates {
+    padding: 22px;
+  }
+
+  .update-list li {
+    align-items: flex-start;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -274,7 +562,7 @@ gtag('config', 'G-HPYY57ECEX');
         </div>
 
         <div class="hero-cards">
-          <a href="/jichang/dageyun/" class="hero-card">
+          <a href="/jichang/" class="hero-card">
             <div class="hero-card-icon" style="background: rgba(224,122,95,0.1);">
               <svg viewBox="0 0 24 24" fill="none" stroke="#e07a5f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -289,7 +577,7 @@ gtag('config', 'G-HPYY57ECEX');
             <span class="hero-card-arrow">→</span>
           </a>
 
-          <a href="/tutorial/line-selection/" class="hero-card">
+          <a href="/tutorial/" class="hero-card">
             <div class="hero-card-icon" style="background: rgba(129,178,154,0.1);">
               <svg viewBox="0 0 24 24" fill="none" stroke="#81b29a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -305,7 +593,7 @@ gtag('config', 'G-HPYY57ECEX');
             <span class="hero-card-arrow">→</span>
           </a>
 
-          <a href="/guide/avoid-traps/" class="hero-card">
+          <a href="/guide/" class="hero-card">
             <div class="hero-card-icon" style="background: rgba(61,64,91,0.08);">
               <svg viewBox="0 0 24 24" fill="none" stroke="#3d405b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -322,8 +610,82 @@ gtag('config', 'G-HPYY57ECEX');
       <div class="hero-accent-bar"></div>
     </div>
 
-    <!-- giscus 评论区 -->
-    <div class="giscus"></div>
+    <div class="home-sections">
+      <div class="home-section-heading">
+        <div>
+          <span class="home-section-kicker">Start here</span>
+          <h2 class="home-section-title">先解决问题，再选择服务</h2>
+        </div>
+        <p class="home-section-note">从线路原理和故障排查开始，带着明确需求选择更合适的节点服务。</p>
+      </div>
+
+      <section class="home-featured" aria-label="精选指南">
+        <a class="featured-story featured-story-primary" href="/tutorial/line-selection/">
+          <span class="featured-label">选择指南</span>
+          <h2>机场线路怎么选？先看懂直连、中转与专线</h2>
+          <p>从三段链路和本地运营商出发，判断价格、延迟与稳定性之间的真实关系。</p>
+        </a>
+        <a class="featured-story featured-story-secondary" href="/guide/frequent-disconnections/">
+          <span class="featured-label">故障排查</span>
+          <h2>节点连不上或频繁断线？</h2>
+          <p>按订阅、节点、客户端、系统和网络环境逐层定位问题。</p>
+        </a>
+      </section>
+
+      <div class="resource-grid">
+        <section class="resource-column" aria-labelledby="airport-resources">
+          <div class="resource-column-header">
+            <h2 id="airport-resources">机场推荐</h2>
+            <a href="/jichang/">查看全部</a>
+          </div>
+          <ul class="resource-links">
+            <li><a href="/jichang/ny/">奈云：IPLC 专线与流媒体解锁</a></li>
+            <li><a href="/jichang/quickcloud/">Quick Cloud：住宅节点与 IEPL</a></li>
+            <li><a href="/jichang/feiniaoyun/">飞鸟云：全球节点与多端支持</a></li>
+            <li><a href="/jichang/dageyun/">大哥云：老牌 Trojan 机场</a></li>
+          </ul>
+        </section>
+
+        <section class="resource-column" aria-labelledby="tutorial-resources">
+          <div class="resource-column-header">
+            <h2 id="tutorial-resources">客户端教程</h2>
+            <a href="/tutorial/">查看全部</a>
+          </div>
+          <ul class="resource-links">
+            <li><a href="/tutorial/clash-verge/">Clash Verge 下载与配置</a></li>
+            <li><a href="/tutorial/flclash/">FlClash 跨平台使用教程</a></li>
+            <li><a href="/tutorial/clash-meta-for-android/">安卓 Clash Meta 配置</a></li>
+            <li><a href="/tutorial/us-apple-id/">美区 Apple ID 注册教程</a></li>
+          </ul>
+        </section>
+
+        <section class="resource-column" aria-labelledby="guide-resources">
+          <div class="resource-column-header">
+            <h2 id="guide-resources">避坑百科</h2>
+            <a href="/guide/">查看全部</a>
+          </div>
+          <ul class="resource-links">
+            <li><a href="/guide/avoid-traps/">选择稳定机场的三个指标</a></li>
+            <li><a href="/guide/node-speed-differences/">为什么不同节点速度差异很大</a></li>
+            <li><a href="/guide/device-limit/">设备数与并发限制解析</a></li>
+            <li><a href="/guide/runway-warning/">机场跑路预警与风险信号</a></li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="home-updates" aria-labelledby="recent-updates">
+        <div>
+          <span class="home-section-kicker">Fresh notes</span>
+          <h2 id="recent-updates">最近更新</h2>
+          <p>只在内容发生实际变化时更新日期。</p>
+        </div>
+        <ul class="update-list">
+          <li><a href="/">首页资源导航升级</a><time datetime="2026-06-30">2026-06-30</time></li>
+          <li><a href="/tutorial/us-apple-id/">美区 Apple ID 完整教程</a><time datetime="2026-06-14">2026-06-14</time></li>
+          <li><a href="/guide/frequent-disconnections/">机场频繁断线排查指南</a><time datetime="2026-06-08">2026-06-08</time></li>
+        </ul>
+      </section>
+    </div>
   </div>
 </section>
 
@@ -336,21 +698,5 @@ gtag('config', 'G-HPYY57ECEX');
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/nav.js"></script>
-<script src="https://giscus.app/client.js"
-        data-repo="qdqht2008/calshvpn"
-        data-repo-id="R_kgDOSNBV3g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOSNBV3s4C-KRW"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
 </body>
 </html>

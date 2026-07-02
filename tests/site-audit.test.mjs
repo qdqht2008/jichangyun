@@ -6,6 +6,11 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteSections = ['contactus', 'guide', 'jichang', 'tutorial'];
+const p1ReviewPages = [
+  'jichang/dageyun/index.html',
+  'jichang/feimiaoyun/index.html',
+  'jichang/jinglingxueyuan/index.html',
+];
 
 function read(file) {
   return readFileSync(join(root, file), 'utf8');
@@ -35,6 +40,11 @@ function tags(html, name) {
 
 function attribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}="([^"]*)"`, 'i'))?.[1] ?? '';
+}
+
+function structuredData(html) {
+  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)]
+    .map((match) => JSON.parse(match[1]));
 }
 
 test('category navigation sends crawl authority to all three content hubs', () => {
@@ -100,6 +110,14 @@ test('content image styles preserve intrinsic proportions on narrow screens', ()
   assert.match(rule, /height:\s*auto/);
 });
 
+test('mobile article layout releases the desktop sidebar height', () => {
+  const css = read('css/main.css');
+  assert.match(
+    css,
+    /@media \(max-width: 768px\) \{[\s\S]*?\.pageside\s*\{[^}]*height:\s*auto;[^}]*max-height:\s*none;/,
+  );
+});
+
 test('sitemap covers every public page and only publishes trustworthy crawl metadata', () => {
   const sitemap = read('sitemap.xml');
   const actualUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]).sort();
@@ -125,4 +143,86 @@ test('root-relative links resolve to files so visitors and crawlers avoid dead e
     }
   }
   assert.deepEqual(failures, []);
+});
+
+test('P1 airport reviews share an editorial structure readers can compare', () => {
+  const sections = [
+    'review-meta',
+    'review-verdict',
+    'review-audience',
+    'review-pros-cons',
+    'plan-table-wrap',
+    'review-risk',
+    'review-sources',
+  ];
+
+  for (const file of p1ReviewPages) {
+    const html = read(file);
+    for (const section of sections) {
+      assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${file}: missing ${section}`);
+    }
+    assert.match(html, /<table\b/);
+    assert.match(html, /优质机场推荐编辑部/);
+    assert.match(html, /官网资料与第三方记录交叉核验/);
+    assert.match(html, /<time datetime="2026-07-02">2026-07-02<\/time>/);
+    assert.match(html, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+  }
+});
+
+test('P1 package tables preserve verified facts and remove stale promotions', () => {
+  const dageyun = read('jichang/dageyun/index.html');
+  for (const fact of ['¥19.90', '100GB', '¥299', '500GB', 'mcuE8uOq']) assert.match(dageyun, new RegExp(fact));
+  assert.doesNotMatch(dageyun, /dgy2026|2026\/2\/23/);
+
+  const feimiaoyun = read('jichang/feimiaoyun/index.html');
+  for (const fact of ['¥96', '60GB', '¥100', '700GB', '¥600', '500GB']) assert.match(feimiaoyun, new RegExp(fact));
+  assert.doesNotMatch(feimiaoyun, /10月份|750GB/);
+
+  const jingling = read('jichang/jinglingxueyuan/index.html');
+  for (const fact of ['Iron', 'Silver', 'Alloy', 'Gold', 'Diamond', 'Master', '不限时流量 Small']) {
+    assert.match(jingling, new RegExp(fact));
+  }
+  assert.doesNotMatch(jingling, /New2025|10月份/);
+  assert.doesNotMatch(jingling, /<tr[^>]*>[\s\S]*?买前必看[\s\S]*?<\/tr>/);
+});
+
+test('P1 reviews keep commercial link metadata without requiring visible commission copy', () => {
+  for (const file of p1ReviewPages) {
+    const html = read(file);
+    const commercial = tags(html, 'a').find((anchor) => {
+      return attribute(anchor, 'class').split(/\s+/).includes('btn-primary')
+        && attribute(anchor, 'href').startsWith('http');
+    });
+    assert.ok(commercial, `${file}: missing commercial CTA`);
+    assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
+    assert.doesNotMatch(html, /本站未实测|待核验/);
+  }
+});
+
+test('P1 metadata uses the same cautious editorial standard as the visible review', () => {
+  for (const file of p1ReviewPages) {
+    const html = read(file);
+    const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+    assert.doesNotMatch(attribute(description, 'content'), /安全稳定|高速稳定|全解锁|全年稳定在线/);
+
+    const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+    assert.ok(article, `${file}: missing Article structured data`);
+    assert.equal(article.author?.name, '优质机场推荐编辑部');
+    assert.equal(article.dateModified, '2026-07-02');
+  }
+});
+
+test('airport hub explains its method and marks only the first P1 review batch', () => {
+  const hub = read('jichang/index.html');
+  assert.match(hub, /class="review-methodology"/);
+  assert.match(hub, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+  assert.equal((hub.match(/data-review-date="2026-07-02"/g) ?? []).length, 3);
+});
+
+test('sitemap dates reflect only the P1 pages changed in this batch', () => {
+  const sitemap = read('sitemap.xml');
+  for (const path of ['jichang/', 'jichang/dageyun/', 'jichang/feimiaoyun/', 'jichang/jinglingxueyuan/']) {
+    const url = `https://www.jichangyun.top/${path}`;
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-02<\\/lastmod>`));
+  }
 });

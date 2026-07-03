@@ -50,7 +50,6 @@ const SIDEBAR_SECTIONS = {
     label: '机场推荐',
     basePath: '/jichang/',
     items: [
-      { href: '/jichang/ny/', label: '奈云' },
       { href: '/jichang/yangfanyun/', label: '扬帆云' },
       { href: '/jichang/yuzhouyun/', label: '宇宙云' },
       { href: '/jichang/hongxing/', label: '红杏云' },

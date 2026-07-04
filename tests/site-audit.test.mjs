@@ -626,3 +626,87 @@ test('guide hub exposes the troubleshooting cluster with self-consistent metadat
   const sitemap = read('sitemap.xml');
   assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
 });
+
+const maintainedTutorials = [
+  {
+    file: 'tutorial/clash-verge/index.html',
+    name: 'Clash Verge Rev',
+    version: 'v2.5.1',
+    oldVersion: 'v2.4.7',
+    official: 'github.com/clash-verge-rev/clash-verge-rev/releases/latest',
+    platforms: ['Windows x64', 'Windows ARM64', 'Apple 芯片', 'Intel 芯片', 'Linux', 'Windows 7'],
+  },
+  {
+    file: 'tutorial/flclash/index.html',
+    name: 'FlClash',
+    version: 'v0.8.93',
+    oldVersion: 'v0.8.92',
+    official: 'github.com/chen08209/FlClash/releases/latest',
+    platforms: ['Windows', 'macOS', 'Linux', 'Android'],
+  },
+  {
+    file: 'tutorial/clash-meta-for-android/index.html',
+    name: 'Clash Meta for Android',
+    version: 'v2.11.30',
+    oldVersion: 'v2.11.24',
+    official: 'github.com/MetaCubeX/ClashMetaForAndroid/releases/latest',
+    platforms: ['Android', 'APK', 'arm64-v8a', 'VPN 权限', '后台限制'],
+  },
+];
+
+for (const tutorial of maintainedTutorials) {
+  test(`${tutorial.name} tutorial uses current official evidence and a safe setup path`, () => {
+    const html = read(tutorial.file);
+    for (const section of [
+      'tutorial-meta',
+      'tutorial-fit',
+      'platform-table-wrap',
+      'official-download',
+      'setup-steps',
+      'tutorial-safety',
+      'troubleshooting-links',
+      'tutorial-sources',
+      'related-guides',
+    ]) {
+      assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${tutorial.file}: missing ${section}`);
+    }
+    assert.match(html, new RegExp(tutorial.name, 'i'));
+    assert.match(html, new RegExp(`截至 2026-07-04 核验[：:]\\s*${tutorial.version.replaceAll('.', '\\.')}`));
+    assert.match(html, new RegExp(tutorial.official.replaceAll('.', '\\.')));
+    for (const platform of tutorial.platforms) assert.match(html, new RegExp(platform, 'i'), `${tutorial.file}: missing ${platform}`);
+    for (const href of [
+      '/guide/subscription-update-failed/',
+      '/guide/connected-but-no-internet/',
+      '/guide/frequent-disconnections/',
+    ]) assert.match(html, new RegExp(`href="${href}"`), `${tutorial.file}: missing ${href}`);
+
+    assert.doesNotMatch(html, /github\.clash\.download/);
+    assert.doesNotMatch(html, new RegExp(tutorial.oldVersion.replaceAll('.', '\\.')));
+    assert.doesNotMatch(html, /最受欢迎|最好用|完全兼容|安全的！|关闭防火墙|关闭杀毒软件|绕过安全/);
+
+    const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+    assert.equal(article?.author?.name, '优质机场推荐编辑部');
+    assert.equal(article?.dateModified, '2026-07-04');
+    assert.ok(structuredData(html).some((entry) => entry['@type'] === 'BreadcrumbList'));
+    assert.ok(structuredData(html).some((entry) => entry['@type'] === 'FAQPage'));
+  });
+}
+
+test('tutorial hub separates maintained clients from historical and general guides', () => {
+  const html = read('tutorial/index.html');
+  for (const section of ['maintained-clients', 'historical-clients', 'general-tutorials']) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `tutorial hub: missing ${section}`);
+  }
+  const maintained = html.match(/<section class="[^"]*maintained-clients[^"]*">[\s\S]*?<\/section>/)?.[0] ?? '';
+  for (const name of ['Clash Verge Rev', 'FlClash', 'Clash Meta for Android']) assert.match(maintained, new RegExp(name));
+  assert.doesNotMatch(maintained, /Clash for Windows|Clash for Android/);
+  const historical = html.match(/<section class="[^"]*historical-clients[^"]*">[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(historical, /Clash for Windows/);
+  assert.match(historical, /Clash for Android/);
+  assert.match(historical, /停止维护|历史客户端/);
+
+  const sitemap = read('sitemap.xml');
+  for (const path of ['tutorial/', 'tutorial/clash-verge/', 'tutorial/flclash/', 'tutorial/clash-meta-for-android/']) {
+    assert.match(sitemap, new RegExp(`<loc>https:\/\/www\\.jichangyun\\.top\/${path}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
+  }
+});

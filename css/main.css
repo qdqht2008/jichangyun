@@ -1131,3 +1131,29 @@ body::before {
     max-width: 100%;
   }
 }
+
+/* Maintained client tutorials */
+.tutorial-meta { display:flex; flex-wrap:wrap; gap:10px 22px; padding:14px 18px; margin-bottom:24px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-secondary); color:var(--text-secondary); font-size:14px; }
+.tutorial-meta strong { color:var(--accent-tertiary); margin-right:6px; }
+.tutorial-fit, .tutorial-safety, .official-download { padding:20px 22px; margin:24px 0; border-radius:14px; }
+.tutorial-fit { background:rgba(129,178,154,.12); border-left:4px solid var(--accent-secondary); }
+.tutorial-safety { background:rgba(224,122,95,.10); border-left:4px solid var(--accent-primary); }
+.official-download { background:linear-gradient(135deg,rgba(224,122,95,.1),rgba(129,178,154,.1)); border:1px solid var(--border-color); }
+.platform-table-wrap { overflow-x:auto; margin:18px 0 28px; border:1px solid var(--border-color); border-radius:12px; -webkit-overflow-scrolling:touch; }
+.article-content .platform-table { display:table; width:100%; min-width:620px; margin:0; border:0; border-collapse:collapse; box-shadow:none; }
+.platform-table th, .platform-table td { padding:13px 15px; border-bottom:1px solid var(--border-color); text-align:left; white-space:normal; }
+.platform-table th { background:var(--bg-secondary); color:var(--accent-tertiary); }
+.platform-table tr:last-child td { border-bottom:0; }
+.setup-steps { counter-reset:setup-step; display:grid; gap:14px; margin:20px 0 30px; }
+.setup-step { position:relative; padding:18px 20px 18px 58px; border:1px solid var(--border-color); border-radius:14px; background:var(--bg-primary); }
+.setup-step::before { counter-increment:setup-step; content:counter(setup-step); position:absolute; left:18px; top:18px; width:26px; height:26px; border-radius:50%; background:var(--accent-primary); color:#fff; text-align:center; line-height:26px; font-weight:700; }
+.setup-step h3 { margin:0 0 8px; font-size:17px; }
+.troubleshooting-links, .tutorial-sources { margin:30px 0; padding-top:4px; }
+.troubleshooting-links li + li, .tutorial-sources li + li { margin-top:8px; }
+
+@media (max-width:575px) {
+  .tutorial-meta { display:grid; gap:8px; }
+  .tutorial-fit, .tutorial-safety, .official-download { padding:17px; }
+  .setup-step { padding:16px 16px 16px 52px; }
+  .setup-step::before { left:14px; top:16px; }
+}

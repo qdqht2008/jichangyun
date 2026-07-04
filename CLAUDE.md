@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static website for Clash VPN resources (机场推荐, 使用教程). The site is deployed on Vercel and requires no build step.
+This is a static website for Clash VPN resources (机场推荐, 使用教程). The site targets Cloudflare Pages and requires no application build step.
 
 ## Running Locally
 
@@ -27,7 +27,7 @@ Then open http://localhost:8080
 - `img/` - Images and logos
 - `jichang/` - Airport recommendation pages (各机场详情页)
 - `tutorial/` - Tutorial pages (使用教程)
-- `download/` - Client download pages (下载中心)
+- `guide/` - Troubleshooting and reference pages (机场百科)
 - `docs/superpowers/` - Project planning docs
 
 ## Key Technologies
@@ -57,9 +57,9 @@ Pages use a sidebar + content layout:
 1. Create HTML file in appropriate directory
 2. Use consistent page structure (header, sidebar nav, content, footer)
 
-## Vercel Deployment
+## Cloudflare Pages Deployment
 
-The `.vercel/` directory contains Vercel configuration. The site deploys automatically from the root.
+The site is deployed as static HTML from the repository root. See `docs/cloudflare-pages-deployment.md` for the current project settings and verification checklist.
 
 
 除非显式覆盖，否则本规则适用于本项目中的所有任务。核心倾向：非琐碎工作，谨慎优先于速度；琐碎任务可自主判断处理。

@@ -20,7 +20,7 @@ gtag('config', 'G-HPYY57ECEX');
 <meta property="og:title" content="Clash机场百科 - 优质机场推荐分享Clash节点订阅与避坑指南 | Clash机场推荐">
 <meta property="og:description" content="Clash机场百科合集，包含跑路预警、选购技巧、实测方法等内容。系统讲解Clash机场选择、Clash节点订阅稳定性、Clash客户端配置，帮你避开Clash机场使用中的各种坑。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.jichangyun.top/jichang/">
+<meta property="og:url" content="https://www.jichangyun.top/guide/">
 <meta property="og:site_name" content="优质机场推荐">
 <meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
 <meta property="og:locale" content="zh_CN">
@@ -28,14 +28,14 @@ gtag('config', 'G-HPYY57ECEX');
 <meta name="twitter:title" content="Clash机场百科 - 优质机场推荐分享Clash节点订阅与避坑指南 | Clash机场推荐">
 <meta name="twitter:description" content="Clash机场百科合集，包含跑路预警、选购技巧、实测方法等内容。系统讲解Clash机场选择、Clash节点订阅稳定性、Clash客户端配置，帮你避开Clash机场使用中的各种坑。">
 <meta name="twitter:image" content="https://www.jichangyun.top/img/clash-300x300.png">
-<link rel="canonical" href="https://www.jichangyun.top/jichang/">
+<link rel="canonical" href="https://www.jichangyun.top/guide/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "机场百科",
   "description": "机场百科合集，包含跑路预警、选购技巧、实测方法等内容。教你避开机场选择中的各种坑。",
-  "url": "https://www.jichangyun.top/jichang/",
+  "url": "https://www.jichangyun.top/guide/",
   "author": {
     "@type": "Organization",
     "name": "优质机场推荐",
@@ -63,7 +63,7 @@ gtag('config', 'G-HPYY57ECEX');
       "@type": "ListItem",
       "position": 2,
       "name": "机场百科",
-      "item": "https://www.jichangyun.top/jichang/"
+      "item": "https://www.jichangyun.top/guide/"
     }
   ]
 }
@@ -77,6 +77,29 @@ gtag('config', 'G-HPYY57ECEX');
   display: grid;
   gap: 24px;
   margin-top: 30px;
+}
+
+.guide-start {
+  background: linear-gradient(135deg, rgba(224,122,95,0.12), rgba(129,178,154,0.12));
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 28px;
+}
+
+.guide-start h2 {
+  font-family: var(--font-display);
+  color: var(--accent-tertiary);
+  font-size: 23px;
+}
+
+.guide-start ul {
+  margin: 16px 0 0;
+  padding-left: 20px;
+}
+
+.guide-start li + li {
+  margin-top: 10px;
 }
 
 .guide-card {
@@ -172,6 +195,16 @@ gtag('config', 'G-HPYY57ECEX');
       <p style="color: var(--text-secondary); margin-top: 10px;">系统性避坑，少走弯路</p>
     </div>
 
+    <section class="guide-start" aria-labelledby="guide-start-title">
+      <h2 id="guide-start-title">遇到故障，先从哪里开始？</h2>
+      <p>先按眼前症状选择入口；每次只改一项，并保留回退路径。</p>
+      <ul>
+        <li><a href="/guide/frequent-disconnections/"><strong>故障排查入口：</strong>无法连接、频繁断线，或还不能判断属于哪一类。</a></li>
+        <li><a href="/guide/subscription-update-failed/"><strong>订阅更新失败：</strong>timeout、401/403、parse 或 config validation。</a></li>
+        <li><a href="/guide/connected-but-no-internet/"><strong>已连接但无法上网：</strong>检查节点、系统代理、TUN 与 DNS。</a></li>
+      </ul>
+    </section>
+
     <div class="guide-list">
       <div class="guide-card">
         <h2><a href="/guide/node-speed-differences/">为什么同一个机场，不同节点速度差异很大？</a></h2>
@@ -198,15 +231,39 @@ gtag('config', 'G-HPYY57ECEX');
       </div>
 
       <div class="guide-card">
-        <h2><a href="/guide/frequent-disconnections/">为什么机场连不上或频繁断线？常见原因与解决方法</a></h2>
-        <p>节点故障或拥堵、本地网络限制、客户端设置错误、订阅链接失效、设备系统问题——5个常见原因及对应的解决方法。</p>
-        <div class="meta">更新于 2026-06-08</div>
+        <h2><a href="/guide/frequent-disconnections/">Clash连不上或频繁断线？故障排查入口</a></h2>
+        <p>按无法连接、频繁断线、已连接但无法上网和订阅失败分流，再用节点与网络对照缩小范围。</p>
+        <div class="meta">更新于 2026-07-04</div>
         <div class="tags">
           <span class="tag">断线排查</span>
           <span class="tag">节点问题</span>
           <span class="tag">订阅失效</span>
         </div>
         <a href="/guide/frequent-disconnections/" class="btn-read">阅读全文 →</a>
+      </div>
+
+      <div class="guide-card">
+        <h2><a href="/guide/subscription-update-failed/">Clash订阅更新失败：超时、401/403与解析错误</a></h2>
+        <p>先区分下载失败与下载后无法解析，再检查账号链接、网络、客户端兼容和脱敏日志。</p>
+        <div class="meta">发布于 2026-07-04</div>
+        <div class="tags">
+          <span class="tag">订阅更新失败</span>
+          <span class="tag">401/403</span>
+          <span class="tag">解析错误</span>
+        </div>
+        <a href="/guide/subscription-update-failed/" class="btn-read">阅读全文 →</a>
+      </div>
+
+      <div class="guide-card">
+        <h2><a href="/guide/connected-but-no-internet/">Clash已连接但无法上网：系统代理、TUN与DNS</a></h2>
+        <p>通过节点、浏览器、接管方式和手机热点对照，按可逆顺序定位流量没有正常通过的环节。</p>
+        <div class="meta">发布于 2026-07-04</div>
+        <div class="tags">
+          <span class="tag">已连接但无法上网</span>
+          <span class="tag">系统代理</span>
+          <span class="tag">TUN / DNS</span>
+        </div>
+        <a href="/guide/connected-but-no-internet/" class="btn-read">阅读全文 →</a>
       </div>
 
       <div class="guide-card">

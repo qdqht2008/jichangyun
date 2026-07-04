@@ -993,6 +993,101 @@ body::before {
   line-height: 1.75;
 }
 
+/* Troubleshooting articles */
+.troubleshooting-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: -6px 0 24px;
+  padding: 13px 16px;
+  color: var(--text-muted);
+  background: #f7f2ec;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.troubleshooting-meta strong {
+  margin-right: 6px;
+  color: var(--accent-tertiary);
+}
+
+.symptom-check,
+.quick-check,
+.recovery-steps {
+  margin: 26px 0;
+  padding: 22px 24px;
+  border-radius: 14px;
+}
+
+.symptom-check {
+  background: linear-gradient(135deg, rgba(224,122,95,0.09), rgba(129,178,154,0.08));
+  border: 1px solid rgba(224,122,95,0.2);
+}
+
+.quick-check {
+  background: rgba(129,178,154,0.09);
+  border-left: 4px solid var(--accent-secondary);
+}
+
+.recovery-steps {
+  background: rgba(224,122,95,0.07);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.symptom-check h2,
+.quick-check h2,
+.recovery-steps h2 {
+  margin-top: 0;
+}
+
+.diagnostic-table-wrap {
+  max-width: 100%;
+  margin: 20px 0 30px;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(61,64,91,0.05);
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-content .diagnostic-table {
+  display: table;
+  min-width: 720px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.diagnostic-table th,
+.diagnostic-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+
+.diagnostic-table tbody tr:nth-child(even) {
+  background: rgba(247,242,236,0.55);
+}
+
+.troubleshooting-sources,
+.related-guides {
+  margin-top: 38px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-color);
+}
+
+.troubleshooting-sources {
+  font-size: 14px;
+}
+
+.troubleshooting-sources a,
+.related-guides a {
+  color: var(--accent-tertiary);
+  text-decoration-color: rgba(61,64,91,0.35);
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .review-meta {
     display: grid;
@@ -1019,5 +1114,20 @@ body::before {
 
   .article-content .plan-table {
     display: table;
+  }
+
+  .troubleshooting-meta {
+    display: grid;
+    gap: 6px;
+  }
+
+  .symptom-check,
+  .quick-check,
+  .recovery-steps {
+    padding: 20px;
+  }
+
+  .diagnostic-table-wrap {
+    max-width: 100%;
   }
 }

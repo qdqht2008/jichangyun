@@ -477,3 +477,152 @@ test('airport hub and sitemap mark 红杏云 as the last completed second-batch 
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
   }
 });
+
+test('subscription update troubleshooting separates download, authorization, and parsing failures', () => {
+  const file = 'guide/subscription-update-failed/index.html';
+  assert.ok(existsSync(join(root, file)), `${file}: page must exist`);
+  const html = read(file);
+
+  assert.match(html, /<title>Clash订阅更新失败怎么办/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/subscription-update-failed\/">/);
+  for (const section of [
+    'troubleshooting-meta',
+    'symptom-check',
+    'quick-check',
+    'diagnostic-table-wrap',
+    'recovery-steps',
+    'troubleshooting-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${file}: missing ${section}`);
+  }
+
+  for (const fact of [
+    '下载失败',
+    '下载后无法解析',
+    '401',
+    '403',
+    'timeout',
+    'network error',
+    'parse',
+    'config validation',
+    '订阅 URL',
+    '令牌',
+    '账号',
+    '节点地址',
+  ]) {
+    assert.match(html, new RegExp(fact, 'i'), `${file}: missing ${fact}`);
+  }
+
+  assert.match(html, /wiki\.metacubex\.one/);
+  assert.match(html, /github\.com\/clash-verge-rev\/clash-verge-rev/);
+  assert.doesNotMatch(html, /订阅转换站|关闭防火墙|关闭杀毒软件|解决\s*99%|直接删除所有配置/);
+
+  const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, `${file}: missing FAQPage questions`);
+});
+
+test('connected but no internet troubleshooting isolates proxy, TUN, DNS, and node failures', () => {
+  const file = 'guide/connected-but-no-internet/index.html';
+  assert.ok(existsSync(join(root, file)), `${file}: page must exist`);
+  const html = read(file);
+
+  assert.match(html, /<title>Clash显示已连接但无法上网怎么办/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/connected-but-no-internet\/">/);
+  for (const section of [
+    'troubleshooting-meta',
+    'symptom-check',
+    'quick-check',
+    'diagnostic-table-wrap',
+    'recovery-steps',
+    'troubleshooting-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${file}: missing ${section}`);
+  }
+
+  for (const fact of [
+    '系统代理',
+    'TUN',
+    'DNS',
+    '切换节点',
+    '手机热点',
+    '浏览器',
+    '订阅更新',
+    '回退',
+  ]) {
+    assert.match(html, new RegExp(fact, 'i'), `${file}: missing ${fact}`);
+  }
+
+  assert.match(html, /wiki\.metacubex\.one\/config\/general/);
+  assert.match(html, /wiki\.metacubex\.one\/config\/inbound\/tun/);
+  assert.match(html, /support\.microsoft\.com/);
+  assert.match(html, /support\.apple\.com/);
+  assert.doesNotMatch(html, /关闭防火墙|关闭杀毒软件|解决\s*99%|直接删除所有配置|万能配置/);
+
+  const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, `${file}: missing FAQPage questions`);
+});
+
+test('frequent disconnections acts as a symptom-first troubleshooting hub', () => {
+  const file = 'guide/frequent-disconnections/index.html';
+  const html = read(file);
+
+  assert.match(html, /<title>Clash连不上或频繁断线怎么办/);
+  for (const section of [
+    'troubleshooting-meta',
+    'symptom-check',
+    'quick-check',
+    'diagnostic-table-wrap',
+    'recovery-steps',
+    'troubleshooting-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${file}: missing ${section}`);
+  }
+
+  for (const destination of [
+    '/guide/subscription-update-failed/',
+    '/guide/connected-but-no-internet/',
+  ]) {
+    assert.match(html, new RegExp(`href="${destination}"`), `${file}: missing route to ${destination}`);
+  }
+  for (const symptom of ['无法连接', '频繁断线', '已连接但无法上网', '订阅更新失败', '手机热点', '回退']) {
+    assert.match(html, new RegExp(symptom), `${file}: missing ${symptom}`);
+  }
+
+  assert.match(html, /wiki\.metacubex\.one/);
+  assert.match(html, /github\.com\/clash-verge-rev\/clash-verge-rev/);
+  assert.doesNotMatch(html, /关闭防火墙|关闭杀毒软件|解决\s*99%|直接删除所有配置|晚高峰[^。]*(?:多半|一定)/);
+
+  const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.dateModified, '2026-07-04');
+  const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, `${file}: missing FAQPage questions`);
+});
+
+test('guide hub exposes the troubleshooting cluster with self-consistent metadata', () => {
+  const html = read('guide/index.html');
+  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/">/);
+  assert.match(html, /<meta property="og:url" content="https:\/\/www\.jichangyun\.top\/guide\/">/);
+
+  const collection = structuredData(html).find((entry) => entry['@type'] === 'CollectionPage');
+  assert.equal(collection?.url, 'https://www.jichangyun.top/guide/');
+  const breadcrumb = structuredData(html).find((entry) => entry['@type'] === 'BreadcrumbList');
+  assert.equal(breadcrumb?.itemListElement?.[1]?.item, 'https://www.jichangyun.top/guide/');
+
+  assert.match(html, /class="[^"]*guide-start[^"]*"/);
+  for (const destination of [
+    '/guide/frequent-disconnections/',
+    '/guide/subscription-update-failed/',
+    '/guide/connected-but-no-internet/',
+  ]) {
+    assert.ok((html.match(new RegExp(`href="${destination}"`, 'g')) ?? []).length >= 2, `guide hub: weak route to ${destination}`);
+  }
+  for (const label of ['故障排查入口', '订阅更新失败', '已连接但无法上网']) {
+    assert.match(html, new RegExp(label), `guide hub: missing ${label}`);
+  }
+
+  const sitemap = read('sitemap.xml');
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+});

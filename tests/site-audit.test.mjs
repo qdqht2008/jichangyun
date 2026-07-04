@@ -710,3 +710,37 @@ test('tutorial hub separates maintained clients from historical and general guid
     assert.match(sitemap, new RegExp(`<loc>https:\/\/www\\.jichangyun\\.top\/${path}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
   }
 });
+
+test('brand assets provide a real favicon and a 1200 by 630 social image', () => {
+  const favicon = join(root, 'favicon.ico');
+  const social = join(root, 'img/social-share-1200x630.png');
+  assert.ok(existsSync(favicon), 'favicon.ico must exist at the site root');
+  assert.ok(existsSync(social), 'social share image must exist');
+  const ico = readFileSync(favicon);
+  assert.deepEqual([...ico.subarray(0, 4)], [0, 0, 1, 0]);
+  const png = readFileSync(social);
+  assert.equal(png.subarray(1, 4).toString(), 'PNG');
+  assert.equal(png.readUInt32BE(16), 1200);
+  assert.equal(png.readUInt32BE(20), 630);
+  assert.notDeepEqual(png, readFileSync(join(root, 'img/clash-300x300.png')));
+});
+
+test('core hubs publish complete favicon and large social card metadata', () => {
+  const pages = new Map([
+    ['index.html', '优质机场推荐首页'],
+    ['jichang/index.html', '机场推荐与评测'],
+    ['tutorial/index.html', '客户端使用教程'],
+    ['guide/index.html', '机场百科与故障排查'],
+  ]);
+  for (const [file, alt] of pages) {
+    const html = read(file);
+    assert.match(html, /<link rel="icon" href="\/favicon\.ico"[^>]*>/, `${file}: missing favicon`);
+    assert.match(html, /<meta property="og:image" content="https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png">/);
+    assert.match(html, /<meta property="og:image:width" content="1200">/);
+    assert.match(html, /<meta property="og:image:height" content="630">/);
+    assert.match(html, new RegExp(`<meta property="og:image:alt" content="[^"]*${alt}[^"]*">`));
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png">/);
+    assert.match(html, new RegExp(`<meta name="twitter:image:alt" content="[^"]*${alt}[^"]*">`));
+    assert.doesNotMatch(html, /<meta (?:property="og:image"|name="twitter:image") content="[^"]*clash-300x300\.png">/);
+  }
+});

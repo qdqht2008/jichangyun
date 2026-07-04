@@ -300,12 +300,10 @@ test('airport hub and sitemap preserve 飞鸟云 evidence while 瞬云 remains i
   assert.ok((hub.match(/data-review-date="2026-07-03"/g) ?? []).length >= 1);
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['jichang/', 'jichang/feiniaoyun/']) {
+  for (const path of ['jichang/feiniaoyun/']) {
     const url = `https://www.jichangyun.top/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
   }
-  const hongxingUrl = 'https://www.jichangyun.top/jichang/hongxing/';
-  assert.match(sitemap, new RegExp(`<loc>${hongxingUrl.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-06-23<\\/lastmod>`));
 });
 
 test('瞬云 review uses the shared editorial structure and attributes merchant claims', () => {
@@ -382,9 +380,100 @@ test('airport hub and sitemap mark 飞鸟云 and 瞬云 as completed second-batc
   assert.equal((hub.match(/data-review-date="2026-07-03"/g) ?? []).length, 2);
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['jichang/', 'jichang/feiniaoyun/', 'jichang/sy/']) {
+  for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
     const url = `https://www.jichangyun.top/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
   }
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/hongxing\/<\/loc>\s*<lastmod>2026-06-23<\/lastmod>/);
+});
+
+test('红杏云 review uses the shared editorial structure with current official evidence', () => {
+  const html = read('jichang/hongxing/index.html');
+  for (const section of [
+    'review-meta',
+    'review-verdict',
+    'review-audience',
+    'review-pros-cons',
+    'plan-table-wrap',
+    'review-risk',
+    'review-sources',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `红杏云: missing ${section}`);
+  }
+  assert.match(html, /优质机场推荐编辑部/);
+  assert.match(html, /官网资料与第三方记录交叉核验/);
+  assert.match(html, /<time datetime="2026-07-04">2026-07-04<\/time>/);
+  assert.match(html, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+});
+
+test('红杏云 package tables preserve the confirmed official package version', () => {
+  const html = read('jichang/hongxing/index.html');
+  for (const fact of [
+    '轻量-包月200G',
+    '¥20/月',
+    '200GB/月',
+    '300Mbps',
+    '冲浪-包月500G',
+    '¥40/月',
+    '500GB/月',
+    '500Mbps',
+    '豪华-包月800G',
+    '¥60/月',
+    '800GB/月',
+    '800Mbps',
+    '大师-包月1200G',
+    '¥80/月',
+    '1200GB/月',
+    '高级-不限时3000G',
+    '¥388/一次性',
+    '3000GB 总量',
+    '豪华-不限时6000G',
+    '¥688/一次性',
+    '6000GB 总量',
+    '最多 20 台设备',
+    'IEPL',
+    '仅限个人使用',
+    '暂不支持退款',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `红杏云: missing ${fact}`);
+  }
+  assert.doesNotMatch(html, /img\/hongxing\/|hx2025|ABING888|lu88|weizai|AM科技|<td>(?:555|888|1288)GB(?:\/月)?<\/td>/);
+  assert.match(html, /第三方页面仍存在 555GB、888GB、1288GB 等旧套餐/);
+});
+
+test('红杏云 metadata and merchant performance claims stay cautious', () => {
+  const html = read('jichang/hongxing/index.html');
+  const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+  assert.doesNotMatch(attribute(description, 'content'), /极速稳定|全解锁|理想选择|高速节点/);
+
+  const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+  assert.ok(article, '红杏云: missing Article structured data');
+  assert.equal(article.author?.name, '优质机场推荐编辑部');
+  assert.equal(article.dateModified, '2026-07-04');
+
+  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href').includes('hongxing1s.cc'));
+  assert.ok(commercial, '红杏云: missing current merchant CTA');
+  assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
+  assert.match(html, /商家套餐图标注[^。]*300Mbps/);
+  assert.doesNotMatch(html, /本站实测(?:表明|显示|达到)|本站测速(?:表明|显示|达到)|亲测(?:可达|达到|稳定)/);
+});
+
+test('airport hub and sitemap mark 红杏云 as the last completed second-batch review', () => {
+  const hub = read('jichang/index.html');
+  const card = hub.match(/<div class="airport-card"[^>]*>(?:(?!<div class="airport-card")[\s\S])*?<h3 class="airport-card-title">红杏云<\/h3>[\s\S]*?<\/div>\s*<\/div>/)?.[0] ?? '';
+  assert.match(card, /data-review-date="2026-07-04"/);
+  assert.match(card, /¥20\/月起/);
+  assert.match(card, /200–1200GB\/月/);
+  assert.match(card, /不限时流量包/);
+  assert.equal((hub.match(/data-review-date="2026-07-04"/g) ?? []).length, 1);
+  assert.equal((hub.match(/data-review-date="2026-07-03"/g) ?? []).length, 2);
+
+  const sitemap = read('sitemap.xml');
+  for (const path of ['jichang/', 'jichang/hongxing/']) {
+    const url = `https://www.jichangyun.top/${path}`;
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
+  }
+  for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
+    const url = `https://www.jichangyun.top/${path}`;
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
+  }
 });

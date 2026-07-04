@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPYY57ECEX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HPYY57ECEX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clash显示已连接但无法上网怎么办？系统代理、TUN与DNS排查 | Clash机场推荐</title>
+<meta name="description" content="Clash显示已连接却打不开网页？按节点、系统代理、TUN、DNS和本地网络顺序排查，所有步骤均可回退。">
+<meta name="keywords" content="Clash已连接无法上网, Clash打不开网页, Clash系统代理, Clash TUN, Clash DNS">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/guide/connected-but-no-internet/">
+<meta property="og:title" content="Clash显示已连接但无法上网怎么办？">
+<meta property="og:description" content="区分节点、系统代理、TUN与DNS问题，按可逆顺序排查。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.jichangyun.top/guide/connected-but-no-internet/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clash显示已连接但无法上网怎么办？">
+<meta name="twitter:description" content="系统代理、TUN、DNS与节点故障的分支排查指南。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Clash显示已连接但无法上网怎么办？系统代理、TUN与DNS排查",
+  "description": "区分节点、系统代理、TUN、DNS和本地网络问题，按可逆顺序排查。",
+  "image": "https://www.jichangyun.top/img/clash-300x300.png",
+  "author": {"@type": "Organization", "name": "优质机场推荐编辑部", "url": "https://www.jichangyun.top/"},
+  "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "datePublished": "2026-07-04",
+  "dateModified": "2026-07-04",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/guide/connected-but-no-internet/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
+    {"@type": "ListItem", "position": 2, "name": "机场百科", "item": "https://www.jichangyun.top/guide/"},
+    {"@type": "ListItem", "position": 3, "name": "已连接但无法上网", "item": "https://www.jichangyun.top/guide/connected-but-no-internet/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Clash显示已连接为什么还是打不开网页？",
+      "acceptedAnswer": {"@type": "Answer", "text": "已连接只代表客户端或节点状态，不等于应用流量已经正确进入代理。可先切换节点，再分别检查系统代理、TUN和DNS。"}
+    },
+    {
+      "@type": "Question",
+      "name": "系统代理和TUN应该同时开启吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "排障时不建议同时改变两项。先使用原来的接管方式测试，再一次只改一项，并记录如何回退。"}
+    },
+    {
+      "@type": "Question",
+      "name": "换节点仍无法上网怎么办？",
+      "acceptedAnswer": {"@type": "Answer", "text": "用手机热点形成网络对照，并确认系统代理没有遗留地址。若订阅也无法更新，应先排查订阅而不是继续修改DNS。"}
+    }
+  ]
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
+  </div>
+</header>
+
+<nav class="top-navbar" id="top-navbar"></nav>
+
+<section class="container container-page">
+  <div class="pageside"><div id="page-sidebar"></div></div>
+  <div class="content">
+    <header class="article-header">
+      <h1 class="article-title">Clash显示已连接但无法上网怎么办？</h1>
+    </header>
+
+    <article class="article-content">
+      <div class="troubleshooting-meta" aria-label="文章编辑信息">
+        <span><strong>作者</strong>优质机场推荐编辑部</span>
+        <span><strong>依据</strong>操作系统与 Mihomo 官方文档</span>
+        <span><strong>更新</strong><time datetime="2026-07-04">2026-07-04</time></span>
+      </div>
+
+      <section class="symptom-check">
+        <h2>先判断：哪个环节没有工作？</h2>
+        <p>“已连接”可能只表示客户端正在运行或已选择节点，不代表浏览器流量一定经过代理。先用同一浏览器打开两个不同网站，再切换一个节点；不要一开始同时修改系统代理、TUN 和 DNS。</p>
+        <p>如果订阅更新也失败，请先处理<a href="/guide/subscription-update-failed/">订阅更新问题</a>；如果只有一个节点失败，优先按节点故障处理。</p>
+      </section>
+
+      <section class="quick-check">
+        <h2>五分钟快速检查</h2>
+        <ol>
+          <li>切换到另一个地区的节点，再测试浏览器。</li>
+          <li>确认客户端当前使用的是系统代理还是 TUN，记下原状态。</li>
+          <li>关闭其他代理软件与浏览器代理扩展，避免多套规则争用流量。</li>
+          <li>换用手机热点测试一次，用来区分本地网络与客户端问题。</li>
+          <li>每次只改一项；无效就回退到原状态，再进入下一分支。</li>
+        </ol>
+      </section>
+
+      <h2>症状与排查入口</h2>
+      <div class="diagnostic-table-wrap">
+        <table class="diagnostic-table">
+          <thead>
+            <tr><th>症状</th><th>优先方向</th><th>先做什么</th><th>何时停止</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>只有一个节点失败</td><td>节点状态</td><td>切换节点并查看服务商公告</td><td>其他节点正常即可停止改本机设置</td></tr>
+            <tr><td>浏览器不通，部分应用正常</td><td>系统代理或浏览器扩展</td><td>检查系统代理状态，停用重复代理扩展</td><td>浏览器恢复后保持单一接管方式</td></tr>
+            <tr><td>开启 TUN 后全部不通</td><td>TUN 接管或权限</td><td>回退 TUN 状态，确认客户端提示与日志</td><td>回退后恢复则不要继续叠加改动</td></tr>
+            <tr><td>域名打不开，IP 测试表现不同</td><td>DNS 路径</td><td>保留当前配置，记录日志中的 DNS 错误</td><td>把脱敏日志交给客户端或服务商</td></tr>
+            <tr><td>Wi-Fi 失败，手机热点正常</td><td>当前网络或遗留代理</td><td>检查系统网络代理并重连 Wi-Fi</td><td>仅该网络失败时联系网络管理员</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>按可逆顺序继续排查</h2>
+      <h3>1. 节点与订阅</h3>
+      <p>先切换节点，因为这是影响范围最小的对照。多个节点都失败且订阅更新时间异常时，先完成订阅更新排查；不要把旧配置当作当前服务状态。</p>
+
+      <h3>2. 系统代理</h3>
+      <p>系统代理决定遵循操作系统代理设置的应用把流量发往哪里。Windows 可在“设置 → 网络和 Internet → 代理”检查手动代理；macOS 可在“系统设置 → 网络 → 当前网络 → 详细信息 → 代理”检查。退出客户端后仍不能上网时，也要检查是否留下了无效的代理地址。</p>
+
+      <h3>3. TUN 接管</h3>
+      <p>TUN 会接管比系统代理更广的流量范围，具体行为取决于操作系统、权限和 Mihomo 配置。若问题恰好在开启 TUN 后出现，先回退到原状态验证，而不是同时更换 DNS 或复制别人的配置。</p>
+
+      <h3>4. DNS 与本地网络</h3>
+      <p>只有在节点和接管方式已形成清晰对照后再检查 DNS。换手机热点可以判断问题是否局限在当前 Wi-Fi；这个结果只说明网络路径不同，不能单独证明服务端或运营商故障。</p>
+
+      <section class="recovery-steps">
+        <h2>安全恢复与停止条件</h2>
+        <ul>
+          <li>改动前截图或记录系统代理、TUN 和 DNS 的原状态。</li>
+          <li>每轮只改一项，测试无效立即回退，避免无法判断是哪项生效。</li>
+          <li>不要从陌生来源复制未经核验的配置片段，也不要默认重装或删除全部配置。</li>
+          <li>提交日志前遮盖订阅 URL、令牌、账号、节点地址和本地 IP。</li>
+        </ul>
+      </section>
+
+      <h2>常见问题</h2>
+      <h3>Clash显示已连接为什么还是打不开网页？</h3>
+      <p>已连接不等于应用流量已经正确进入代理。先切换节点，再分别检查系统代理、TUN 和 DNS。</p>
+      <h3>系统代理和TUN应该同时开启吗？</h3>
+      <p>排障时不建议同时改变两项。先使用原来的接管方式测试，再一次只改一项，并保留回退路径。</p>
+      <h3>换节点仍无法上网怎么办？</h3>
+      <p>用手机热点形成网络对照，并确认系统代理没有遗留地址。若订阅也无法更新，应先排查订阅。</p>
+
+      <section class="troubleshooting-sources">
+        <h2>官方资料来源</h2>
+        <ul>
+          <li><a href="https://wiki.metacubex.one/config/general/" target="_blank" rel="nofollow noopener">Mihomo 全局配置文档</a>：基础运行选项与日志设置。</li>
+          <li><a href="https://wiki.metacubex.one/config/inbound/tun/" target="_blank" rel="nofollow noopener">Mihomo TUN 文档</a>：TUN 接管范围与相关配置。</li>
+          <li><a href="https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-windows-%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8-03096c53-0554-4ffe-b6ab-8b1deee8dae1" target="_blank" rel="nofollow noopener">Microsoft：在 Windows 中使用代理服务器</a>。</li>
+          <li><a href="https://support.apple.com/zh-cn/guide/mac-help/mchlp25912/mac" target="_blank" rel="nofollow noopener">Apple：在 Mac 上输入代理服务器设置</a>。</li>
+        </ul>
+      </section>
+
+      <section class="related-guides">
+        <h2>相关排查与教程</h2>
+        <ul>
+          <li><a href="/guide/frequent-disconnections/">Clash 连不上或频繁断线：故障分流入口</a></li>
+          <li><a href="/guide/subscription-update-failed/">订阅更新失败：超时、401/403 与解析错误</a></li>
+          <li><a href="/tutorial/clash-verge/">Clash Verge 配置教程</a></li>
+          <li><a href="/tutorial/clash-meta-for-android/">Clash Meta for Android 配置教程</a></li>
+        </ul>
+      </section>
+    </article>
+    <div class="giscus"></div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/nav.js"></script>
+<script src="https://giscus.app/client.js"
+        data-repo="qdqht2008/calshvpn"
+        data-repo-id="R_kgDOSNBV3g"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSNBV3s4C-KRW"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

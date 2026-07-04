@@ -7,271 +7,158 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-
 gtag('config', 'G-HPYY57ECEX');
-</script><meta charset="UTF-8">
+</script>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clash机场连不上或频繁断线？常见原因与Clash客户端解决方法 | Clash机场推荐</title>
-<meta name="description" content="Clash机场频繁断线连不上？本文总结Clash节点故障、网络限制、Clash客户端设置、Clash订阅失效、设备问题等常见原因及对应的解决方法。">
-<meta name="keywords" content="Clash机场, Clash节点, Clash订阅, Clash客户端, 机场断线, 机场连不上, 节点故障, 订阅失效, 客户端设置, 翻墙问题, Clash教程">
-<meta name="author" content="优质机场推荐">
+<title>Clash连不上或频繁断线怎么办？5分钟故障排查 | Clash机场推荐</title>
+<meta name="description" content="Clash无法连接、频繁断线、已连接但无法上网或订阅更新失败？先按症状分流，再用节点、网络与客户端对照定位问题。">
+<meta name="keywords" content="Clash连不上, Clash频繁断线, Clash无法上网, Clash订阅更新失败, Clash故障排查">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.jichangyun.top/guide/frequent-disconnections/">
-<meta property="og:title" content="Clash机场连不上或频繁断线？常见原因与Clash客户端解决方法 | Clash机场推荐">
-<meta property="og:description" content="Clash机场频繁断线？Clash节点故障、网络限制、Clash客户端设置、Clash订阅失效等常见原因及解决方法。">
+<meta property="og:title" content="Clash连不上或频繁断线怎么办？5分钟故障排查">
+<meta property="og:description" content="按无法连接、频繁断线、已连接但无法上网和订阅失败四类症状分流。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.jichangyun.top/guide/frequent-disconnections/">
 <meta property="og:site_name" content="优质机场推荐">
 <meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Clash机场连不上或频繁断线？常见原因与Clash客户端解决方法 | Clash机场推荐">
-<meta name="twitter:description" content="Clash机场频繁断线？Clash节点故障、网络限制、Clash客户端设置、Clash订阅失效等常见原因及解决方法。">
+<meta name="twitter:title" content="Clash连不上或频繁断线怎么办？">
+<meta name="twitter:description" content="先按症状分流，再做可逆对照。">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "为什么机场连不上或频繁断线？常见原因与解决方法",
-  "description": "机场频繁断线连不上？节点故障、网络限制、客户端设置、订阅失效、设备问题等常见原因及解决方法。",
+  "headline": "Clash连不上或频繁断线怎么办？5分钟故障排查",
+  "description": "按症状分流，再用节点、网络与客户端对照定位问题。",
   "image": "https://www.jichangyun.top/img/clash-300x300.png",
-  "author": {
-    "@type": "Organization",
-    "name": "优质机场推荐",
-    "url": "https://www.jichangyun.top/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "优质机场推荐",
-    "url": "https://www.jichangyun.top/"
-  },
+  "author": {"@type": "Organization", "name": "优质机场推荐编辑部", "url": "https://www.jichangyun.top/"},
+  "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
   "datePublished": "2026-06-08",
-  "dateModified": "2026-06-08",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "id": "https://www.jichangyun.top/guide/frequent-disconnections/"
-  }
+  "dateModified": "2026-07-04",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/guide/frequent-disconnections/"}
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
+    {"@type": "ListItem", "position": 2, "name": "机场百科", "item": "https://www.jichangyun.top/guide/"},
+    {"@type": "ListItem", "position": 3, "name": "故障排查", "item": "https://www.jichangyun.top/guide/frequent-disconnections/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Clash突然连不上应该先做什么？", "acceptedAnswer": {"@type": "Answer", "text": "先记下症状和错误提示，再切换一个节点、换手机热点各测试一次。一次只改变一项。"}},
+    {"@type": "Question", "name": "Clash频繁断线一定是节点问题吗？", "acceptedAnswer": {"@type": "Answer", "text": "不一定。节点、本地网络、客户端接管和系统休眠都可能影响连接，需要通过节点和网络对照缩小范围。"}},
+    {"@type": "Question", "name": "排查时需要重装客户端吗？", "acceptedAnswer": {"@type": "Answer", "text": "通常不应作为第一步。先保留现有配置并做可逆对照，重装可能抹掉有用的日志和设置。"}}
+  ]
+}
+</script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/main.css">
-<style>
-.article-content h2 {
-  font-family: var(--font-display);
-  font-size: 24px;
-  color: var(--accent-tertiary);
-  margin: 40px 0 20px;
-  padding-left: 16px;
-  border-left: 4px solid var(--accent-primary);
-}
-
-.article-content h3 {
-  font-size: 18px;
-  color: var(--accent-tertiary);
-  margin: 30px 0 16px;
-}
-
-.article-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 16px 0;
-}
-
-.article-content ul li {
-  padding: 8px 0 8px 24px;
-  position: relative;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.article-content ul li:last-child {
-  border-bottom: none;
-}
-
-.article-content ul li::before {
-  content: "•";
-  position: absolute;
-  left: 8px;
-  color: var(--accent-primary);
-  font-weight: bold;
-}
-
-.notice {
-  background: rgba(224,122,95,0.1);
-  border-left: 4px solid var(--accent-primary);
-  padding: 16px 20px;
-  margin: 24px 0;
-  border-radius: 0 12px 12px 0;
-}
-
-.notice strong {
-  color: var(--accent-primary);
-}
-
-.notice-light {
-  background: rgba(129,178,154,0.1);
-  border-left: 4px solid var(--accent-secondary);
-  padding: 16px 20px;
-  margin: 24px 0;
-  border-radius: 0 12px 12px 0;
-}
-
-.notice-light strong {
-  color: var(--accent-secondary);
-}
-
-.warning-box {
-  background: linear-gradient(135deg, rgba(224,122,95,0.08) 0%, rgba(129,178,154,0.08) 100%);
-  border-radius: 16px;
-  padding: 24px;
-  margin: 30px 0;
-  text-align: center;
-}
-
-.warning-box p {
-  margin: 0;
-  color: var(--text-secondary);
-}
-
-.btn-cta {
-  display: inline-block;
-  background: var(--accent-primary);
-  color: #fff;
-  padding: 12px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  margin-top: 16px;
-  transition: all 0.3s ease;
-}
-
-.btn-cta:hover {
-  background: var(--accent-tertiary);
-  color: #fff;
-  transform: translateY(-2px);
-}
-</style>
 </head>
 <body>
-<header class="header">
-  <div class="container">
-    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
-  </div>
-</header>
-
+<header class="header"><div class="container"><div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div></div></header>
 <nav class="top-navbar" id="top-navbar"></nav>
-
 <section class="container container-page">
-  <div class="pageside">
-    <div id="page-sidebar"></div>
-  </div>
-
+  <div class="pageside"><div id="page-sidebar"></div></div>
   <div class="content">
-    <div class="article-header">
-      <h1 class="article-title">为什么机场连不上或频繁断线？</h1>
-      <p style="color: var(--text-secondary); margin-top: 10px;">5个常见原因与解决方法</p>
-    </div>
-
+    <header class="article-header"><h1 class="article-title">Clash连不上或频繁断线怎么办？</h1></header>
     <article class="article-content">
-      <p>在使用网络加速服务的过程中，不少用户都会遇到无法连接、时断时续、明明显示已连接却打不开网页等情况。实际原因通常并不复杂，大多与网络环境、节点状态或客户端配置有关。</p>
+      <div class="troubleshooting-meta" aria-label="文章编辑信息">
+        <span><strong>作者</strong>优质机场推荐编辑部</span>
+        <span><strong>依据</strong>官方文档与可逆诊断原则</span>
+        <span><strong>更新</strong><time datetime="2026-07-04">2026-07-04</time></span>
+      </div>
 
-      <h2>1. 节点本身故障或拥堵</h2>
-      <p>如果在晚高峰（20:00–23:00）更容易断线，多半是节点拥堵或服务端维护。</p>
-      <div class="notice-light">
-        <p><strong>解决方法：</strong></p>
+      <section class="symptom-check">
+        <h2>第一步：选中最接近的症状</h2>
+        <p><strong>无法连接：</strong>节点测试失败或连接建立不了，先做节点与网络对照。</p>
+        <p><strong>频繁断线：</strong>曾经能用但会中断，记录发生时间、当前网络及是否所有节点都受影响。</p>
+        <p><strong>已连接但无法上网：</strong>客户端显示已连接，浏览器或应用仍不通，转到<a href="/guide/connected-but-no-internet/">系统代理、TUN 与 DNS 排查</a>。</p>
+        <p><strong>订阅更新失败：</strong>出现 timeout、401/403、parse 等提示，转到<a href="/guide/subscription-update-failed/">订阅下载与解析排查</a>。</p>
+      </section>
+
+      <section class="quick-check">
+        <h2>五分钟最小排查</h2>
+        <ol>
+          <li>记下错误提示、发生时间、客户端及内核版本。</li>
+          <li>切换一个不同地区的节点，确认问题是单节点还是全部节点。</li>
+          <li>换用手机热点测试一次，确认是否只在当前 Wi-Fi 出现。</li>
+          <li>查看服务商公告，并确认订阅最近一次更新时间。</li>
+          <li>每次只改一项；无效就回退，再进入下一分支。</li>
+        </ol>
+      </section>
+
+      <h2>对照结果怎么读</h2>
+      <div class="diagnostic-table-wrap">
+        <table class="diagnostic-table">
+          <thead><tr><th>对照结果</th><th>更值得检查</th><th>下一步</th></tr></thead>
+          <tbody>
+            <tr><td>只有一个节点失败</td><td>节点状态或维护</td><td>保留本机设置，换节点并看服务商公告</td></tr>
+            <tr><td>所有节点都失败</td><td>订阅、客户端接管或账号状态</td><td>检查订阅更新时间和错误日志</td></tr>
+            <tr><td>Wi-Fi 失败，手机热点正常</td><td>当前网络路径或系统遗留代理</td><td>检查网络代理；受管网络请联系管理员</td></tr>
+            <tr><td>多个设备同时失败</td><td>服务端、账号或订阅</td><td>查看公告，携带脱敏错误提交工单</td></tr>
+            <tr><td>只有浏览器失败</td><td>系统代理或浏览器代理扩展</td><td>进入“已连接但无法上网”分支</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>频繁断线的记录方法</h2>
+      <p>“晚高峰”“某运营商”只能作为观察背景，不能直接证明根因。记录断线前后的时间、节点、网络类型、客户端版本和首条错误；如果换节点或换网络后恢复，也要把这个对照结果一并保留。</p>
+
+      <section class="recovery-steps">
+        <h2>安全边界与停止条件</h2>
         <ul>
-          <li>尝试切换到其它节点</li>
-          <li>优先选择专线节点或负载较低的地区</li>
-          <li>等待官方恢复（通常会在公告中说明）</li>
+          <li>不要同时修改节点、TUN、DNS 和系统代理，否则无法判断哪一步有效。</li>
+          <li>不要默认删除全部配置或重装客户端；先保留最后一份可用配置。</li>
+          <li>日志分享前遮盖订阅 URL、令牌、账号、节点地址和本地 IP。</li>
+          <li>多个网络、设备和节点都失败时，停止改本机设置，查公告或提交商家工单。</li>
         </ul>
-      </div>
+      </section>
 
-      <h2>2. 本地网络环境有限制</h2>
-      <p>校园网、公司网、酒店 Wi-Fi 等环境常对加速协议做限制，导致连接不稳定。</p>
-      <div class="notice-light">
-        <p><strong>解决方法：</strong></p>
+      <h2>常见问题</h2>
+      <h3>Clash突然连不上应该先做什么？</h3>
+      <p>先记下症状和错误提示，再切换一个节点、换手机热点各测试一次。一次只改变一项。</p>
+      <h3>Clash频繁断线一定是节点问题吗？</h3>
+      <p>不一定。节点、本地网络、客户端接管和系统休眠都可能影响连接，需要通过对照缩小范围。</p>
+      <h3>排查时需要重装客户端吗？</h3>
+      <p>通常不应作为第一步。先保留现有配置并做可逆对照，重装可能抹掉有用的日志和设置。</p>
+
+      <section class="troubleshooting-sources">
+        <h2>官方资料来源</h2>
         <ul>
-          <li>尝试更换网络，如手机热点</li>
-          <li>重启路由器或关闭局域网代理</li>
-          <li>必要时切换协议</li>
+          <li><a href="https://wiki.metacubex.one/config/general/" target="_blank" rel="nofollow noopener">Mihomo 全局配置文档</a>：运行模式、日志级别与基础选项。</li>
+          <li><a href="https://wiki.metacubex.one/config/inbound/tun/" target="_blank" rel="nofollow noopener">Mihomo TUN 文档</a>：TUN 接管范围与配置边界。</li>
+          <li><a href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank" rel="nofollow noopener">Clash Verge Rev 官方仓库</a>：版本发布和公开问题记录。</li>
         </ul>
-      </div>
+      </section>
 
-      <h2>3. 客户端设置不正确</h2>
-      <p>很多断线、连不上问题，都归因于设置错误，如：</p>
-      <ul>
-        <li>系统代理没开启</li>
-        <li>DNS 未正确配置</li>
-        <li>使用了冲突的浏览器代理插件</li>
-      </ul>
-      <div class="notice-light">
-        <p><strong>解决方法：</strong></p>
+      <section class="related-guides">
+        <h2>按症状继续</h2>
         <ul>
-          <li>重启客户端并刷新订阅</li>
-          <li>在设置中启用「系统代理」或「全局模式」测试</li>
-          <li>关闭其它代理插件，避免冲突</li>
+          <li><a href="/guide/connected-but-no-internet/">已连接但无法上网：系统代理、TUN 与 DNS</a></li>
+          <li><a href="/guide/subscription-update-failed/">订阅更新失败：超时、401/403 与解析错误</a></li>
+          <li><a href="/tutorial/clash-verge/">Clash Verge 配置教程</a></li>
+          <li><a href="/tutorial/clash-meta-for-android/">Clash Meta for Android 配置教程</a></li>
         </ul>
-      </div>
-
-      <h2>4. 订阅链接失效或没更新</h2>
-      <p>订阅过期、机场更换地址、链接被墙，都会导致节点无法加载。</p>
-      <div class="notice-light">
-        <p><strong>解决方法：</strong></p>
-        <ul>
-          <li>在后台重新复制最新订阅</li>
-          <li>删除旧订阅后重新添加</li>
-          <li>切换网络更新订阅（不走代理）</li>
-        </ul>
-      </div>
-
-      <h2>5. 本地设备的系统问题</h2>
-      <p>手机或电脑的防火墙、杀毒软件、后台同步也可能影响连接。</p>
-      <div class="notice-light">
-        <p><strong>解决方法：</strong></p>
-        <ul>
-          <li>暂时关闭杀毒软件/防火墙</li>
-          <li>退出占用大量网络的后台程序（云盘、Steam、同步工具等）</li>
-          <li>重启设备后重新尝试连接</li>
-        </ul>
-      </div>
-
-      <div class="warning-box">
-        <p>按以下步骤排查，可解决大部分情况：</p>
-        <p style="margin-top: 12px; font-size: 16px;">
-          换节点 → 换协议 → 刷新订阅 → 换网络测试 → 检查系统代理和 DNS 配置
-        </p>
-      </div>
-
-      <p>如果经过以上操作仍然无法连接，应查看机场是否发布了维护公告，或直接联系在线客服排查账号状态。</p>
+      </section>
     </article>
-
     <div class="giscus"></div>
   </div>
 </section>
-
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p>
-  </div>
-</footer>
-
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/nav.js"></script>
-<script src="https://giscus.app/client.js"
-        data-repo="qdqht2008/calshvpn"
-        data-repo-id="R_kgDOSNBV3g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOSNBV3s4C-KRW"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+<script src="https://giscus.app/client.js" data-repo="qdqht2008/calshvpn" data-repo-id="R_kgDOSNBV3g" data-category="Announcements" data-category-id="DIC_kwDOSNBV3s4C-KRW" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script>
 </body>
 </html>

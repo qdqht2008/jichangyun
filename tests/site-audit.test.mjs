@@ -744,3 +744,24 @@ test('core hubs publish complete favicon and large social card metadata', () => 
     assert.doesNotMatch(html, /<meta (?:property="og:image"|name="twitter:image") content="[^"]*clash-300x300\.png">/);
   }
 });
+
+test('repository documents one static Cloudflare Pages architecture without Waline or Vercel runtime', () => {
+  assert.ok(!existsSync(join(root, 'waline')), 'legacy Waline runtime must be removed');
+  assert.ok(!existsSync(join(root, 'vercel.json')), 'legacy Vercel config must be removed');
+  assert.doesNotMatch(read('css/main.css'), /#waline\b/);
+  assert.doesNotMatch(read('.gitignore'), /^\.vercel\/?$/m);
+
+  const deployment = read('docs/cloudflare-pages-deployment.md');
+  for (const fact of ['Cloudflare Pages', '纯静态', 'exit 0', '无需环境变量', 'favicon.ico', 'sitemap.xml', 'robots.txt', '回滚']) {
+    assert.match(deployment, new RegExp(fact, 'i'), `deployment docs: missing ${fact}`);
+  }
+  assert.match(deployment, /developers\.cloudflare\.com\/pages/);
+  assert.match(deployment, /撤销并轮换/);
+
+  const instructions = read('CLAUDE.md');
+  assert.match(instructions, /Cloudflare Pages/);
+  assert.doesNotMatch(instructions, /deployed on Vercel|Vercel Deployment|\.vercel\/|\/download\//i);
+
+  const giscusPages = walkHtml('.').filter((file) => /giscus\.app\/client\.js/.test(read(file)));
+  assert.ok(giscusPages.length >= 10, 'Giscus content comments must remain intact');
+});

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runInNewContext } from 'node:vm';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteSections = ['contactus', 'guide', 'jichang', 'tutorial'];
@@ -45,6 +46,77 @@ function attribute(tag, name) {
 function structuredData(html) {
   return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)]
     .map((match) => JSON.parse(match[1]));
+}
+
+function outboundClickTarget({ href, rel = '', sourceClass = '', text = 'Sensitive link text' }) {
+  const relationships = new Set(rel.split(/\s+/).filter(Boolean));
+  const anchor = {
+    href,
+    textContent: text,
+    getAttribute(name) {
+      if (name === 'href') return href;
+      if (name === 'rel') return rel;
+      return null;
+    },
+    relList: {
+      contains(value) {
+        return relationships.has(value);
+      },
+    },
+    closest(selector) {
+      return sourceClass && selector.includes(`.${sourceClass}`) ? { className: sourceClass } : null;
+    },
+  };
+
+  return {
+    closest(selector) {
+      return selector === 'a[href]' ? anchor : null;
+    },
+  };
+}
+
+function loadOutboundTracking({
+  hostname = 'www.jichangyun.top',
+  pathname = '/jichang/example/',
+  withGtag = true,
+} = {}) {
+  const listeners = new Map();
+  const calls = [];
+  const document = {
+    getElementById() {
+      return null;
+    },
+    addEventListener(type, listener) {
+      if (!listeners.has(type)) listeners.set(type, []);
+      listeners.get(type).push(listener);
+    },
+  };
+  const window = {
+    location: {
+      href: `https://${hostname}${pathname}`,
+      hostname,
+      pathname,
+    },
+  };
+  if (withGtag) window.gtag = (...args) => calls.push(args);
+
+  runInNewContext(read('js/nav.js'), { document, window, URL });
+  for (const listener of listeners.get('DOMContentLoaded') ?? []) listener();
+
+  return {
+    calls,
+    click(target) {
+      let prevented = 0;
+      const event = {
+        target,
+        preventDefault() {
+          prevented += 1;
+        },
+      };
+      for (const listener of listeners.get('click') ?? []) listener(event);
+      return prevented;
+    },
+  };
 }
 
 test('category navigation sends crawl authority to all three content hubs', () => {
@@ -764,4 +836,144 @@ test('repository documents one static Cloudflare Pages architecture without Wali
 
   const giscusPages = walkHtml('.').filter((file) => /giscus\.app\/client\.js/.test(read(file)));
   assert.ok(giscusPages.length >= 10, 'Giscus content comments must remain intact');
+});
+
+test('outbound tracking sends only privacy-minimized fields with evidence-aware link types', () => {
+  const tracking = loadOutboundTracking();
+  const cases = [
+    {
+      target: outboundClickTarget({
+        href: 'https://Vendor.Example/register?code=SECRET#checkout',
+        rel: 'sponsored nofollow noopener',
+        sourceClass: 'tutorial-sources',
+      }),
+      domain: 'vendor.example',
+      type: 'sponsored',
+    },
+    ...['official-download', 'tutorial-sources', 'troubleshooting-sources'].map((sourceClass) => ({
+      target: outboundClickTarget({ href: 'https://GitHub.com/project/releases?token=SECRET', sourceClass }),
+      domain: 'github.com',
+      type: 'official',
+    })),
+    {
+      target: outboundClickTarget({ href: 'https://Example.org/story?ref=SECRET' }),
+      domain: 'example.org',
+      type: 'external',
+    },
+  ];
+
+  for (const item of cases) assert.equal(tracking.click(item.target), 0, 'tracking must not delay navigation');
+  assert.equal(tracking.calls.length, cases.length);
+
+  tracking.calls.forEach((call, index) => {
+    const [command, eventName, rawPayload] = call;
+    const payload = JSON.parse(JSON.stringify(rawPayload));
+    assert.equal(command, 'event');
+    assert.equal(eventName, 'outbound_link');
+    assert.deepEqual(Object.keys(payload).sort(), ['link_domain', 'link_type', 'page_path']);
+    assert.deepEqual(payload, {
+      link_domain: cases[index].domain,
+      link_type: cases[index].type,
+      page_path: '/jichang/example/',
+    });
+  });
+
+  const serialized = JSON.stringify(tracking.calls);
+  for (const privateValue of ['SECRET', '/register', 'checkout', 'Sensitive link text']) {
+    assert.doesNotMatch(serialized, new RegExp(privateValue), `analytics payload leaked ${privateValue}`);
+  }
+});
+
+test('outbound tracking ignores internal links and non-HTTP destinations', () => {
+  const tracking = loadOutboundTracking();
+  for (const href of [
+    '/guide/avoid-traps/?from=nav',
+    'https://www.jichangyun.top/tutorial/?from=nav',
+    'https://jichangyun.top/jichang/?from=nav',
+    'mailto:hello@example.com',
+    'tel:+861234567890',
+    'javascript:void(0)',
+    'ftp://downloads.example.com/client.zip',
+    'https://[',
+  ]) {
+    tracking.click(outboundClickTarget({ href }));
+  }
+  assert.equal(tracking.calls.length, 0);
+
+  tracking.click(outboundClickTarget({ href: 'https://docs.example.com/start' }));
+  assert.equal(tracking.calls.length, 1, 'the filter must not disable valid external HTTPS links');
+});
+
+test('outbound tracking normalizes the www prefix on external domains', () => {
+  const tracking = loadOutboundTracking();
+  tracking.click(outboundClickTarget({ href: 'https://WWW.Example.com/path' }));
+  const payload = JSON.parse(JSON.stringify(tracking.calls[0]?.[2]));
+  assert.equal(payload?.link_domain, 'example.com');
+});
+
+test('outbound tracking tolerates non-element targets and partial anchor APIs', () => {
+  const tracking = loadOutboundTracking();
+  assert.doesNotThrow(() => tracking.click({}));
+
+  const anchor = {
+    getAttribute(name) {
+      return name === 'href' ? 'https://example.net/path' : null;
+    },
+  };
+  const target = {
+    closest(selector) {
+      return selector === 'a[href]' ? anchor : null;
+    },
+  };
+  assert.doesNotThrow(() => tracking.click(target));
+  assert.equal(tracking.calls.length, 1);
+  assert.equal(tracking.calls[0][2].link_type, 'external');
+});
+
+test('outbound tracking handles valid clicks but is inert when GA4 is unavailable', () => {
+  const tracking = loadOutboundTracking({ withGtag: false });
+  const target = outboundClickTarget({ href: 'https://example.com/?code=SECRET' });
+  assert.doesNotThrow(() => tracking.click(target));
+  assert.equal(tracking.click(target), 0, 'missing analytics must not prevent navigation');
+  assert.deepEqual(tracking.calls, []);
+
+  const enabled = loadOutboundTracking();
+  enabled.click(target);
+  assert.equal(enabled.calls.length, 1, 'the same valid click must be tracked when GA4 is available');
+});
+
+test('maintained tutorial pages load the same GA4 initializer as the rest of the site', () => {
+  const expected = `<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPYY57ECEX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-HPYY57ECEX');
+</script>`;
+  for (const file of [
+    'tutorial/index.html',
+    'tutorial/clash-verge/index.html',
+    'tutorial/flclash/index.html',
+    'tutorial/clash-meta-for-android/index.html',
+  ]) {
+    assert.match(read(file), new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${file}: inconsistent GA4 initializer`);
+  }
+});
+
+test('GA4 outbound tracking docs preserve the privacy boundary and deployment prerequisite', () => {
+  const docs = read('docs/ga4-outbound-tracking.md');
+  for (const fact of [
+    'outbound_link',
+    'link_domain',
+    'link_type',
+    'page_path',
+    'Enhanced Measurement',
+    'Outbound clicks',
+    'link_url',
+  ]) {
+    assert.match(docs, new RegExp(fact, 'i'), `GA4 docs: missing ${fact}`);
+  }
+  assert.match(docs, /关闭[^。\n]*Outbound clicks|Outbound clicks[^。\n]*关闭/i);
+  assert.match(docs, /不(?:发送|采集)[^。\n]*(?:完整 URL|查询参数|推广码)/);
 });

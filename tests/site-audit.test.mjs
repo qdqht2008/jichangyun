@@ -203,7 +203,14 @@ test('mobile article layout releases the desktop sidebar height', () => {
 test('sitemap covers every public page and only publishes trustworthy crawl metadata', () => {
   const sitemap = read('sitemap.xml');
   const actualUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]).sort();
-  const expectedUrls = publicHtmlFiles().map(publicUrlFor).sort();
+  const retiredRecommendationUrls = new Set([
+    'https://www.jichangyun.top/jichang/guangnian/',
+    'https://www.jichangyun.top/jichang/longmiaoyun/',
+  ]);
+  const expectedUrls = publicHtmlFiles()
+    .map(publicUrlFor)
+    .filter((url) => !retiredRecommendationUrls.has(url))
+    .sort();
   assert.deepEqual(actualUrls, expectedUrls);
   assert.doesNotMatch(sitemap, /<(priority|changefreq)>/);
   const dates = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
@@ -680,12 +687,104 @@ test('airport hub and sitemap expose only the completed third-batch evidence', (
     const card = airportCard(hub, name);
     for (const fact of facts) assert.match(card, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${name} card: missing ${fact}`);
   }
-  assert.equal((hub.match(/data-review-date="2026-07-05"/g) ?? []).length, 3);
+  assert.equal((hub.match(/data-review-date="2026-07-05"/g) ?? []).length, 4);
 
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/', 'jichang/yangfanyun/', 'jichang/yuzhouyun/', 'jichang/wanxiang/']) {
     const url = `https://www.jichangyun.top/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-05<\\/lastmod>`));
+  }
+});
+
+test('Quick Cloud review uses the shared editorial structure and attributes merchant claims', () => {
+  const html = read('jichang/quickcloud/index.html');
+  for (const section of [
+    'review-meta',
+    'review-verdict',
+    'review-audience',
+    'review-pros-cons',
+    'plan-table-wrap',
+    'review-risk',
+    'review-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `Quick Cloud: missing ${section}`);
+  }
+  assert.match(html, /优质机场推荐编辑部/);
+  assert.match(html, /官方套餐页核验/);
+  assert.match(html, /<time datetime="2026-07-05">2026-07-05<\/time>/);
+  assert.match(html, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+  for (const claim of ['60+ 节点', '住宅家宽节点', 'GPT', '12 小时']) {
+    const escaped = claim.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(html, new RegExp(`商家[^。]*${escaped}`), `Quick Cloud: ${claim} lacks merchant attribution`);
+  }
+  assert.doesNotMatch(html, /本站实测(?:表明|显示|达到)|本站测速(?:表明|显示|达到)|亲测(?:可达|达到|稳定)|永久可用|全解锁/);
+});
+
+test('Quick Cloud review preserves current recurring and non-expiring package facts', () => {
+  const html = read('jichang/quickcloud/index.html');
+  for (const fact of [
+    '月付 300G 体验套餐', '¥12.9/月', '300GB/月',
+    '月付 500G 套餐', '¥19.9/月', '500GB/月',
+    '月付 1000G 套餐', '¥27.9/月', '1000GB/月',
+    '800G 无时间限制', '¥69/一次性', '800GB 总量',
+    '2000G 无时间限制', '¥119/一次性', '2000GB 总量',
+    '5000G 无时间限制', '¥219/一次性', '5000GB 总量',
+    '月付、季付、半年付、年付', '不限使用时间、不重置',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `Quick Cloud: missing ${fact}`);
+  }
+  assert.match(html, /商家套餐页[^。]*1000G[^。]*“推荐”/);
+  assert.match(html, /普通套餐[^。]*(?:设备数量|设备数)[^。]*未提供/);
+  assert.match(html, /普通套餐[^。]*限速[^。]*未提供/);
+  assert.match(html, /普通套餐[^。]*退款[^。]*未提供/);
+  assert.match(html, /活动[^。]*(?:规则|截止日期)[^。]*未提供/);
+  assert.doesNotMatch(html, /img\/quickcloud\//);
+});
+
+test('Quick Cloud node customization keeps managed and unmanaged obligations distinct', () => {
+  const html = read('jichang/quickcloud/index.html');
+  for (const fact of [
+    '节点定制', '¥189/月', '流量按月重置', '最高峰值 1000Mbps',
+    '托管式', '2500GB', '8 倍率', '不限制同时在线设备',
+    '非托管式', '1000GB', '无倍率', 'root', '自行部署',
+    '3 个工作日内交付', '7×24 小时技术支持', '下单前确认库存',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `Quick Cloud customization: missing ${fact}`);
+  }
+  assert.match(html, /商家[^。]*独立原生纯净节点/);
+  assert.match(html, /特殊需求[^。]*额外付费/);
+  assert.match(html, /非托管式[^。]*不提供节点技术服务/);
+});
+
+test('Quick Cloud metadata is current while retired airport links leave active discovery surfaces', () => {
+  const html = read('jichang/quickcloud/index.html');
+  const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+  assert.doesNotMatch(attribute(description, 'content'), /优质机场|全解锁|高速稳定|保证可用/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.ico"/);
+  assert.doesNotMatch(html, /href="\/img\/(?:favicon\.svg|apple-touch-icon\.png)"/);
+
+  const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.author?.name, '优质机场推荐编辑部');
+  assert.equal(article?.dateModified, '2026-07-05');
+  assert.ok(structuredData(html).some((entry) => entry['@type'] === 'FAQPage'));
+
+  const hub = read('jichang/index.html');
+  const card = airportCard(hub, 'Quick Cloud');
+  for (const fact of ['data-review-date="2026-07-05"', '¥12.9/月起', '300–1000GB/月', '不限时流量包']) {
+    assert.match(card, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `Quick Cloud card: missing ${fact}`);
+  }
+  assert.equal(airportCard(hub, '龙猫云'), '');
+  assert.doesNotMatch(hub, /href="\/jichang\/longmiaoyun\/"/);
+  const nav = read('js/nav.js');
+  assert.doesNotMatch(nav, /href:\s*['"]\/jichang\/(?:guangnian|longmiaoyun)\/['"]/);
+
+  const sitemap = read('sitemap.xml');
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/quickcloud\/<\/loc>\s*<lastmod>2026-07-05<\/lastmod>/);
+  assert.doesNotMatch(sitemap, /\/jichang\/(?:guangnian|longmiaoyun)\//);
+  for (const file of ['jichang/guangnian/index.html', 'jichang/longmiaoyun/index.html']) {
+    assert.ok(existsSync(join(root, file)), `${file}: retired page must remain available`);
+    assert.doesNotMatch(read(file), /<meta name="robots" content="noindex/);
   }
 });
 

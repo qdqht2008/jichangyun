@@ -48,6 +48,16 @@ function structuredData(html) {
     .map((match) => JSON.parse(match[1]));
 }
 
+function airportCard(html, name) {
+  const title = `<h3 class="airport-card-title">${name}</h3>`;
+  const titleIndex = html.indexOf(title);
+  if (titleIndex === -1) return '';
+  const cardStart = '<div class="airport-card"';
+  const start = html.lastIndexOf(cardStart, titleIndex);
+  const next = html.indexOf(cardStart, titleIndex + title.length);
+  return html.slice(start, next === -1 ? html.length : next);
+}
+
 function outboundClickTarget({ href, rel = '', sourceClass = '', text = 'Sensitive link text' }) {
   const relationships = new Set(rel.split(/\s+/).filter(Boolean));
   const anchor = {
@@ -540,13 +550,142 @@ test('airport hub and sitemap mark 红杏云 as the last completed second-batch 
   assert.equal((hub.match(/data-review-date="2026-07-03"/g) ?? []).length, 2);
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['jichang/', 'jichang/hongxing/']) {
+  for (const path of ['jichang/hongxing/']) {
     const url = `https://www.jichangyun.top/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
   }
   for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
     const url = `https://www.jichangyun.top/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
+  }
+});
+
+const thirdBatchReviews = [
+  ['扬帆云', 'jichang/yangfanyun/index.html'],
+  ['宇宙云', 'jichang/yuzhouyun/index.html'],
+  ['万象加速', 'jichang/wanxiang/index.html'],
+];
+
+test('third-batch reviews use one comparable structure without presenting merchant claims as tests', () => {
+  for (const [name, file] of thirdBatchReviews) {
+    const html = read(file);
+    for (const section of [
+      'review-meta',
+      'review-verdict',
+      'review-audience',
+      'review-pros-cons',
+      'plan-table-wrap',
+      'review-risk',
+      'review-sources',
+    ]) {
+      assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${name}: missing ${section}`);
+    }
+    assert.match(html, /优质机场推荐编辑部/);
+    assert.match(html, /官方套餐页核验/);
+    assert.match(html, /<time datetime="2026-07-05">2026-07-05<\/time>/);
+    assert.match(html, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+    assert.match(html, /商家(?:套餐页|称|标注|页面)/, `${name}: merchant claims need attribution`);
+    assert.doesNotMatch(html, /本站实测(?:表明|显示|达到)|本站测速(?:表明|显示|达到)|亲测(?:可达|达到|稳定)/);
+  }
+});
+
+test('扬帆云 review preserves current plan limits and treats promotions as checkout-dependent', () => {
+  const html = read('jichang/yangfanyun/index.html');
+  for (const fact of [
+    'LV1', '100GB', '200Mbps', '2 台', '¥19.99/月',
+    'LV2', '200GB', '300Mbps', '3 台', '¥29.99/月',
+    'LV3', '400GB', '500Mbps', '4 台', '¥39.99/月',
+    'LV4', '700GB', '1Gbps', '5 台', '¥49.99/月',
+    '旗舰版', '1.2TB', '不限速', '8 台', '¥88.99/月',
+    '¥2135.76', '独立 IP ¥200/月/个起', '节点另收费', '两年起订',
+    'yf6189', '6.9 折', 'yf6185', '6.5 折', 'lucky9', '9 折',
+    'LV4 与旗舰版', '买 3 送 1', '结算页',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `扬帆云: missing ${fact}`);
+  }
+  assert.match(html, /首次购买日[^。]*每月[^。]*重置/);
+  assert.doesNotMatch(html, /img\/yangfanyun\/|年费套餐7折优惠码：618|10月份/);
+});
+
+test('宇宙云 review preserves plan tiers while keeping the reset rule explicitly unresolved', () => {
+  const html = read('jichang/yuzhouyun/index.html');
+  for (const fact of [
+    '星云年付小包', '¥96/年', '60GB/月',
+    '行星基础版', '¥25/月', '120GB/月',
+    '恒星标准版', '¥50/月', '240GB/月',
+    '星系专业版', '¥100/月', '500GB/月',
+    '寰宇旗舰版', '¥200/月', '1TB/月',
+    '季付 95 折', '半年 9 折', '年付 85 折', '两年 8 折', '三年 7 折',
+    '不限制设备数量', '自研客户端',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `宇宙云: missing ${fact}`);
+  }
+  assert.match(html, /“重置 9 折”[^。]*(?:含义|条件)[^。]*未(?:说明|确认)/);
+  assert.match(html, /购买前[^。]*咨询客服/);
+  assert.match(html, /商家(?:套餐页|称)[^。]*全 IEPL/);
+  assert.doesNotMatch(html, /YUZHOU553|img\/yuzhouyun\/|永不泄露|7x24 小时极速响应/);
+});
+
+test('万象加速 review makes the no-refund rule prominent and attributes coverage claims', () => {
+  const html = read('jichang/wanxiang/index.html');
+  for (const fact of [
+    '季付套餐', '¥28/季度', '1000GB/月', '500Mbps',
+    '年付套餐', '¥58/年', '500GB/月',
+    '小象年套餐', '¥88/年',
+    '小象套餐', '¥12/月', '约 18%', '节省约 ¥26',
+    '中象套餐', '¥20/月', '3000GB/月', '1000Mbps', '约 44%', '节省约 ¥320',
+    '大象套餐', '¥30/月', '10000GB/月', '2.5Gbps',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `万象加速: missing ${fact}`);
+  }
+  const verdict = html.match(/<section class="review-verdict">[\s\S]*?<\/section>/)?.[0] ?? '';
+  const risk = html.match(/<section class="review-risk">[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(verdict, /不设退款/);
+  assert.match(risk, /不设退款/);
+  for (const claim of ['CN2', 'CUII', 'CMI', '全部媒体服务器接入', '新疆地区可用']) {
+    assert.match(html, new RegExp(`商家[^。]*${claim}`), `万象加速: ${claim} lacks merchant attribution`);
+  }
+  assert.doesNotMatch(html, /atEIcYT3|img\/wanxiang\/|全场 5折|高速稳定的网络体验/);
+});
+
+test('third-batch metadata and commercial routes match the cautious visible reviews', () => {
+  for (const [name, file] of thirdBatchReviews) {
+    const html = read(file);
+    const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+    assert.doesNotMatch(attribute(description, 'content'), /安全稳定|高速稳定|全解锁|优质机场|保证可用/);
+
+    const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+    assert.ok(article, `${name}: missing Article structured data`);
+    assert.equal(article.author?.name, '优质机场推荐编辑部');
+    assert.equal(article.dateModified, '2026-07-05');
+    assert.ok(structuredData(html).some((entry) => entry['@type'] === 'FAQPage'), `${name}: missing FAQPage`);
+
+    const commercial = tags(html, 'a').find((anchor) => {
+      return attribute(anchor, 'class').split(/\s+/).includes('btn-primary')
+        && attribute(anchor, 'href').startsWith('http');
+    });
+    assert.ok(commercial, `${name}: missing commercial CTA`);
+    assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
+  }
+});
+
+test('airport hub and sitemap expose only the completed third-batch evidence', () => {
+  const hub = read('jichang/index.html');
+  const expectedCards = new Map([
+    ['扬帆云', ['data-review-date="2026-07-05"', '¥19.99/月起', '100GB–1.2TB/周期', '2–8 台设备']],
+    ['宇宙云', ['data-review-date="2026-07-05"', '¥96/年起', '60GB–1TB/月', '重置 9 折条件待咨询']],
+    ['万象加速', ['data-review-date="2026-07-05"', '¥12/月起', '500–10000GB/月', '不设退款']],
+  ]);
+  for (const [name, facts] of expectedCards) {
+    const card = airportCard(hub, name);
+    for (const fact of facts) assert.match(card, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${name} card: missing ${fact}`);
+  }
+  assert.equal((hub.match(/data-review-date="2026-07-05"/g) ?? []).length, 3);
+
+  const sitemap = read('sitemap.xml');
+  for (const path of ['jichang/', 'jichang/yangfanyun/', 'jichang/yuzhouyun/', 'jichang/wanxiang/']) {
+    const url = `https://www.jichangyun.top/${path}`;
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-05<\\/lastmod>`));
   }
 });
 

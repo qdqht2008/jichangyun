@@ -134,9 +134,50 @@ function renderSidebar(containerId) {
 }
 
 // ===========================
+// 外链点击统计
+// ===========================
+const INTERNAL_HOSTNAMES = new Set([
+  'jichangyun.top',
+]);
+
+const OFFICIAL_LINK_SELECTOR = '.official-download, .tutorial-sources, .troubleshooting-sources';
+
+function trackOutboundClick(event) {
+  const anchor = event.target?.closest?.('a[href]');
+  if (!anchor || typeof window.gtag !== 'function') return;
+
+  let destination;
+  try {
+    destination = new URL(anchor.getAttribute('href'), window.location.href);
+  } catch {
+    return;
+  }
+
+  if (!['http:', 'https:'].includes(destination.protocol)) return;
+
+  const linkDomain = destination.hostname.toLowerCase().replace(/^www\./, '');
+  const currentDomain = window.location.hostname.toLowerCase().replace(/^www\./, '');
+  if (linkDomain === currentDomain || INTERNAL_HOSTNAMES.has(linkDomain)) return;
+
+  let linkType = 'external';
+  if (anchor.relList?.contains?.('sponsored')) {
+    linkType = 'sponsored';
+  } else if (anchor.closest?.(OFFICIAL_LINK_SELECTOR)) {
+    linkType = 'official';
+  }
+
+  window.gtag('event', 'outbound_link', {
+    link_domain: linkDomain,
+    link_type: linkType,
+    page_path: window.location.pathname,
+  });
+}
+
+// ===========================
 // 初始化
 // ===========================
 document.addEventListener('DOMContentLoaded', function() {
   renderNavbar('top-navbar');
   renderSidebar('page-sidebar');
+  document.addEventListener('click', trackOutboundClick);
 });

@@ -146,7 +146,70 @@ test('homepage acts as a crawlable content hub instead of a three-link splash pa
   assert.match(homepage, />机场推荐</);
   assert.match(homepage, />客户端教程</);
   assert.match(homepage, />避坑百科</);
-  assert.match(homepage, /<time datetime="2026-06-30">/);
+  assert.match(homepage, /<time datetime="2026-07-05">/);
+});
+
+test('homepage airport routes summarize verified facts instead of detached merchant claims', () => {
+  const homepage = read('index.html');
+  const airportResources = homepage.match(/<h2 id="airport-resources">[\s\S]*?<\/section>/)?.[0] ?? '';
+  const expected = new Map([
+    ['/jichang/yangfanyun/', '扬帆云：¥19.99/月起，100GB–1.2TB/周期'],
+    ['/jichang/quickcloud/', 'Quick Cloud：¥12.9/月起，含不限时流量包'],
+    ['/jichang/feiniaoyun/', '飞鸟云：¥12/年起，含月付与不限时流量包'],
+    ['/jichang/dageyun/', '大哥云：¥19.90/月起，新疆地区不可用'],
+  ]);
+  for (const [href, summary] of expected) {
+    assert.match(airportResources, new RegExp(`href="${href.replaceAll('/', '\\/')}"`));
+    assert.match(airportResources, new RegExp(summary.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  assert.doesNotMatch(airportResources, /V2Ray|IPLC|住宅节点|全球节点|多端支持|老牌|解锁/);
+});
+
+test('homepage metadata and hero describe an evidence-led resource hub without performance promises', () => {
+  const homepage = read('index.html');
+  const head = homepage.match(/<head>[\s\S]*?<\/head>/)?.[0] ?? '';
+  const hero = homepage.match(/<div class="hero">[\s\S]*?<div class="hero-accent-bar"><\/div>/)?.[0] ?? '';
+  assert.match(head, /Clash机场推荐与使用教程/);
+  assert.match(head, /套餐整理、客户端配置与故障排查/);
+  assert.match(hero, /整理公开套餐资料、配置教程和避坑指南/);
+  assert.match(hero, /套餐价格 · 流量限制 · 购买风险/);
+  assert.match(hero, /购买避坑 · 故障排查 · 线路原理/);
+  assert.doesNotMatch(`${head}\n${hero}`, /免费节点|安全稳定|高品质|不跑路|稳定性实测|让网络畅通无阻/);
+  assert.match(homepage, /首页机场摘要与证据口径同步<\/a><time datetime="2026-07-05">2026-07-05<\/time>/);
+});
+
+test('airport hub explains evidence limits and drops the unsupported 优信云 card', () => {
+  const hub = read('jichang/index.html');
+  assert.match(hub, /按公开套餐资料整理价格、流量与购买限制/);
+  for (const risk of ['退款', '设备', '地区', '长期套餐']) assert.match(hub, new RegExp(risk));
+  assert.match(hub, /卡片标注各自的资料核验日期/);
+  assert.match(hub, /商家对线路和解锁的描述不等于本站测试/);
+  assert.match(hub, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+  assert.doesNotMatch(hub, /稳定快速|不跑路|避开90%的坑|优信云|高速IPLC专线/);
+
+  const expectedCards = [
+    ['扬帆云', 'yangfanyun', '2026-07-05'],
+    ['红杏云', 'hongxing', '2026-07-04'],
+    ['Quick Cloud', 'quickcloud', '2026-07-05'],
+    ['飞鸟云', 'feiniaoyun', '2026-07-03'],
+    ['大哥云', 'dageyun', '2026-07-02'],
+    ['肥猫云', 'feimiaoyun', '2026-07-02'],
+    ['精灵学院', 'jinglingxueyuan', '2026-07-02'],
+    ['瞬云', 'sy', '2026-07-03'],
+    ['宇宙云', 'yuzhouyun', '2026-07-05'],
+    ['万象加速', 'wanxiang', '2026-07-05'],
+  ];
+  assert.equal((hub.match(/<div class="airport-card"/g) ?? []).length, expectedCards.length);
+  for (const [name, path, date] of expectedCards) {
+    const card = airportCard(hub, name);
+    assert.match(card, new RegExp(`href="\\/jichang\\/${path}\\/"`), `${name}: route changed`);
+    assert.match(card, new RegExp(`data-review-date="${date}"`), `${name}: review date changed`);
+  }
+
+  const sitemap = read('sitemap.xml');
+  for (const path of ['', 'jichang/']) {
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>2026-07-05<\\/lastmod>`));
+  }
 });
 
 test('homepage does not load a third-party comment embed before users reach an article', () => {

@@ -1278,3 +1278,67 @@ test('GA4 outbound tracking docs preserve the privacy boundary and deployment pr
   assert.match(docs, /关闭[^。\n]*Outbound clicks|Outbound clicks[^。\n]*关闭/i);
   assert.match(docs, /不(?:发送|采集)[^。\n]*(?:完整 URL|查询参数|推广码)/);
 });
+
+test('GitHub README routes readers to the official site and nine useful deep links', () => {
+  assert.ok(existsSync(join(root, 'README.md')), 'README.md must introduce the project on GitHub');
+  const readme = read('README.md');
+  for (const heading of ['机场资料', '客户端教程', '故障排查']) {
+    assert.match(readme, new RegExp(`^## ${heading}$`, 'm'), `README: missing ${heading}`);
+  }
+  for (const url of [
+    'https://www.jichangyun.top/',
+    'https://www.jichangyun.top/jichang/',
+    'https://www.jichangyun.top/tutorial/line-selection/',
+    'https://www.jichangyun.top/guide/avoid-traps/',
+    'https://www.jichangyun.top/tutorial/clash-verge/',
+    'https://www.jichangyun.top/tutorial/flclash/',
+    'https://www.jichangyun.top/tutorial/clash-meta-for-android/',
+    'https://www.jichangyun.top/guide/frequent-disconnections/',
+    'https://www.jichangyun.top/guide/subscription-update-failed/',
+    'https://www.jichangyun.top/guide/connected-but-no-internet/',
+  ]) {
+    assert.match(readme, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${url}`);
+  }
+});
+
+test('GitHub README states the evidence and contribution boundary without promotional claims', () => {
+  assert.ok(existsSync(join(root, 'README.md')), 'README.md must document evidence boundaries');
+  const readme = read('README.md');
+  for (const fact of [
+    '公开来源',
+    '核验日期',
+    '商家描述保留商家归因',
+    '实际体验可能因地区、运营商、设备和时段变化',
+    'Token',
+    'Cookie',
+    '账号',
+    '订阅地址',
+  ]) {
+    assert.match(readme, new RegExp(fact), `README: missing ${fact}`);
+  }
+  assert.doesNotMatch(readme, /#\/register|[?&]code=|优惠码|邀请码|最佳机场|稳定性排名|本站实测(?:表明|显示)|自然外链|社区背书|\d+[kK]?\+?\s+Stars|MIT License|Apache License/);
+});
+
+test('GitHub README documents the static workflow and only links to repository files that exist', () => {
+  assert.ok(existsSync(join(root, 'README.md')), 'README.md must document the project workflow');
+  const readme = read('README.md');
+  for (const fact of [
+    '纯静态',
+    'Cloudflare Pages',
+    'HTML5',
+    'CSS',
+    'JavaScript',
+    'python3 -m http.server 8080',
+    'node --test tests/site-audit.test.mjs',
+    'docs/cloudflare-pages-deployment.md',
+  ]) {
+    assert.match(readme, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${fact}`);
+  }
+
+  const missing = [];
+  for (const match of readme.matchAll(/\[[^\]]+\]\((?!https?:\/\/|#)([^)]+)\)/g)) {
+    const target = match[1].split('#', 1)[0];
+    if (target && !existsSync(join(root, target))) missing.push(target);
+  }
+  assert.deepEqual(missing, []);
+});

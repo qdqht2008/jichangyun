@@ -178,6 +178,40 @@ test('homepage metadata and hero describe an evidence-led resource hub without p
   assert.match(homepage, /首页机场摘要与证据口径同步<\/a><time datetime="2026-07-05">2026-07-05<\/time>/);
 });
 
+test('line-selection entry points use the current evidence boundary instead of legacy line grades', () => {
+  const homepage = read('index.html');
+  const featured = homepage.match(/<a class="featured-story featured-story-primary" href="\/tutorial\/line-selection\/">[\s\S]*?<\/a>/)?.[0] ?? '';
+  assert.match(featured, /直连、公网中转与 IEPL\/IPLC/);
+  assert.match(featured, /三段链路/);
+  assert.match(featured, /核验/);
+  assert.doesNotMatch(featured, /直连、中转与专线|价格、延迟与稳定性之间的真实关系|更合适的节点服务/);
+
+  const tutorialHub = read('tutorial/index.html');
+  const general = tutorialHub.match(/<section class="[^"]*general-tutorials[^"]*">[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(general, /直连、公网中转与 IEPL\/IPLC/);
+  assert.match(general, /标签边界/);
+  assert.match(general, /自查方法/);
+  assert.doesNotMatch(general, /直连、中转与专线|节点选择/);
+});
+
+test('line-related guide pages ask verification questions instead of ranking line labels', () => {
+  const avoidTraps = read('guide/avoid-traps/index.html');
+  const avoidSource = read('guide/avoid-traps.md');
+  for (const content of [avoidTraps, avoidSource]) {
+    assert.match(content, /线路标签先看证据，再看价格/);
+    assert.match(content, /标签不能直接回答实际体验/);
+    assert.match(content, /入口位置|节点地区|倍率|退款规则/);
+    assert.match(content, /覆盖哪一段|是否有可核验说明/);
+    assert.doesNotMatch(content, /线路质量 > 价格|决定体验上限|稳定性<\/th>|适合人群|直连[^。\n|<]*(?:差|轻度用户)|BGP[^。\n|<]*(?:日常使用|足够)|IEPL\/IPLC[^。\n|<]*(?:高|长期稳定需求|优先专线)/);
+  }
+
+  const speedGuide = read('guide/node-speed-differences/index.html');
+  assert.match(speedGuide, /入口与路径标签不同/);
+  assert.match(speedGuide, /标签不等于完整路径/);
+  assert.match(speedGuide, /本地运营商、入口位置、跨网段和落地节点/);
+  assert.doesNotMatch(speedGuide, /稳定性尚可|智能选择最优路径|只保证一个运营商的体验|你的宽带运营商决定了哪种入口对你最优/);
+});
+
 test('airport hub explains evidence limits and drops the unsupported 优信云 card', () => {
   const hub = read('jichang/index.html');
   assert.match(hub, /按公开套餐资料整理价格、流量与购买限制/);

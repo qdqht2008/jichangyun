@@ -100,7 +100,7 @@ gtag('config', 'G-HPYY57ECEX');
       "name": "为什么代理后更慢？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "常见原因：使用全局模式、节点负载高、线路质量差。建议切换节点或改用规则模式。"
+        "text": "常见原因：使用全局模式、节点负载高、路径标签与当前网络不匹配。建议一次只切换一个节点或接管方式。"
       }
     },
     {
@@ -108,7 +108,7 @@ gtag('config', 'G-HPYY57ECEX');
       "name": "2026年选机场有什么变化？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "主要趋势：传统协议逐渐被识别，新协议（Trojan/Vless/Hysteria2）普及，专线需求增加，跑路风险上升。结论：月付测试+专线优先，比以往更重要。"
+        "text": "主要趋势：客户端和协议选择更多，套餐标签也更复杂。结论：先月付测试，再核对线路标签覆盖哪一段，不要把标签当作体验保证。"
       }
     }
   ]
@@ -276,39 +276,39 @@ gtag('config', 'G-HPYY57ECEX');
       </div>
       <p>很多"翻车案例"，本质都是跳过了测试阶段。</p>
 
-      <h3>2. 线路质量 > 价格（决定体验上限）</h3>
-      <p>机场体验的核心，不是价格，而是线路类型：</p>
+      <h3>2. 线路标签先看证据，再看价格</h3>
+      <p>直连、公网中转、IEPL/IPLC 这些标签只能作为提问起点，标签不能直接回答实际体验：</p>
       <table>
         <thead>
           <tr>
-            <th>类型</th>
-            <th>稳定性</th>
-            <th>适合人群</th>
+            <th>标签</th>
+            <th>购买前核验</th>
+            <th>不能直接推断</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>直连</td>
-            <td>差</td>
-            <td>轻度用户</td>
+            <td>入口位置、节点地区、倍率、退款规则</td>
+            <td>固定延迟或晚间表现</td>
           </tr>
           <tr>
-            <td>BGP中转</td>
-            <td>中</td>
-            <td>日常使用</td>
+            <td>公网中转</td>
+            <td>中转入口、出境路径、故障切换</td>
+            <td>一定优于直连</td>
           </tr>
           <tr>
-            <td>IEPL/IPLC专线</td>
-            <td>高</td>
-            <td>长期稳定需求</td>
+            <td>IEPL/IPLC</td>
+            <td>覆盖哪一段、是否有可核验说明</td>
+            <td>用户全链路都是专线</td>
           </tr>
         </tbody>
       </table>
       <div class="notice">
         <p><strong>结论：</strong></p>
         <ul style="margin: 10px 0 0; padding-left: 20px;">
-          <li>日常浏览 → BGP足够</li>
-          <li>视频 / ChatGPT / 工作 → 优先专线</li>
+          <li>先确认标签覆盖哪一段链路</li>
+          <li>再用自己的设备、网络和目标服务做短周期对照</li>
         </ul>
       </div>
 

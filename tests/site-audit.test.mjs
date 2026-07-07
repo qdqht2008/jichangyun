@@ -212,6 +212,45 @@ test('line-related guide pages ask verification questions instead of ranking lin
   assert.doesNotMatch(speedGuide, /稳定性尚可|智能选择最优路径|只保证一个运营商的体验|你的宽带运营商决定了哪种入口对你最优/);
 });
 
+test('avoid-traps guide is a cautious purchase checklist instead of a promise-led ranking page', () => {
+  const html = read('guide/avoid-traps/index.html');
+  const markdown = read('guide/avoid-traps.md');
+  for (const content of [html, markdown]) {
+    for (const fact of [
+      '购买前核对清单',
+      '短周期自查',
+      '公开信息',
+      '退款规则',
+      '流量重置',
+      '设备限制',
+      '倍率',
+      '客服渠道',
+      '一次只改一个变量',
+      '本文仅整理公开资料',
+    ]) {
+      assert.match(content, new RegExp(fact), `avoid-traps: missing ${fact}`);
+    }
+    assert.doesNotMatch(content, /避开90%|稳定可靠|长期稳定|不跑路|唯一可靠|真正的考验|优秀<\/td>|≥80M|50–80ms|100–150ms|200ms\+|20-50 元|专线类机场|越"正规"，越不容易跑路|主力机场：稳定优先/);
+  }
+
+  const head = html.match(/<head>[\s\S]*?<\/head>/)?.[0] ?? '';
+  assert.match(head, /购买机场前怎么核对/);
+  assert.match(head, /降低购买风险/);
+  assert.doesNotMatch(head, /避开90%|稳定可靠|远离跑路风险|机场评测/);
+  assert.match(html, /https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png/);
+
+  const data = structuredData(html);
+  const article = data.find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.author?.name, '优质机场推荐编辑部');
+  assert.equal(article?.dateModified, '2026-07-07');
+  const faq = data.find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, 'avoid-traps: missing FAQ questions');
+
+  const nav = read('js/nav.js');
+  assert.match(nav, /label: '购买前核对清单'/);
+  assert.doesNotMatch(nav, /如何选到稳定机场/);
+});
+
 test('airport hub explains evidence limits and drops the unsupported 优信云 card', () => {
   const hub = read('jichang/index.html');
   assert.match(hub, /按公开套餐资料整理价格、流量与购买限制/);
@@ -1029,9 +1068,15 @@ test('guide hub exposes the troubleshooting cluster with self-consistent metadat
   for (const label of ['故障排查入口', '订阅更新失败', '已连接但无法上网']) {
     assert.match(html, new RegExp(label), `guide hub: missing ${label}`);
   }
+  const avoidCard = html.match(/<h2><a href="\/guide\/avoid-traps\/">[\s\S]*?<a href="\/guide\/avoid-traps\/" class="btn-read">/)?.[0] ?? '';
+  assert.match(avoidCard, /购买机场前怎么核对/);
+  assert.match(avoidCard, /公开信息|短周期自查|退款规则|设备限制/);
+  assert.match(avoidCard, /更新于 2026-07-07/);
+  assert.doesNotMatch(avoidCard, /避开90%|稳定机场|实测方法|跑路预警/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/avoid-traps\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
 });
 
 const maintainedTutorials = [

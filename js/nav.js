@@ -39,7 +39,7 @@ const SIDEBAR_SECTIONS = {
     label: '百科分类',
     basePath: '/guide/',
     items: [
-      { href: '/guide/avoid-traps/', label: '如何选到稳定机场' },
+      { href: '/guide/avoid-traps/', label: '购买前核对清单' },
       { href: '/guide/node-speed-differences/', label: '节点速度差异' },
       { href: '/guide/device-limit/', label: '限制设备数' },
       { href: '/guide/frequent-disconnections/', label: '机场频繁断线' },

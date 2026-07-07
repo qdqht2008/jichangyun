@@ -9,7 +9,7 @@
 ## 机场资料
 
 - [机场套餐、价格与购买限制](https://www.jichangyun.top/jichang/)
-- [直连、中转与专线怎么选](https://www.jichangyun.top/tutorial/line-selection/)
+- [直连、公网中转与 IEPL/IPLC 核验指南](https://www.jichangyun.top/tutorial/line-selection/)
 - [购买机场前的避坑检查](https://www.jichangyun.top/guide/avoid-traps/)
 
 ## 客户端教程

@@ -1299,6 +1299,7 @@ test('GitHub README routes readers to the official site and nine useful deep lin
   ]) {
     assert.match(readme, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${url}`);
   }
+  assert.match(readme, /直连、公网中转与 IEPL\/IPLC 核验指南/);
 });
 
 test('GitHub README states the evidence and contribution boundary without promotional claims', () => {
@@ -1429,4 +1430,87 @@ test('line selection metadata and sitemap match the current evidence version', (
   const sitemap = read('sitemap.xml');
   assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/line-selection\/<\/loc>\s*<lastmod>2026-07-06<\/lastmod>/);
   assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+});
+
+const distributionKit = 'docs/distribution/2026-07-problem-led-launch-kit.md';
+
+test('P3 distribution kit provides three complete problem-led campaign drafts', () => {
+  assert.ok(existsSync(join(root, distributionKit)), `${distributionKit}: file must exist`);
+  const kit = read(distributionKit);
+  for (const campaign of ['订阅更新失败', '已连接但无法上网', '线路怎么选']) {
+    assert.match(kit, new RegExp(`^## 活动[一二三]：${campaign}$`, 'm'), `${campaign}: campaign missing`);
+  }
+  for (const section of [
+    '内容目的与目标读者',
+    '三个标题',
+    '社区短文',
+    '60 秒视频分镜',
+    '短摘要',
+    '主链接',
+    '可选追踪参数',
+  ]) {
+    assert.equal((kit.match(new RegExp(`^### ${section}$`, 'gm')) ?? []).length, 3, `${section}: expected once per campaign`);
+  }
+  for (const url of [
+    'https://www.jichangyun.top/guide/subscription-update-failed/',
+    'https://www.jichangyun.top/guide/connected-but-no-internet/',
+    'https://www.jichangyun.top/tutorial/line-selection/',
+  ]) {
+    assert.match(kit, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `distribution kit: missing ${url}`);
+    const path = new URL(url).pathname.slice(1);
+    assert.ok(existsSync(join(root, path, 'index.html')), `${url}: local landing page missing`);
+  }
+});
+
+test('P3 distribution drafts preserve reversible troubleshooting and current line-selection boundaries', () => {
+  assert.ok(existsSync(join(root, distributionKit)), `${distributionKit}: file must exist`);
+  const kit = read(distributionKit);
+  for (const fact of [
+    '下载失败',
+    '下载后无法解析',
+    '401/403',
+    '不能仅凭状态码判断具体根因',
+    '不要一开始同时删除配置或修改 DNS',
+    '已连接不等于应用流量已经进入代理',
+    '系统代理',
+    'TUN',
+    'DNS',
+    '一次只改一个变量',
+    '手机热点只用于形成网络路径对照',
+    '本地与接入段',
+    '运营商与跨网段',
+    '落地与目标段',
+    '直连',
+    '公网中转',
+    'IEPL/IPLC',
+    '标签只能作为提问起点',
+    '不能证明用户全链路',
+    '停止修改',
+  ]) {
+    assert.match(kit, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `distribution kit: missing ${fact}`);
+  }
+  assert.doesNotMatch(kit, /多数用户首选|体验稳定很多|企业级稳定|解决\s*99%|最佳线路|一定可用|永久稳定|推荐机场|#\/register|[?&]code=|¥\s*\d|\d+\s*(?:Mbps|Gbps|ms)\b/);
+});
+
+test('P3 distribution kit uses bounded UTM fields and a responsible publishing checklist', () => {
+  assert.ok(existsSync(join(root, distributionKit)), `${distributionKit}: file must exist`);
+  const kit = read(distributionKit);
+  for (const value of [
+    'utm_source=community',
+    'utm_source=video',
+    'utm_medium=referral',
+    'utm_medium=video',
+    'utm_campaign=troubleshooting_202607',
+    'utm_campaign=line_selection_202607',
+    'utm_content=subscription',
+    'utm_content=no_internet',
+    'utm_content=line_types',
+  ]) {
+    assert.match(kit, new RegExp(value), `distribution kit: missing ${value}`);
+  }
+  const utmFields = new Set([...kit.matchAll(/\butm_([a-z_]+)=/g)].map((match) => match[1]));
+  assert.deepEqual(utmFields, new Set(['source', 'medium', 'campaign', 'content']));
+  for (const item of ['平台规则', '原样群发', '确认落地页可访问', '敏感信息', '记录渠道、日期、最终 URL 和 UTM 组合', '没有数据时不宣称效果']) {
+    assert.match(kit, new RegExp(item), `publishing checklist: missing ${item}`);
+  }
 });

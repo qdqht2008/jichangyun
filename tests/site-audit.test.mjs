@@ -1342,3 +1342,91 @@ test('GitHub README documents the static workflow and only links to repository f
   }
   assert.deepEqual(missing, []);
 });
+
+test('line selection tutorial uses an evidence-led structure with official network sources', () => {
+  const html = read('tutorial/line-selection/index.html');
+  for (const section of [
+    'tutorial-meta',
+    'line-model',
+    'diagnostic-table-wrap',
+    'selection-checklist',
+    'comparison-method',
+    'line-selection-risk',
+    'tutorial-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `line selection: missing ${section}`);
+  }
+  assert.match(html, /优质机场推荐编辑部/);
+  assert.match(html, /运营商与网络技术公开资料/);
+  assert.match(html, /<time datetime="2026-07-06">2026-07-06<\/time>/);
+  assert.match(html, /本文解释公开网络概念与核验方法，不代表对任何商家线路的实测或保证。/);
+  assert.match(html, /实际体验[^。]*地区、运营商、设备、目标服务和时段/);
+
+  const sources = [
+    'https://www.cloudflare.com/learning/performance/glossary/what-is-latency',
+    'https://blog.apnic.net/2021/07/08/a-survey-on-securing-inter-domain-routing-part-1',
+    'https://eu.chinaunicomglobal.com/products-iepl-iplc',
+  ];
+  for (const href of sources) {
+    const anchor = tags(html, 'a').find((tag) => attribute(tag, 'href') === href);
+    assert.ok(anchor, `line selection: missing source ${href}`);
+    assert.deepEqual(new Set(attribute(anchor, 'rel').split(/\s+/)), new Set(['nofollow', 'noopener']));
+  }
+});
+
+test('line selection tutorial turns merchant labels into questions instead of performance grades', () => {
+  const html = read('tutorial/line-selection/index.html');
+  for (const fact of [
+    '本地与接入段',
+    '运营商与跨网段',
+    '落地与目标段',
+    '简化检查框架',
+    '多个自治系统',
+    '去程和回程也可能不同',
+    '直连',
+    '入口位置',
+    '节点地区',
+    '倍率',
+    '设备与退款规则',
+    '固定延迟',
+    '公网中转',
+    '中转入口',
+    '出境路径',
+    '故障切换',
+    '不一定优于直连',
+    'IEPL/IPLC',
+    '运营商产品',
+    '转售容量',
+    '营销标签',
+    '覆盖哪一段',
+    'SLA',
+    '不能证明用户全链路',
+    '一次只更换一条线路或一个节点',
+    '单次结果不能代表长期表现',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `line selection: missing ${fact}`);
+  }
+  assert.doesNotMatch(html, /9\.9元|59元|1-9\.9|9\.9-30|30-100|20-200ms|高峰期稳定性|被封\/限流风险|多数用户首选|企业级稳定|体验稳定很多|花得值|推荐机场|肥猫云|宇宙云|极连云|YUZHOU553|class="airport-card"/);
+});
+
+test('line selection metadata and sitemap match the current evidence version', () => {
+  const html = read('tutorial/line-selection/index.html');
+  const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+  assert.match(attribute(description, 'content'), /三段链路/);
+  assert.match(attribute(description, 'content'), /核验/);
+  assert.doesNotMatch(attribute(description, 'content'), /更划算|更稳定|首选|企业级/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.ico"/);
+  assert.match(html, /https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png/);
+
+  const data = structuredData(html);
+  const article = data.find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.author?.name, '优质机场推荐编辑部');
+  assert.equal(article?.dateModified, '2026-07-06');
+  const faq = data.find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, 'line selection: missing FAQ questions');
+
+  const sitemap = read('sitemap.xml');
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/line-selection\/<\/loc>\s*<lastmod>2026-07-06<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+});

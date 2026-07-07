@@ -11,53 +11,59 @@ gtag('js', new Date());
 gtag('config', 'G-HPYY57ECEX');
 </script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "优质机场推荐",
-  "url": "https://www.jichangyun.top/",
-  "logo": "https://www.jichangyun.top/img/logo.png"
-}
-</script>
-
-<title>机场线路怎么选？直连、中转、专线三段链路详解 - Clash 节点线路指南 | Clash机场推荐</title>
-<meta name="description" content="直连、中转、专线机场有什么区别？三段链路帮你理解 Clash 节点线路类型，电信/联通/移动三网用户如何选择 Clash 机场，搞懂为什么贵的机场反而更划算。">
-<meta name="keywords" content="Clash机场, Clash节点, Clash订阅, Clash客户端, Clash配置, 机场线路, 直连线路, 中转线路, 专线机场, IEPL, IPLC, 翻墙机场, 线路选择">
-<meta name="author" content="优质机场推荐">
+<title>机场线路怎么选？直连、中转与 IEPL/IPLC 三段链路核验指南</title>
+<meta name="description" content="用三段链路理解直连、公网中转与 IEPL/IPLC 标签，整理购买前核验问题和可复现的线路自查方法。">
+<meta name="keywords" content="机场线路怎么选, 直连线路, 公网中转, IEPL, IPLC, 三段链路, Clash线路选择">
+<meta name="author" content="优质机场推荐编辑部">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.jichangyun.top/tutorial/line-selection/">
-<meta property="og:title" content="机场线路怎么选？直连、中转、专线三段链路详解 - Clash 节点线路指南 | Clash机场推荐">
-<meta property="og:description" content="直连、中转、专线机场有什么区别？三段链路帮你理解 Clash 节点线路类型，电信/联通/移动三网用户如何选择 Clash 机场，搞懂为什么贵的机场反而更划算。">
-<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta property="og:title" content="机场线路怎么选？直连、中转与 IEPL/IPLC 三段链路核验指南">
+<meta property="og:description" content="从三段链路、商家标签边界和自查方法判断线路，不用价格或名称代替实际验证。">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://www.jichangyun.top/tutorial/line-selection/">
 <meta property="og:site_name" content="优质机场推荐">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="机场线路怎么选？直连、中转、专线三段链路详解 - Clash 节点线路指南 | Clash机场推荐">
-<meta name="twitter:description" content="直连、中转、专线机场有什么区别？三段链路帮你理解 Clash 节点线路类型，电信/联通/移动三网用户如何选择 Clash 机场，搞懂为什么贵的机场反而更划算。">
-<meta name="twitter:image" content="https://www.jichangyun.top/img/clash-300x300.png">
+<meta name="twitter:title" content="机场线路怎么选？三段链路核验指南">
+<meta name="twitter:description" content="理解直连、中转与 IEPL/IPLC 标签能说明什么，以及不能说明什么。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "机场线路怎么选？直连、中转、专线三段链路详解",
-  "description": "直连、中转、专线机场有什么区别？三段链路帮你理解线路类型，电信/联通/移动三网用户如何选择机场，搞懂为什么贵的机场反而更划算。",
-  "image": "https://www.jichangyun.top/img/clash-300x300.png",
-  "author": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "headline": "机场线路怎么选？直连、中转与 IEPL/IPLC 三段链路核验指南",
+  "description": "用三段链路理解线路标签，整理购买前核验问题和可复现的自查方法。",
+  "image": "https://www.jichangyun.top/img/social-share-1200x630.png",
+  "author": {"@type": "Organization", "name": "优质机场推荐编辑部", "url": "https://www.jichangyun.top/"},
   "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
-  "datePublished": "2026-01-01", "dateModified": "2026-01-01",
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-07-06",
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/tutorial/line-selection/"}
 }
 </script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
     {"@type": "ListItem", "position": 2, "name": "使用教程", "item": "https://www.jichangyun.top/tutorial/"},
-    {"@type": "ListItem", "position": 3, "name": "机场线路怎么选", "item": "https://www.jichangyun.top/tutorial/line-selection/"}
+    {"@type": "ListItem", "position": 3, "name": "线路选择", "item": "https://www.jichangyun.top/tutorial/line-selection/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "商家写直连、中转或专线，能证明实际线路吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。标签可以作为提问起点，但没有路由测量、运营商资料或服务说明时，不能还原用户到目标服务的完整路径。"}},
+    {"@type": "Question", "name": "IEPL/IPLC 是什么？", "acceptedAnswer": {"@type": "Answer", "text": "运营商官方把 IEPL/IPLC 描述为企业场景的专用点对点连接；零售服务中的同名标签不能自动证明用户全链路都使用该产品。"}},
+    {"@type": "Question", "name": "怎样比较两条线路？", "acceptedAnswer": {"@type": "Answer", "text": "固定设备、客户端、本地网络和目标服务，一次只更换一条线路或一个节点，并在多个实际使用时段记录多次样本。"}}
   ]
 }
 </script>
@@ -65,348 +71,186 @@ gtag('config', 'G-HPYY57ECEX');
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/main.css">
 <style>
+.line-model {
+  margin: 28px 0;
+}
 .line-diagram {
-  background: var(--bg-secondary);
-  border-radius: 16px;
-  padding: 24px;
-  margin: 24px 0;
-}
-.line-diagram .segment {
-  display: flex;
-  align-items: center;
-  margin: 12px 0;
-  gap: 12px;
-}
-.line-diagram .node {
-  background: var(--accent-primary);
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-.line-diagram .arrow {
-  color: var(--accent-secondary);
-  font-size: 20px;
-}
-.line-diagram .segment-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  width: 60px;
-}
-.comparison-table {
-  margin: 24px 0;
-  overflow-x: auto;
-}
-.comparison-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.comparison-table th, .comparison-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
-}
-.comparison-table th {
-  background: var(--accent-tertiary);
-  color: white;
-}
-.comparison-table tr:nth-child(even) {
-  background: var(--bg-secondary);
-}
-.notice-highlight {
-  background: linear-gradient(135deg, rgba(224,122,95,0.1), rgba(129,178,154,0.1));
-  border-left: 4px solid var(--accent-primary);
-  padding: 16px 20px;
-  border-radius: 0 12px 12px 0;
-  margin: 20px 0;
-}
-.airport-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 12px 0;
-  transition: all 0.3s ease;
-}
-.airport-card:hover {
-  border-color: var(--accent-primary);
-  box-shadow: 0 8px 24px rgba(224,122,95,0.1);
-}
-.airport-card h4 {
-  color: var(--accent-tertiary);
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-.airport-card .tag {
-  display: inline-block;
-  font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 10px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-.tag-iepl { background: rgba(224,122,95,0.15); color: var(--accent-primary); }
-.tag-transit { background: rgba(129,178,154,0.15); color: var(--accent-secondary); }
-.tag-direct { background: rgba(61,64,91,0.15); color: var(--text-secondary); }
-.airport-card .price {
-  font-size: 14px;
-  color: var(--accent-primary);
-  font-weight: 600;
-  margin: 8px 0;
-}
-.section-box {
-  background: var(--bg-secondary);
-  border-radius: 16px;
-  padding: 24px;
-  margin: 24px 0;
-}
-.section-box h3 {
-  color: var(--accent-tertiary);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--accent-primary);
-}
-.summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin: 20px 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
 }
-.summary-card {
-  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
-  border-radius: 12px;
+.line-segment {
+  min-height: 174px;
   padding: 20px;
-  text-align: center;
+  border: 1px solid var(--border-color);
+  border-top: 4px solid var(--accent-primary);
+  border-radius: 14px;
+  background: var(--bg-secondary);
 }
-.summary-card .icon { font-size: 28px; margin-bottom: 10px; }
-.summary-card h4 { color: var(--accent-tertiary); margin-bottom: 8px; }
-.summary-card p { color: var(--text-secondary); font-size: 13px; margin: 0; }
+.line-segment:nth-child(2) { border-top-color: var(--accent-secondary); }
+.line-segment:nth-child(3) { border-top-color: var(--accent-tertiary); }
+.line-segment-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.line-segment h3 {
+  margin: 0 0 10px;
+  color: var(--accent-tertiary);
+  font-size: 18px;
+}
+.line-segment p,
+.line-model-note {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.line-model-note {
+  padding: 16px 18px;
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 0 10px 10px 0;
+  background: rgba(224,122,95,0.08);
+}
+@media (max-width: 768px) {
+  .line-diagram { grid-template-columns: 1fr; }
+  .line-segment { min-height: 0; }
+}
 </style>
 </head>
 <body>
-<header class="header">
-  <div class="container">
-    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
-  </div>
-</header>
-
+<header class="header"><div class="container"><div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div></div></header>
 <nav class="top-navbar" id="top-navbar"></nav>
 
 <section class="container container-page">
-  <div class="pageside">
-    <div id="page-sidebar"></div>
-  </div>
-
+  <div class="pageside"><div id="page-sidebar"></div></div>
   <div class="content">
     <header class="article-header">
-      <h1 class="article-title">机场线路怎么选？三段链路帮你搞懂</h1>
-      <p style="color: var(--text-secondary); margin-top: 10px;">直连、中转、专线一篇搞懂</p>
+      <h1 class="article-title">机场线路怎么选？</h1>
+      <p style="color: var(--text-secondary); margin-top: 10px;">先看路径和证据，再看直连、中转或专线标签</p>
     </header>
 
     <article class="article-content">
-      <div class="notice-highlight">
-        <p><strong>核心问题：</strong>面对两个套餐，9.9元/月和59元/月，哪个更划算？价格差6倍，背后差异在哪里？</p>
+      <div class="tutorial-meta" aria-label="文章编辑信息">
+        <span><strong>作者</strong>优质机场推荐编辑部</span>
+        <span><strong>依据</strong>运营商与网络技术公开资料</span>
+        <span><strong>更新</strong><time datetime="2026-07-06">2026-07-06</time></span>
       </div>
 
-      <p>就像打车一样，机场线路有「拼车、快车、专车」之分。不懂其中区别，很容易花专车的钱坐到拼车。</p>
+      <section class="review-verdict">
+        <p class="review-kicker">先说结论</p>
+        <h2>线路名称是提问起点，不是体验结论</h2>
+        <p>直连、公网中转、IEPL/IPLC 能提示商家想描述的路径结构，但不能单独证明真实路由、固定延迟或长期表现。购买前要追问标签覆盖哪一段，再用自己的网络形成可回退的对照。</p>
+        <p>本文解释公开网络概念与核验方法，不代表对任何商家线路的实测或保证。实际体验可能因地区、运营商、设备、目标服务和时段变化。</p>
+      </section>
 
-      <h2>从你家到国外网站：三段链路</h2>
-      <p>数据从你家到国外网站，需要经过三段链路：</p>
-
-      <div class="line-diagram">
-        <div class="segment">
-          <span class="segment-label">段1</span>
-          <div class="node">你家宽带（电信/联通/移动）</div>
-          <span class="arrow">→</span>
-          <div class="node">国内入口服务器</div>
+      <section class="line-model">
+        <h2>用三段链路建立简化检查框架</h2>
+        <div class="line-diagram" aria-label="从用户设备到目标服务的三段链路">
+          <section class="line-segment">
+            <span class="line-segment-label">Segment 01</span>
+            <h3>本地与接入段</h3>
+            <p>设备、家庭宽带或移动网络，到服务商入口之间的路径。</p>
+          </section>
+          <section class="line-segment">
+            <span class="line-segment-label">Segment 02</span>
+            <h3>运营商与跨网段</h3>
+            <p>入口网络、自治系统互联、跨境传输与可能存在的中转路径。</p>
+          </section>
+          <section class="line-segment">
+            <span class="line-segment-label">Segment 03</span>
+            <h3>落地与目标段</h3>
+            <p>海外落地节点到网站、会议、下载或其他目标服务之间的路径。</p>
+          </section>
         </div>
-        <div class="segment">
-          <span class="segment-label">段2（核心）</span>
-          <div class="node">国内入口 → 出国 → 海外落地节点</div>
-        </div>
-        <div class="segment">
-          <span class="segment-label">段3</span>
-          <div class="node">海外落地节点</div>
-          <span class="arrow">→</span>
-          <div class="node">目标网站</div>
-        </div>
-      </div>
+        <p class="line-model-note">这是帮助读者提问的简化检查框架，不是某个套餐的实测拓扑。真实路径可能经过多个自治系统，去程和回程也可能不同；没有测量与运营商资料时，不能从营销名称还原完整路径。</p>
+      </section>
 
-      <div class="section-box">
-        <h3>段1：本地段</h3>
-        <p><code>你家宽带（电信/联通/移动）→ 国内入口服务器</code></p>
-        <p>取决于本地网络质量。本段不稳，后续再好也救不了。</p>
-      </div>
-
-      <div class="section-box">
-        <h3>段2：出境段（核心差异）</h3>
-        <p>这段决定了体验和成本，主要有两种方式：</p>
-        <ul>
-          <li><strong>走普通公网出口</strong>（直连/中转）</li>
-          <li><strong>走专线</strong>（IEPL/IPLC）</li>
-        </ul>
-      </div>
-
-      <div class="section-box">
-        <h3>段3：国外段</h3>
-        <p>从海外落地节点到目标网站，这段基本各家差不多。</p>
-      </div>
-
-      <h2>三大线路类型对比</h2>
-
-      <div class="comparison-table">
-        <table>
-          <thead>
-            <tr>
-              <th>对比维度</th>
-              <th>直连线路</th>
-              <th>公网中转</th>
-              <th>IEPL/IPLC 专线</th>
-            </tr>
-          </thead>
+      <h2>三类标签：要确认什么，不能推断什么</h2>
+      <div class="diagnostic-table-wrap">
+        <table class="diagnostic-table">
+          <thead><tr><th>标签</th><th>常见商家表述</th><th>购买前确认</th><th>不能据此推断</th></tr></thead>
           <tbody>
-            <tr>
-              <td><strong>典型路径</strong></td>
-              <td>本地 → 公网出口 → 海外节点</td>
-              <td>本地 → 中转机房 → 优化出口 → 海外节点</td>
-              <td>本地 → 中转入口 → 专线通道 → 海外节点</td>
-            </tr>
-            <tr>
-              <td><strong>成本级别</strong></td>
-              <td>低</td>
-              <td>中</td>
-              <td>高</td>
-            </tr>
-            <tr>
-              <td><strong>高峰期稳定性</strong></td>
-              <td>差（容易拥堵、丢包）</td>
-              <td>中等到好</td>
-              <td>优秀（延迟稳定、抖动小）</td>
-            </tr>
-            <tr>
-              <td><strong>延迟/抖动</strong></td>
-              <td>波动大（20-200ms）</td>
-              <td>相对稳定（略有波动）</td>
-              <td>非常稳定（波动范围小）</td>
-            </tr>
-            <tr>
-              <td><strong>被封/限流风险</strong></td>
-              <td>高</td>
-              <td>中</td>
-              <td>低（不走公网出口）</td>
-            </tr>
-            <tr>
-              <td><strong>典型场景</strong></td>
-              <td>轻度使用、备用梯子</td>
-              <td>日常主力、看视频、办公</td>
-              <td>游戏、视频、跨境办公</td>
-            </tr>
-            <tr>
-              <td><strong>价格区间</strong></td>
-              <td>1-9.9 元/月</td>
-              <td>9.9-30 元/月</td>
-              <td>30-100+ 元/月</td>
-            </tr>
+            <tr><td><strong>直连</strong></td><td>用户网络直接访问海外节点，未描述国内中转</td><td>入口位置、节点地区、倍率、设备与退款规则</td><td>固定延迟、晚间表现或适合某类用户</td></tr>
+            <tr><td><strong>公网中转</strong></td><td>先进入中转入口，再经公网路径到落地节点</td><td>中转入口、出境路径能否说明、倍率与故障切换</td><td>不一定优于直连，也不能对应固定表现等级</td></tr>
+            <tr><td><strong>IEPL/IPLC</strong></td><td>商家称部分路径使用专线或私有连接</td><td>是运营商产品、转售容量还是营销标签；覆盖哪一段；是否有 SLA 或可核验说明</td><td>不能证明用户全链路均为专线，也不能证明固定性能或持续可用</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h2>如何根据需求选择</h2>
+      <section class="selection-checklist quick-check">
+        <h2>选择前先回答五个问题</h2>
+        <ol>
+          <li>当前使用家庭宽带还是移动网络？运营商和地区是什么？</li>
+          <li>目标是网页、视频会议、下载、游戏还是跨境办公？</li>
+          <li>主要使用时段是什么？是否需要在多个时段比较？</li>
+          <li>套餐是否说明入口、节点、倍率、设备、退款与故障切换？</li>
+          <li>能否先用短周期或较低风险方案，在自己的网络中形成对照？</li>
+        </ol>
+      </section>
 
-      <div class="section-box">
-        <h3>🎯 直连线路 - 轻度用户</h3>
-        <p>适合预算低、轻度使用（浏览网页、偶尔看视频）。价格便宜但高峰期容易卡顿。</p>
-        <div class="airport-card">
-          <h4>适合场景</h4>
-          <p style="color: var(--text-secondary); font-size: 13px;">备用线路、预算有限的入门用户、不追求稳定性的临时使用</p>
-        </div>
-      </div>
+      <section class="comparison-method recovery-steps">
+        <h2>怎样做可复现的线路自查</h2>
+        <ol>
+          <li><strong>固定环境：</strong>保持设备、客户端版本、本地网络和目标服务一致。</li>
+          <li><strong>只改一个变量：</strong>一次只更换一条线路或一个节点，并保留原配置。</li>
+          <li><strong>覆盖实际时段：</strong>在多个实际使用时段记录连接成功情况、往返延迟、抖动、丢包和吞吐。</li>
+          <li><strong>记录套餐规则：</strong>同步记录倍率、流量消耗和脱敏错误日志。</li>
+          <li><strong>再做判断：</strong>比较多次样本；单次结果不能代表长期表现，也不能直接外推给其他地区或运营商。</li>
+        </ol>
+      </section>
 
-      <div class="section-box">
-        <h3>🚀 公网中转 - 性价比之选</h3>
-        <p>性价比平衡，日常主力选择。看视频、办公两不误，是大多数用户的首选。</p>
-        <p style="margin-top: 12px;">推荐机场：</p>
-        <div class="airport-card">
-          <h4>肥猫云 (FatCatCloud)</h4>
-          <span class="tag tag-transit">中转线路</span>
-          <div class="price">Trojan 协议 | 多平台客户端支持</div>
-          <a href="/jichang/feimiaoyun/" class="btn btn-primary" style="margin-top: 10px;">查看详情</a>
-        </div>
-      </div>
+      <section class="review-risk line-selection-risk">
+        <h2>线路标签的常见误区</h2>
+        <ul>
+          <li>商家写 IEPL/IPLC，只能说明其当前声明，不能证明用户全链路或每个节点都使用同一运营商产品。</li>
+          <li>带宽上限与延迟是不同指标；套餐写出的带宽不能替代延迟、抖动和丢包观察。</li>
+          <li>入口、互联、落地节点和目标服务都可能变化，长期套餐还包含服务持续性风险。</li>
+          <li>如果商家无法解释标签覆盖哪一段，应把它视为尚未解决的问题，而不是自行补全答案。</li>
+        </ul>
+      </section>
 
-      <div class="section-box">
-        <h3>🔥 IEPL/IPLC 专线 - 企业级稳定</h3>
-        <p>延迟稳定、抖动小，高峰期依然流畅。适合游戏、直播、跨境办公等对稳定性要求高的场景。</p>
-        <p style="margin-top: 12px;">推荐专线机场：</p>
-        <div class="airport-card">
-          <h4>宇宙云 (YuZhou)</h4>
-          <span class="tag tag-iepl">IEPL/IPLC专线</span>
-          <div class="price">全场 8折 | 折扣码：YUZHOU553</div>
-          <a href="/jichang/yuzhouyun/" class="btn btn-primary" style="margin-top: 10px;">查看详情</a>
-        </div>
-        <div class="airport-card">
-          <h4>极连云 (JiLianYun)</h4>
-          <span class="tag tag-iepl">IPLC专线</span>
-          <div class="price">Reality 协议 | ChatGPT/Gemini 解锁</div>
-        </div>
-              </div>
+      <h2>常见问题</h2>
+      <h3>商家写直连、中转或专线，能证明实际线路吗？</h3>
+      <p>不能。标签可以作为提问起点，但没有路由测量、运营商资料或服务说明时，不能还原用户到目标服务的完整路径。</p>
+      <h3>IEPL/IPLC 是什么？</h3>
+      <p>中国联通国际的官方产品页把 IEPL/IPLC 描述为企业场景的专用点对点连接。零售服务使用同名标签时，仍需确认覆盖哪一段、由谁提供，以及是否有可核验说明。</p>
+      <h3>怎样比较两条线路？</h3>
+      <p>固定设备、客户端、本地网络和目标服务，一次只更换一条线路或一个节点，并在多个实际使用时段保留多次样本和原配置。</p>
 
-      <h2>总结</h2>
-      <div class="summary-grid">
-        <div class="summary-card">
-          <div class="icon">🚶</div>
-          <h4>直连</h4>
-          <p>最简单、最不稳。适合预算低、轻度用户。</p>
-        </div>
-        <div class="summary-card">
-          <div class="icon">🚄</div>
-          <h4>公网中转</h4>
-          <p>性价比平衡，多数用户首选。</p>
-        </div>
-        <div class="summary-card">
-          <div class="icon">🚇</div>
-          <h4>专线</h4>
-          <p>企业级稳定体验，价格最高。</p>
-        </div>
-      </div>
+      <section class="tutorial-sources">
+        <h2>官方与网络技术资料</h2>
+        <ul>
+          <li><a href="https://www.cloudflare.com/learning/performance/glossary/what-is-latency" target="_blank" rel="nofollow noopener">Cloudflare：What is latency?</a>：延迟、物理距离、沿途设备与带宽概念。</li>
+          <li><a href="https://blog.apnic.net/2021/07/08/a-survey-on-securing-inter-domain-routing-part-1" target="_blank" rel="nofollow noopener">APNIC：A survey on securing inter-domain routing</a>：BGP 的自治系统级路由视角。</li>
+          <li><a href="https://eu.chinaunicomglobal.com/products-iepl-iplc" target="_blank" rel="nofollow noopener">中国联通国际：IEPL / IPLC</a>：企业点对点专线产品定义。</li>
+        </ul>
+      </section>
 
-      <div class="notice-highlight">
-        <p><strong>选择建议：</strong>如果你经常在高峰期使用（晚上8-11点），建议选择中转或专线机场。虽然贵一些，但体验稳定很多，花得值。</p>
-      </div>
-
-      <h2>相关教程</h2>
-      <ul>
-        <li><a href="/tutorial/switchyomega/">Proxy SwitchyOmega 教程 - 浏览器代理扩展使用技巧</a></li>
-                <li><a href="/jichang/">机场推荐 - 查看更多机场选择</a></li>
-      </ul>
-
-      <div class="giscus"></div>
+      <section class="related-guides">
+        <h2>相关内容</h2>
+        <ul>
+          <li><a href="/guide/node-speed-differences/">为什么标称速率不等于实际体验</a></li>
+          <li><a href="/guide/avoid-traps/">购买前如何核对套餐限制</a></li>
+          <li><a href="/guide/frequent-disconnections/">连接失败或频繁断线排查</a></li>
+          <li><a href="/jichang/">查看已核验的机场套餐资料</a></li>
+        </ul>
+      </section>
     </article>
+    <div class="giscus"></div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://giscus.app/client.js"
-        data-repo="qdqht2008/calshvpn"
-        data-repo-id="R_kgDOSNBV3g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOSNBV3s4C-KRW"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+<script src="https://giscus.app/client.js" data-repo="qdqht2008/calshvpn" data-repo-id="R_kgDOSNBV3g" data-category="Announcements" data-category-id="DIC_kwDOSNBV3s4C-KRW" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script>
 <script src="/js/nav.js"></script>
 </body>
 </html>

@@ -1010,6 +1010,142 @@ test('connected but no internet troubleshooting isolates proxy, TUN, DNS, and no
   assert.ok(faq?.mainEntity?.length >= 3, `${file}: missing FAQPage questions`);
 });
 
+const longTailTroubleshootingPages = [
+  {
+    file: 'guide/tun-mode-no-internet/index.html',
+    url: 'https://www.jichangyun.top/guide/tun-mode-no-internet/',
+    title: 'Clash TUN 模式开了没网怎么办',
+    required: [
+      'TUN',
+      '系统代理',
+      'DNS',
+      '路由',
+      'IPv6',
+      '虚拟网卡',
+      '端口冲突',
+      '延迟测试成功不等于',
+      '普通网络',
+      '回退',
+      '订阅 URL',
+      '令牌',
+      '账号',
+      '节点地址',
+      '本地 IP',
+    ],
+    sources: [
+      'wiki.metacubex.one/config/inbound/tun',
+      'wiki.metacubex.one/config/general',
+      'clashverge.dev',
+    ],
+    links: [
+      '/guide/connected-but-no-internet/',
+      '/guide/frequent-disconnections/',
+      '/guide/subscription-update-failed/',
+      '/tutorial/clash-verge/',
+      '/tutorial/flclash/',
+    ],
+  },
+  {
+    file: 'guide/proxy-after-quit/index.html',
+    url: 'https://www.jichangyun.top/guide/proxy-after-quit/',
+    title: 'Clash 退出后无法上网怎么办',
+    required: [
+      '系统代理',
+      '浏览器代理',
+      'TUN',
+      '虚拟网卡',
+      'DNS',
+      'Windows',
+      'macOS',
+      '普通网络',
+      '回退',
+      '组织策略',
+      '订阅 URL',
+      '令牌',
+      '账号',
+      '节点地址',
+      '本地 IP',
+    ],
+    sources: [
+      'support.microsoft.com',
+      'support.apple.com',
+      'wiki.metacubex.one/config/inbound/tun',
+      'clashverge.dev',
+    ],
+    links: [
+      '/guide/connected-but-no-internet/',
+      '/guide/frequent-disconnections/',
+      '/tutorial/clash-verge/',
+      '/tutorial/flclash/',
+      '/tutorial/clash-for-windows/',
+    ],
+  },
+];
+
+for (const page of longTailTroubleshootingPages) {
+  test(`${page.title} page targets one recoverable long-tail troubleshooting intent`, () => {
+    assert.ok(existsSync(join(root, page.file)), `${page.file}: page must exist`);
+    const html = read(page.file);
+
+    assert.match(html, new RegExp(`<title>${page.title}`), `${page.file}: title must match intent`);
+    assert.match(html, new RegExp(`<link rel="canonical" href="${page.url.replaceAll('/', '\\/')}"`));
+    assert.match(html, /<meta name="robots" content="index, follow">/);
+    for (const section of [
+      'troubleshooting-meta',
+      'symptom-check',
+      'quick-check',
+      'diagnostic-table-wrap',
+      'recovery-steps',
+      'troubleshooting-sources',
+      'related-guides',
+    ]) {
+      assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `${page.file}: missing ${section}`);
+    }
+
+    for (const fact of page.required) {
+      assert.match(html, new RegExp(fact, 'i'), `${page.file}: missing ${fact}`);
+    }
+    for (const source of page.sources) {
+      assert.match(html, new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${page.file}: missing source ${source}`);
+    }
+    for (const href of page.links) {
+      assert.match(html, new RegExp(`href="${href}"`), `${page.file}: missing link ${href}`);
+    }
+
+    assert.doesNotMatch(html, /关闭防火墙|关闭杀毒软件|解决\s*99%|直接删除所有配置|重装系统|一招修复|万能配置|复制来源不明/);
+
+    const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+    assert.equal(article?.author?.name, '优质机场推荐编辑部');
+    assert.equal(article?.dateModified, '2026-07-10');
+    assert.equal(article?.mainEntityOfPage?.['@id'], page.url);
+    assert.ok(structuredData(html).some((entry) => entry['@type'] === 'BreadcrumbList'), `${page.file}: missing BreadcrumbList`);
+    const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
+    assert.ok(faq?.mainEntity?.length >= 3, `${page.file}: missing FAQPage questions`);
+  });
+}
+
+test('guide hub and related troubleshooting pages route users to the new long-tail recoveries', () => {
+  const hub = read('guide/index.html');
+  for (const href of ['/guide/proxy-after-quit/', '/guide/tun-mode-no-internet/']) {
+    assert.ok((hub.match(new RegExp(`href="${href}"`, 'g')) ?? []).length >= 2, `guide hub: weak route to ${href}`);
+  }
+  for (const label of ['退出后仍然没网', 'TUN 模式开了没网', '先恢复网络', '接管模式问题']) {
+    assert.match(hub, new RegExp(label), `guide hub: missing ${label}`);
+  }
+
+  const frequent = read('guide/frequent-disconnections/index.html');
+  const connected = read('guide/connected-but-no-internet/index.html');
+  for (const html of [frequent, connected]) {
+    assert.match(html, /href="\/guide\/proxy-after-quit\/"/);
+    assert.match(html, /href="\/guide\/tun-mode-no-internet\/"/);
+  }
+
+  const sitemap = read('sitemap.xml');
+  for (const path of ['guide/', 'guide/frequent-disconnections/', 'guide/connected-but-no-internet/', 'guide/proxy-after-quit/', 'guide/tun-mode-no-internet/']) {
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>2026-07-10<\\/lastmod>`));
+  }
+});
+
 test('frequent disconnections acts as a symptom-first troubleshooting hub', () => {
   const file = 'guide/frequent-disconnections/index.html';
   const html = read(file);
@@ -1042,7 +1178,7 @@ test('frequent disconnections acts as a symptom-first troubleshooting hub', () =
   assert.doesNotMatch(html, /关闭防火墙|关闭杀毒软件|解决\s*99%|直接删除所有配置|晚高峰[^。]*(?:多半|一定)/);
 
   const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
-  assert.equal(article?.dateModified, '2026-07-04');
+  assert.equal(article?.dateModified, '2026-07-10');
   const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
   assert.ok(faq?.mainEntity?.length >= 3, `${file}: missing FAQPage questions`);
 });
@@ -1076,7 +1212,7 @@ test('guide hub exposes the troubleshooting cluster with self-consistent metadat
 
   const sitemap = read('sitemap.xml');
   assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/avoid-traps\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-10<\/lastmod>/);
 });
 
 const maintainedTutorials = [

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPYY57ECEX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HPYY57ECEX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clash TUN 模式开了没网怎么办？DNS、路由与接管排查 | Clash机场推荐</title>
+<meta name="description" content="Clash TUN 模式开了没网？先恢复普通网络，再按系统代理、TUN 权限、虚拟网卡、DNS、IPv6 和端口冲突逐项排查。">
+<meta name="keywords" content="Clash TUN模式没网, Clash Verge TUN无法上网, TUN DNS, TUN路由, Clash虚拟网卡">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/guide/tun-mode-no-internet/">
+<meta property="og:title" content="Clash TUN 模式开了没网怎么办？">
+<meta property="og:description" content="先恢复普通网络，再按系统代理、TUN、DNS、路由和端口冲突做可逆排查。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.jichangyun.top/guide/tun-mode-no-internet/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:image" content="https://www.jichangyun.top/img/clash-300x300.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clash TUN 模式开了没网怎么办？">
+<meta name="twitter:description" content="DNS、路由、虚拟网卡和流量接管的分支排查指南。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Clash TUN 模式开了没网怎么办？DNS、路由与接管排查",
+  "description": "先恢复普通网络，再按系统代理、TUN 权限、虚拟网卡、DNS、IPv6 和端口冲突逐项排查。",
+  "image": "https://www.jichangyun.top/img/clash-300x300.png",
+  "author": {"@type": "Organization", "name": "优质机场推荐编辑部", "url": "https://www.jichangyun.top/"},
+  "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
+  "datePublished": "2026-07-10",
+  "dateModified": "2026-07-10",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/guide/tun-mode-no-internet/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.jichangyun.top/"},
+    {"@type": "ListItem", "position": 2, "name": "机场百科", "item": "https://www.jichangyun.top/guide/"},
+    {"@type": "ListItem", "position": 3, "name": "TUN 模式开了没网", "item": "https://www.jichangyun.top/guide/tun-mode-no-internet/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Clash TUN 模式开了没网应该先关掉 TUN 吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "如果问题正好在开启 TUN 后出现，可以先回退到原来的接管方式，确认普通网络和系统代理是否恢复，再继续分支排查。"}
+    },
+    {
+      "@type": "Question",
+      "name": "延迟测试成功为什么应用还是无法上网？",
+      "acceptedAnswer": {"@type": "Answer", "text": "延迟测试成功不等于目标应用流量已经被 TUN 正确接管。还需要检查路由、DNS、规则模式和是否有其他工具争用流量。"}
+    },
+    {
+      "@type": "Question",
+      "name": "TUN 模式没网可以直接换 DNS 配置吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "不建议把换 DNS 作为第一步。先记录原状态，确认节点、系统代理和 TUN 回退表现，再根据日志里的 DNS 或路由提示处理。"}
+    }
+  ]
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="header"><div class="container"><div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div></div></header>
+<nav class="top-navbar" id="top-navbar"></nav>
+<section class="container container-page">
+  <div class="pageside"><div id="page-sidebar"></div></div>
+  <div class="content">
+    <header class="article-header"><h1 class="article-title">Clash TUN 模式开了没网怎么办？</h1></header>
+    <article class="article-content">
+      <div class="troubleshooting-meta" aria-label="文章编辑信息">
+        <span><strong>作者</strong>优质机场推荐编辑部</span>
+        <span><strong>依据</strong>Mihomo 与 Clash Verge Rev 官方资料</span>
+        <span><strong>更新</strong><time datetime="2026-07-10">2026-07-10</time></span>
+      </div>
+
+      <section class="symptom-check">
+        <h2>先判断：是不是 TUN 接管后才没网？</h2>
+        <p>TUN 会通过虚拟网卡和路由接管更多系统流量，范围比系统代理更广。它能解决部分应用不走代理的问题，但也会把 DNS、IPv6、路由表、权限和其他网络工具的冲突放大。</p>
+        <p>如果关闭 TUN 后普通网络恢复，说明排查重点在 TUN 接管链路；如果系统代理和 TUN 都不可用，请先回到<a href="/guide/connected-but-no-internet/">已连接但无法上网</a>的通用排查。</p>
+      </section>
+
+      <section class="quick-check">
+        <h2>两分钟恢复步骤</h2>
+        <ol>
+          <li>记录当前客户端、节点、系统代理和 TUN 开关状态。</li>
+          <li>关闭 TUN，保持其他设置不变，确认普通网络能否恢复。</li>
+          <li>只用系统代理测试一次，区分“节点可用但 TUN 不可用”和“两者都不可用”。</li>
+          <li>停用其他 VPN、代理扩展或加速器，避免多个工具同时接管流量。</li>
+          <li>查看日志首条错误，重点记录 DNS、route、tun、adapter、permission 或 port 相关提示。</li>
+        </ol>
+      </section>
+
+      <h2>诊断信号对照</h2>
+      <div class="diagnostic-table-wrap">
+        <table class="diagnostic-table">
+          <thead><tr><th>症状</th><th>可能方向</th><th>下一步</th><th>何时停止</th></tr></thead>
+          <tbody>
+            <tr><td>系统代理可用，TUN 一开就没网</td><td>TUN 路由、虚拟网卡或权限</td><td>回退 TUN，查看客户端日志中的 tun、route、adapter 提示</td><td>回退后恢复时，不继续叠加 DNS 改动</td></tr>
+            <tr><td>延迟测试成功不等于应用可用</td><td>应用流量未被正确接管</td><td>检查规则模式、TUN 范围和是否有浏览器代理扩展</td><td>只有单个应用失败时，先查应用自身代理设置</td></tr>
+            <tr><td>域名打不开，IP 或局域网表现不同</td><td>DNS 劫持或 DNS 路径</td><td>保留原配置，记录 dns-hijack、nameserver 或 fake-ip 相关日志</td><td>日志显示配置校验错误时，停止手动改字段</td></tr>
+            <tr><td>开启 IPv6 后异常</td><td>IPv6 路由或系统网卡状态</td><td>确认配置顶层 IPv6、TUN IPv6 地址和系统网络是否一致</td><td>不确定时回退到开启前状态</td></tr>
+            <tr><td>提示端口占用或启动失败</td><td>端口冲突或其他代理工具占用</td><td>关闭重复代理工具，保留一个客户端测试</td><td>端口冲突解除后不再继续改路由</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>按可逆顺序继续排查</h2>
+      <h3>1. 系统代理和 TUN 分开验证</h3>
+      <p>系统代理通常只影响遵循系统代理设置的应用；TUN 会通过虚拟网卡和路由接管更广的流量。先分别验证两种接管方式，能避免把节点、订阅和 TUN 问题混在一起。</p>
+
+      <h3>2. 检查 TUN 权限、虚拟网卡和路由</h3>
+      <p>Mihomo 文档中 TUN 涉及 auto-route、auto-detect-interface、dns-hijack、strict-route、include/exclude interface 等配置。普通用户不需要逐项重写这些字段；更稳妥的做法是根据客户端日志判断是权限、网卡、路由还是 DNS。</p>
+
+      <h3>3. DNS、IPv6 和规则模式</h3>
+      <p>DNS 异常常表现为域名无法打开、部分应用不通或日志出现 DNS 解析失败。IPv6 和规则模式也会改变流量路径。每次只调整一项，测试无效就回退。</p>
+
+      <h3>4. 端口冲突和其他网络工具</h3>
+      <p>浏览器代理扩展、另一个 Clash 客户端、VPN、加速器或公司网络策略都可能影响接管结果。排查时保持单一客户端、单一接管方式，结果才可判断。</p>
+
+      <section class="recovery-steps">
+        <h2>安全停止条件</h2>
+        <ul>
+          <li>普通网络也不可用时，先恢复系统网络，不继续修改 TUN。</li>
+          <li>日志出现配置校验错误时，保留原配置，把错误交给配置提供方或客户端项目。</li>
+          <li>多个客户端同时接管流量时，先只保留一个客户端测试。</li>
+          <li>提交日志前遮盖订阅 URL、令牌、账号、节点地址和本地 IP。</li>
+        </ul>
+      </section>
+
+      <h2>常见问题</h2>
+      <h3>Clash TUN 模式开了没网应该先关掉 TUN 吗？</h3>
+      <p>如果问题正好在开启 TUN 后出现，可以先回退到原来的接管方式，确认普通网络和系统代理是否恢复，再继续分支排查。</p>
+      <h3>延迟测试成功为什么应用还是无法上网？</h3>
+      <p>延迟测试成功不等于目标应用流量已经被 TUN 正确接管。还需要检查路由、DNS、规则模式和是否有其他工具争用流量。</p>
+      <h3>TUN 模式没网可以直接换 DNS 配置吗？</h3>
+      <p>不建议把换 DNS 作为第一步。先记录原状态，确认节点、系统代理和 TUN 回退表现，再根据日志里的 DNS 或路由提示处理。</p>
+
+      <section class="troubleshooting-sources">
+        <h2>官方资料来源</h2>
+        <ul>
+          <li><a href="https://wiki.metacubex.one/config/inbound/tun/" target="_blank" rel="nofollow noopener">Mihomo TUN 文档</a>：TUN、auto-route、dns-hijack、strict-route 与接口规则。</li>
+          <li><a href="https://wiki.metacubex.one/config/general/" target="_blank" rel="nofollow noopener">Mihomo 全局配置文档</a>：运行模式、端口和日志级别。</li>
+          <li><a href="https://www.clashverge.dev/guide/quickstart.html" target="_blank" rel="nofollow noopener">Clash Verge Rev 快速入门</a>：订阅、代理组与常用入口。</li>
+        </ul>
+      </section>
+
+      <section class="related-guides">
+        <h2>相关排查与教程</h2>
+        <ul>
+          <li><a href="/guide/connected-but-no-internet/">已连接但无法上网：系统代理、TUN 与 DNS</a></li>
+          <li><a href="/guide/frequent-disconnections/">Clash 连不上或频繁断线：故障分流入口</a></li>
+          <li><a href="/guide/subscription-update-failed/">订阅更新失败：超时、401/403 与解析错误</a></li>
+          <li><a href="/tutorial/clash-verge/">Clash Verge Rev 配置教程</a></li>
+          <li><a href="/tutorial/flclash/">FlClash 配置教程</a></li>
+        </ul>
+      </section>
+    </article>
+    <div class="giscus"></div>
+  </div>
+</section>
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/nav.js"></script>
+<script src="https://giscus.app/client.js" data-repo="qdqht2008/calshvpn" data-repo-id="R_kgDOSNBV3g" data-category="Announcements" data-category-id="DIC_kwDOSNBV3s4C-KRW" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script>
+</body>
+</html>

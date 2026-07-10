@@ -204,13 +204,39 @@ gtag('config', 'G-HPYY57ECEX');
       <h2 id="guide-start-title">遇到故障，先从哪里开始？</h2>
       <p>先按眼前症状选择入口；每次只改一项，并保留回退路径。</p>
       <ul>
-        <li><a href="/guide/frequent-disconnections/"><strong>故障排查入口：</strong>无法连接、频繁断线，或还不能判断属于哪一类。</a></li>
-        <li><a href="/guide/subscription-update-failed/"><strong>订阅更新失败：</strong>timeout、401/403、parse 或 config validation。</a></li>
-        <li><a href="/guide/connected-but-no-internet/"><strong>已连接但无法上网：</strong>检查节点、系统代理、TUN 与 DNS。</a></li>
+        <li><a href="/guide/proxy-after-quit/"><strong>先恢复网络：</strong>退出后仍然没网，先查系统代理和浏览器代理。</a></li>
+        <li><a href="/guide/tun-mode-no-internet/"><strong>接管模式问题：</strong>TUN 模式开了没网，检查 DNS、路由和虚拟网卡。</a></li>
+        <li><a href="/guide/connected-but-no-internet/"><strong>连接状态问题：</strong>已连接但无法上网，检查节点、系统代理、TUN 与 DNS。</a></li>
+        <li><a href="/guide/subscription-update-failed/"><strong>订阅问题：</strong>timeout、401/403、parse 或 config validation。</a></li>
+        <li><a href="/guide/frequent-disconnections/"><strong>综合入口：</strong>无法连接、频繁断线，或还不能判断属于哪一类。</a></li>
       </ul>
     </section>
 
     <div class="guide-list">
+      <div class="guide-card">
+        <h2><a href="/guide/proxy-after-quit/">Clash退出后仍然没网：系统代理残留恢复</a></h2>
+        <p>先恢复普通网络，再检查系统代理、浏览器代理、TUN 虚拟网卡、DNS 缓存和其他网络工具。</p>
+        <div class="meta">发布于 2026-07-10</div>
+        <div class="tags">
+          <span class="tag">退出后仍然没网</span>
+          <span class="tag">系统代理</span>
+          <span class="tag">浏览器代理</span>
+        </div>
+        <a href="/guide/proxy-after-quit/" class="btn-read">阅读全文 →</a>
+      </div>
+
+      <div class="guide-card">
+        <h2><a href="/guide/tun-mode-no-internet/">Clash TUN 模式开了没网：DNS、路由与接管排查</a></h2>
+        <p>区分系统代理可用但 TUN 不可用、DNS 异常、虚拟网卡、IPv6 和端口冲突等接管问题。</p>
+        <div class="meta">发布于 2026-07-10</div>
+        <div class="tags">
+          <span class="tag">TUN 模式开了没网</span>
+          <span class="tag">DNS / 路由</span>
+          <span class="tag">接管模式问题</span>
+        </div>
+        <a href="/guide/tun-mode-no-internet/" class="btn-read">阅读全文 →</a>
+      </div>
+
       <div class="guide-card">
         <h2><a href="/guide/node-speed-differences/">为什么同一个机场，不同节点速度差异很大？</a></h2>
         <p>延迟、抖动、丢包、吞吐四大指标解析，10个常见原因及选节点方法。教你先稳定、再速度的可复用思路。</p>

@@ -12,7 +12,7 @@ gtag('config', 'G-HPYY57ECEX');
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clash连不上或频繁断线怎么办？5分钟故障排查 | Clash机场推荐</title>
-<meta name="description" content="Clash无法连接、频繁断线、已连接但无法上网或订阅更新失败？先按症状分流，再用节点、网络与客户端对照定位问题。">
+<meta name="description" content="Clash无法连接、频繁断线、TUN没网、退出后仍断网或订阅更新失败？先按症状分流，再做可逆排查。">
 <meta name="keywords" content="Clash连不上, Clash频繁断线, Clash无法上网, Clash订阅更新失败, Clash故障排查">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.jichangyun.top/guide/frequent-disconnections/">
@@ -35,7 +35,7 @@ gtag('config', 'G-HPYY57ECEX');
   "author": {"@type": "Organization", "name": "优质机场推荐编辑部", "url": "https://www.jichangyun.top/"},
   "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
   "datePublished": "2026-06-08",
-  "dateModified": "2026-07-04",
+  "dateModified": "2026-07-10",
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/guide/frequent-disconnections/"}
 }
 </script>
@@ -76,7 +76,7 @@ gtag('config', 'G-HPYY57ECEX');
       <div class="troubleshooting-meta" aria-label="文章编辑信息">
         <span><strong>作者</strong>优质机场推荐编辑部</span>
         <span><strong>依据</strong>官方文档与可逆诊断原则</span>
-        <span><strong>更新</strong><time datetime="2026-07-04">2026-07-04</time></span>
+        <span><strong>更新</strong><time datetime="2026-07-10">2026-07-10</time></span>
       </div>
 
       <section class="symptom-check">
@@ -84,6 +84,8 @@ gtag('config', 'G-HPYY57ECEX');
         <p><strong>无法连接：</strong>节点测试失败或连接建立不了，先做节点与网络对照。</p>
         <p><strong>频繁断线：</strong>曾经能用但会中断，记录发生时间、当前网络及是否所有节点都受影响。</p>
         <p><strong>已连接但无法上网：</strong>客户端显示已连接，浏览器或应用仍不通，转到<a href="/guide/connected-but-no-internet/">系统代理、TUN 与 DNS 排查</a>。</p>
+        <p><strong>TUN 模式开了没网：</strong>系统代理可用但 TUN 接管后不通，转到<a href="/guide/tun-mode-no-internet/">TUN、DNS 与路由排查</a>。</p>
+        <p><strong>退出后仍然没网：</strong>关闭客户端后普通网络不恢复，转到<a href="/guide/proxy-after-quit/">系统代理残留恢复</a>。</p>
         <p><strong>订阅更新失败：</strong>出现 timeout、401/403、parse 等提示，转到<a href="/guide/subscription-update-failed/">订阅下载与解析排查</a>。</p>
       </section>
 
@@ -146,6 +148,8 @@ gtag('config', 'G-HPYY57ECEX');
         <h2>按症状继续</h2>
         <ul>
           <li><a href="/guide/connected-but-no-internet/">已连接但无法上网：系统代理、TUN 与 DNS</a></li>
+          <li><a href="/guide/tun-mode-no-internet/">TUN 模式开了没网：DNS、路由与接管排查</a></li>
+          <li><a href="/guide/proxy-after-quit/">退出后仍然没网：系统代理残留恢复</a></li>
           <li><a href="/guide/subscription-update-failed/">订阅更新失败：超时、401/403 与解析错误</a></li>
           <li><a href="/tutorial/clash-verge/">Clash Verge 配置教程</a></li>
           <li><a href="/tutorial/clash-meta-for-android/">Clash Meta for Android 配置教程</a></li>

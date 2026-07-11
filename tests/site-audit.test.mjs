@@ -397,6 +397,7 @@ test('P1 airport reviews share an editorial structure readers can compare', () =
 test('P1 package tables preserve verified facts and remove stale promotions', () => {
   const dageyun = read('jichang/dageyun/index.html');
   for (const fact of ['¥19.90', '100GB', '¥299', '500GB', 'mcuE8uOq']) assert.match(dageyun, new RegExp(fact));
+  for (const searchTerm of ['大哥云官网', '大哥云机场官网', 'dageyun']) assert.match(dageyun, new RegExp(searchTerm));
   assert.doesNotMatch(dageyun, /dgy2026|2026\/2\/23/);
 
   const feimiaoyun = read('jichang/feimiaoyun/index.html');
@@ -407,6 +408,7 @@ test('P1 package tables preserve verified facts and remove stale promotions', ()
   for (const fact of ['Iron', 'Silver', 'Alloy', 'Gold', 'Diamond', 'Master', '不限时流量 Small']) {
     assert.match(jingling, new RegExp(fact));
   }
+  for (const searchTerm of ['jinglingxueyuan', '精灵学院优惠码']) assert.match(jingling, new RegExp(searchTerm));
   assert.doesNotMatch(jingling, /New2025|10月份/);
   assert.doesNotMatch(jingling, /<tr[^>]*>[\s\S]*?买前必看[\s\S]*?<\/tr>/);
 });
@@ -433,7 +435,12 @@ test('P1 metadata uses the same cautious editorial standard as the visible revie
     const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
     assert.ok(article, `${file}: missing Article structured data`);
     assert.equal(article.author?.name, '优质机场推荐编辑部');
-    assert.equal(article.dateModified, '2026-07-02');
+    const expectedModified = {
+      'jichang/dageyun/index.html': '2026-07-11',
+      'jichang/feimiaoyun/index.html': '2026-07-02',
+      'jichang/jinglingxueyuan/index.html': '2026-07-11',
+    };
+    assert.equal(article.dateModified, expectedModified[file]);
   }
 });
 
@@ -446,9 +453,14 @@ test('airport hub explains its method and marks only the first P1 review batch',
 
 test('sitemap dates reflect only the P1 pages changed in this batch', () => {
   const sitemap = read('sitemap.xml');
-  for (const path of ['jichang/dageyun/', 'jichang/feimiaoyun/', 'jichang/jinglingxueyuan/']) {
+  const expectedDates = new Map([
+    ['jichang/dageyun/', '2026-07-11'],
+    ['jichang/feimiaoyun/', '2026-07-02'],
+    ['jichang/jinglingxueyuan/', '2026-07-11'],
+  ]);
+  for (const [path, date] of expectedDates) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-02<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
 
@@ -742,7 +754,7 @@ test('扬帆云 review preserves current plan limits and treats promotions as ch
     '旗舰版', '1.2TB', '不限速', '8 台', '¥88.99/月',
     '¥2135.76', '独立 IP ¥200/月/个起', '节点另收费', '两年起订',
     'yf6189', '6.9 折', 'yf6185', '6.5 折', 'lucky9', '9 折',
-    'LV4 与旗舰版', '买 3 送 1', '结算页',
+    'LV4 与旗舰版', '买 3 送 1', '结算页', '杨帆云',
   ]) {
     assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `扬帆云: missing ${fact}`);
   }
@@ -778,6 +790,7 @@ test('万象加速 review makes the no-refund rule prominent and attributes cove
     '小象套餐', '¥12/月', '约 18%', '节省约 ¥26',
     '中象套餐', '¥20/月', '3000GB/月', '1000Mbps', '约 44%', '节省约 ¥320',
     '大象套餐', '¥30/月', '10000GB/月', '2.5Gbps',
+    '万象云加速器', '万象云机场', '万象云加速',
   ]) {
     assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `万象加速: missing ${fact}`);
   }
@@ -800,7 +813,12 @@ test('third-batch metadata and commercial routes match the cautious visible revi
     const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
     assert.ok(article, `${name}: missing Article structured data`);
     assert.equal(article.author?.name, '优质机场推荐编辑部');
-    assert.equal(article.dateModified, '2026-07-05');
+    const expectedModified = {
+      'jichang/yangfanyun/index.html': '2026-07-11',
+      'jichang/yuzhouyun/index.html': '2026-07-05',
+      'jichang/wanxiang/index.html': '2026-07-11',
+    };
+    assert.equal(article.dateModified, expectedModified[file]);
     assert.ok(structuredData(html).some((entry) => entry['@type'] === 'FAQPage'), `${name}: missing FAQPage`);
 
     const commercial = tags(html, 'a').find((anchor) => {
@@ -826,9 +844,15 @@ test('airport hub and sitemap expose only the completed third-batch evidence', (
   assert.equal((hub.match(/data-review-date="2026-07-05"/g) ?? []).length, 4);
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['jichang/', 'jichang/yangfanyun/', 'jichang/yuzhouyun/', 'jichang/wanxiang/']) {
+  const expectedSitemapDates = new Map([
+    ['jichang/', '2026-07-05'],
+    ['jichang/yangfanyun/', '2026-07-11'],
+    ['jichang/yuzhouyun/', '2026-07-05'],
+    ['jichang/wanxiang/', '2026-07-11'],
+  ]);
+  for (const [path, date] of expectedSitemapDates) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-05<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
 
@@ -1220,25 +1244,31 @@ const maintainedTutorials = [
     file: 'tutorial/clash-verge/index.html',
     name: 'Clash Verge Rev',
     version: 'v2.5.1',
+    modified: '2026-07-11',
     oldVersion: 'v2.4.7',
     official: 'github.com/clash-verge-rev/clash-verge-rev/releases/latest',
     platforms: ['Windows x64', 'Windows ARM64', 'Apple 芯片', 'Intel 芯片', 'Linux', 'Windows 7'],
+    requiredTerms: ['添加规则', '备份当前配置', '不要直接改整份 YAML', '来源不明'],
   },
   {
     file: 'tutorial/flclash/index.html',
     name: 'FlClash',
     version: 'v0.8.93',
+    modified: '2026-07-04',
     oldVersion: 'v0.8.92',
     official: 'github.com/chen08209/FlClash/releases/latest',
     platforms: ['Windows', 'macOS', 'Linux', 'Android'],
+    requiredTerms: [],
   },
   {
     file: 'tutorial/clash-meta-for-android/index.html',
     name: 'Clash Meta for Android',
     version: 'v2.11.30',
+    modified: '2026-07-04',
     oldVersion: 'v2.11.24',
     official: 'github.com/MetaCubeX/ClashMetaForAndroid/releases/latest',
     platforms: ['Android', 'APK', 'arm64-v8a', 'VPN 权限', '后台限制'],
+    requiredTerms: [],
   },
 ];
 
@@ -1262,6 +1292,7 @@ for (const tutorial of maintainedTutorials) {
     assert.match(html, new RegExp(`截至 2026-07-04 核验[：:]\\s*${tutorial.version.replaceAll('.', '\\.')}`));
     assert.match(html, new RegExp(tutorial.official.replaceAll('.', '\\.')));
     for (const platform of tutorial.platforms) assert.match(html, new RegExp(platform, 'i'), `${tutorial.file}: missing ${platform}`);
+    for (const term of tutorial.requiredTerms) assert.match(html, new RegExp(term), `${tutorial.file}: missing ${term}`);
     for (const href of [
       '/guide/subscription-update-failed/',
       '/guide/connected-but-no-internet/',
@@ -1274,7 +1305,7 @@ for (const tutorial of maintainedTutorials) {
 
     const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
     assert.equal(article?.author?.name, '优质机场推荐编辑部');
-    assert.equal(article?.dateModified, '2026-07-04');
+    assert.equal(article?.dateModified, tutorial.modified);
     assert.ok(structuredData(html).some((entry) => entry['@type'] === 'BreadcrumbList'));
     assert.ok(structuredData(html).some((entry) => entry['@type'] === 'FAQPage'));
   });
@@ -1294,9 +1325,43 @@ test('tutorial hub separates maintained clients from historical and general guid
   assert.match(historical, /停止维护|历史客户端/);
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['tutorial/', 'tutorial/clash-verge/', 'tutorial/flclash/', 'tutorial/clash-meta-for-android/']) {
-    assert.match(sitemap, new RegExp(`<loc>https:\/\/www\\.jichangyun\\.top\/${path}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
+  const expectedSitemapDates = new Map([
+    ['tutorial/', '2026-07-04'],
+    ['tutorial/clash-verge/', '2026-07-11'],
+    ['tutorial/flclash/', '2026-07-04'],
+    ['tutorial/clash-meta-for-android/', '2026-07-04'],
+  ]);
+  for (const [path, date] of expectedSitemapDates) {
+    assert.match(sitemap, new RegExp(`<loc>https:\/\/www\\.jichangyun\\.top\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
+});
+
+test('SwitchyOmega tutorial targets rule, Chrome, configuration, and replacement search intents safely', () => {
+  const html = read('tutorial/switchyomega/index.html');
+  assert.match(html, /SwitchyOmega 配置、规则与 Chrome 代理教程/);
+  for (const term of [
+    'switchyomega 配置',
+    'switchyomega 规则',
+    'switchyomega 规则列表',
+    'switchyomega chrome',
+    'switchyomega 替代',
+    '127.0.0.1',
+    'Clash 客户端实际 HTTP 或 SOCKS 端口',
+    '来源不明',
+    'Clash Verge Rev 教程',
+    'FlClash 教程',
+  ]) {
+    assert.match(html, new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `SwitchyOmega: missing ${term}`);
+  }
+  assert.doesNotMatch(html, /建议直接下载来源不明|可以下载来源不明|关闭系统安全保护即可/);
+
+  const article = structuredData(html).find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.dateModified, '2026-07-11');
+  const faq = structuredData(html).find((entry) => entry['@type'] === 'FAQPage');
+  assert.ok(faq?.mainEntity?.length >= 3, 'SwitchyOmega: missing FAQPage questions');
+
+  const sitemap = read('sitemap.xml');
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/switchyomega\/<\/loc>\s*<lastmod>2026-07-11<\/lastmod>/);
 });
 
 test('brand assets provide a real favicon and a 1200 by 630 social image', () => {

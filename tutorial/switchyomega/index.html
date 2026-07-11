@@ -22,33 +22,44 @@ gtag('config', 'G-HPYY57ECEX');
 }
 </script>
 
-<title>Proxy SwitchyOmega 使用教程 - 浏览器代理扩展（Clash 流量优化） | Clash机场推荐</title>
-<meta name="description" content="Proxy SwitchyOmega 浏览器扩展使用教程：如何配合 Clash 客户端进行流量分流、控制哪些页面走直连，减少 Clash 节点流量消耗，解决公司内网访问限制。">
-<meta name="keywords" content="Clash机场, Clash节点, Clash订阅, Clash客户端, Clash配置, SwitchyOmega, 浏览器代理, 直连, 代理扩展, Chrome代理, 网络优化, Clash流量优化">
+<title>SwitchyOmega 配置、规则与 Chrome 代理教程 | Clash机场推荐</title>
+<meta name="description" content="SwitchyOmega 教程：Chrome 浏览器代理配置、自动切换规则、规则列表写法、与 Clash 本地端口配合，以及停止维护后的替代选择。">
+<meta name="keywords" content="Clash机场, Clash节点, Clash订阅, Clash客户端, Clash配置, SwitchyOmega, switchyomega 配置, switchyomega 规则, switchyomega 规则列表, switchyomega chrome, switchyomega 替代, switchyomega 教程, 浏览器代理, Chrome代理, Clash流量优化">
 <meta name="author" content="优质机场推荐">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.jichangyun.top/tutorial/switchyomega/">
-<meta property="og:title" content="Proxy SwitchyOmega 使用教程 - 浏览器代理扩展（Clash 流量优化） | Clash机场推荐">
-<meta property="og:description" content="Proxy SwitchyOmega 浏览器扩展使用教程：如何配合 Clash 客户端进行流量分流、控制哪些页面走直连，减少 Clash 节点流量消耗，解决公司内网访问限制。">
+<meta property="og:title" content="SwitchyOmega 配置、规则与 Chrome 代理教程 | Clash机场推荐">
+<meta property="og:description" content="SwitchyOmega 浏览器代理配置、自动切换规则、规则列表写法和替代选择。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.jichangyun.top/tutorial/switchyomega/">
 <meta property="og:site_name" content="优质机场推荐">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Proxy SwitchyOmega 使用教程 - 浏览器代理扩展（Clash 流量优化） | Clash机场推荐">
-<meta name="twitter:description" content="Proxy SwitchyOmega 浏览器扩展使用教程：如何配合 Clash 客户端进行流量分流、控制哪些页面走直连，减少 Clash 节点流量消耗。">
+<meta name="twitter:title" content="SwitchyOmega 配置、规则与 Chrome 代理教程">
+<meta name="twitter:description" content="SwitchyOmega 浏览器代理配置、自动切换规则、规则列表写法和替代选择。">
 <meta name="twitter:image" content="https://www.jichangyun.top/img/clash-300x300.png">
 <meta property="og:locale" content="zh_CN">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Proxy SwitchyOmega 使用教程 - 浏览器代理扩展",
-  "description": "Proxy SwitchyOmega 浏览器扩展使用教程，介绍如何控制哪些页面走直连，减少代理流量消耗，解决公司内网访问限制。",
+  "headline": "SwitchyOmega 配置、规则与 Chrome 代理教程",
+  "description": "SwitchyOmega 浏览器代理配置、自动切换规则、规则列表写法，以及与 Clash 本地端口配合的注意事项。",
   "image": "https://www.jichangyun.top/img/clash-300x300.png",
   "author": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
   "publisher": {"@type": "Organization", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"},
-  "datePublished": "2026-01-01", "dateModified": "2026-01-01",
+  "datePublished": "2026-01-01", "dateModified": "2026-07-11",
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.jichangyun.top/tutorial/switchyomega/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "SwitchyOmega 怎么配置 Clash？", "acceptedAnswer": {"@type": "Answer", "text": "先确认 Clash 本地 HTTP 或 SOCKS 端口，再在 SwitchyOmega 新建代理配置文件，服务器填 127.0.0.1，端口填客户端实际端口。"}},
+    {"@type": "Question", "name": "SwitchyOmega 规则应该怎么写？", "acceptedAnswer": {"@type": "Answer", "text": "少量网站可用域名通配符和内网地址规则；规则越复杂越应先备份配置，避免误把内网页面或本地地址送进代理。"}},
+    {"@type": "Question", "name": "SwitchyOmega 还能作为长期方案吗？", "acceptedAnswer": {"@type": "Answer", "text": "浏览器扩展状态可能随浏览器政策变化。新环境建议优先评估浏览器自带代理、系统代理、Clash Verge Rev 或 FlClash 的规则模式。"}}
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -86,7 +97,7 @@ gtag('config', 'G-HPYY57ECEX');
     <article class="article-content">
 
       <h2>什么是 SwitchyOmega</h2>
-      <p>SwitchyOmega 是一款强大的浏览器代理管理扩展，支持 Chrome 和 Firefox。它可以帮助你轻松切换代理规则，控制哪些网站通过代理访问，哪些网站直接连接。</p>
+      <p>SwitchyOmega 是一款浏览器代理管理扩展，常用于 Chrome、Firefox 等浏览器中按规则切换直连和代理。它只影响浏览器流量，不等同于系统代理或 TUN。</p>
 
       <h2>为什么需要 SwitchyOmega</h2>
       <div class="notice">
@@ -111,7 +122,7 @@ gtag('config', 'G-HPYY57ECEX');
         <li>安装完成后，点击扩展图标，选择"选项"</li>
         <li>点击"新建配置文件"</li>
         <li>输入名称(如：Clash代理)，选择"代理配置文件"</li>
-        <li>配置代理服务器地址和端口(通常为 127.0.0.1:7890)</li>
+        <li>配置代理服务器地址和端口；地址通常为 <code>127.0.0.1</code>，端口以 Clash 客户端实际 HTTP 或 SOCKS 端口为准</li>
         <li>保存设置</li>
       </ol>
 
@@ -124,6 +135,7 @@ gtag('config', 'G-HPYY57ECEX');
       </ol>
 
       <h2>推荐规则配置</h2>
+      <p>规则列表不宜一开始写得太复杂。先用少量高频网站验证切换结果，再逐步扩展；每次修改前导出备份，避免误删配置。</p>
 
       <p><strong>直连规则（国内网站）</strong></p>
       <table>
@@ -211,6 +223,16 @@ gtag('config', 'G-HPYY57ECEX');
       <div class="notice">
         <p><strong>提示：</strong>建议日常使用"自动切换"模式，系统会自动判断哪些网站需要代理，哪些直连。</p>
       </div>
+
+      <h2>Chrome 代理与替代选择</h2>
+      <p>如果你只是想让 Chrome 浏览器走代理，SwitchyOmega 的优势是规则直观、切换方便；如果你希望所有应用都按规则接管，应优先看 Clash Verge Rev、FlClash 的规则模式或系统代理。</p>
+      <p>当扩展安装受浏览器政策、商店可用性或版本兼容影响时，不建议下载来源不明的安装包。可以先使用客户端自带的系统代理功能，或查看 <a href="/tutorial/clash-verge/">Clash Verge Rev 教程</a> 与 <a href="/tutorial/flclash/">FlClash 教程</a>。</p>
+
+      <h2>常见问题</h2>
+      <h3>SwitchyOmega 图标切换后为什么没效果？</h3>
+      <p>先确认 Clash 客户端正在运行、本地端口和 SwitchyOmega 里填写的端口一致，再确认当前浏览器标签页没有被企业策略、其他扩展或浏览器配置覆盖。</p>
+      <h3>规则列表要直接导入网上现成的吗？</h3>
+      <p>不要导入来源不明、无法维护的规则。规则可能影响账号登录、公司内网和本地开发地址，建议先从少量域名手动验证。</p>
 
     </article>
 

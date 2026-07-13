@@ -264,6 +264,7 @@ test('airport hub explains evidence limits and drops the unsupported 优信云 c
     ['扬帆云', 'yangfanyun', '2026-07-05'],
     ['红杏云', 'hongxing', '2026-07-04'],
     ['Quick Cloud', 'quickcloud', '2026-07-05'],
+    ['极速云', 'jisuyun', '2026-07-13'],
     ['飞鸟云', 'feiniaoyun', '2026-07-03'],
     ['大哥云', 'dageyun', '2026-07-02'],
     ['肥猫云', 'feimiaoyun', '2026-07-02'],
@@ -280,8 +281,8 @@ test('airport hub explains evidence limits and drops the unsupported 优信云 c
   }
 
   const sitemap = read('sitemap.xml');
-  for (const path of ['', 'jichang/']) {
-    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>2026-07-05<\\/lastmod>`));
+  for (const [path, date] of [['', '2026-07-05'], ['jichang/', '2026-07-13']]) {
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
 
@@ -845,7 +846,7 @@ test('airport hub and sitemap expose only the completed third-batch evidence', (
 
   const sitemap = read('sitemap.xml');
   const expectedSitemapDates = new Map([
-    ['jichang/', '2026-07-05'],
+    ['jichang/', '2026-07-13'],
     ['jichang/yangfanyun/', '2026-07-11'],
     ['jichang/yuzhouyun/', '2026-07-05'],
     ['jichang/wanxiang/', '2026-07-11'],
@@ -946,6 +947,85 @@ test('Quick Cloud metadata is current while retired airport links leave active d
     assert.ok(existsSync(join(root, file)), `${file}: retired page must remain available`);
     assert.doesNotMatch(read(file), /<meta name="robots" content="noindex/);
   }
+});
+
+test('极速云 review makes high-multiplier purchase limits visible before the invitation CTA', () => {
+  const file = 'jichang/jisuyun/index.html';
+  assert.ok(existsSync(join(root, file)), `${file}: invitation page must exist`);
+  const html = read(file);
+  for (const section of [
+    'review-meta',
+    'review-verdict',
+    'review-audience',
+    'review-pros-cons',
+    'review-risk',
+    'review-cta',
+    'review-sources',
+    'related-guides',
+  ]) {
+    assert.match(html, new RegExp(`class="[^"]*${section}[^"]*"`), `极速云: missing ${section}`);
+  }
+  assert.equal((html.match(/class="plan-table-wrap"/g) ?? []).length, 3, '极速云: packages must stay in three comparable groups');
+  assert.match(html, /优质机场推荐编辑部/);
+  assert.match(html, /用户提供的商家套餐资料核验/);
+  assert.match(html, /<time datetime="2026-07-13">2026-07-13<\/time>/);
+  assert.match(html, /本文仅整理公开资料，实际体验因地区、运营商、设备和时段而异。/);
+  assert.match(html, /6 倍率[^。]*(?:标称流量|折合)/);
+  assert.match(html, /普通周期套餐[^。]*退款规则未提供/);
+  assert.match(html, /三年折扣[^。]*以下单页为准/);
+  assert.match(html, /不限时[^。]*不等于[^。]*长期可用/);
+  assert.doesNotMatch(html, /本站实测(?:表明|显示|达到)|本站测速(?:表明|显示|达到)|亲测(?:可达|达到|稳定)|永久可用|全解锁/);
+});
+
+test('极速云 tables preserve all nine plans and explain what six-times billing leaves usable', () => {
+  const html = read('jichang/jisuyun/index.html');
+  for (const fact of [
+    '【特惠】年付-1500G', '¥150/年', '1500GB/月', '250GB/月', '5 台',
+    '【端午特惠】年付-1000G', '¥118/年', '1000GB/月', '166GB/月',
+    '月付-1200G', '¥15.99/月', '1200GB/月', '200GB/月', '3 台',
+    '月付-1800G', '¥22/月', '1800GB/月', '300GB/月',
+    '月付-3500G', '¥39.99/月', '3500GB/月', '583GB/月', '8 台',
+    '月付-6500G', '¥68/月', '6500GB/月', '1083GB/月', '10 台',
+    '月付-12000G', '¥99/月', '12000GB/月', '2000GB/月', '20 台',
+    '1000G-不限时间', '¥88/一次性', '1000GB 总量', '166GB',
+    '2500G-不限时间', '¥168/一次性', '2500GB 总量', '416GB',
+    '月付、季付、半年付、年付', '用完为止', '无退款', '每日限购 20 份',
+  ]) {
+    assert.match(html, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `极速云: missing ${fact}`);
+  }
+  for (const claim of ['中转与直连高速节点', 'GPT', 'Netflix', 'TikTok', '冷门国家', '24 小时内回复', '库存充足']) {
+    const escaped = claim.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(html, new RegExp(`商家[^。]*${escaped}`), `极速云: ${claim} lacks merchant attribution`);
+  }
+});
+
+test('极速云 metadata, invitation disclosure, hub card, and sitemap agree on the current review', () => {
+  const html = read('jichang/jisuyun/index.html');
+  const description = tags(html, 'meta').find((tag) => attribute(tag, 'name') === 'description') ?? '';
+  assert.doesNotMatch(attribute(description, 'content'), /优质机场|全解锁|高速稳定|保证可用/);
+  const data = structuredData(html);
+  const article = data.find((entry) => entry['@type'] === 'Article');
+  assert.equal(article?.author?.name, '优质机场推荐编辑部');
+  assert.equal(article?.dateModified, '2026-07-13');
+  assert.equal(article?.mainEntityOfPage?.['@id'], 'https://www.jichangyun.top/jichang/jisuyun/');
+  assert.ok(data.some((entry) => entry['@type'] === 'BreadcrumbList'), '极速云: missing breadcrumbs');
+  assert.ok(data.some((entry) => entry['@type'] === 'FAQPage'), '极速云: missing FAQPage');
+
+  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href').includes('qa.slnioaykrfm.com:8888'));
+  assert.ok(commercial, '极速云: missing invitation CTA');
+  assert.match(attribute(commercial, 'href'), /#\/register\?code=Thby264g$/);
+  assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
+
+  const hub = read('jichang/index.html');
+  const card = airportCard(hub, '极速云');
+  for (const fact of ['data-review-date="2026-07-13"', '¥15.99/月起', '1000G/2500G 不限时流量包', '6 倍率且部分套餐不退款']) {
+    assert.match(card, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `极速云 card: missing ${fact}`);
+  }
+  assert.match(card, /href="\/jichang\/jisuyun\/"/);
+
+  const sitemap = read('sitemap.xml');
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/jisuyun\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
 });
 
 test('subscription update troubleshooting separates download, authorization, and parsing failures', () => {

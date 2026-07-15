@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { runInNewContext } from 'node:vm';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const siteSections = ['contactus', 'guide', 'jichang', 'tutorial'];
+const siteSections = ['contactus', 'guide', 'jichang', 'rankings', 'risk-monitor', 'tools', 'tutorial'];
 const p1ReviewPages = [
   'jichang/dageyun/index.html',
   'jichang/feimiaoyun/index.html',
@@ -455,9 +455,9 @@ test('airport hub explains its method and marks only the first P1 review batch',
 test('sitemap dates reflect only the P1 pages changed in this batch', () => {
   const sitemap = read('sitemap.xml');
   const expectedDates = new Map([
-    ['jichang/dageyun/', '2026-07-11'],
-    ['jichang/feimiaoyun/', '2026-07-02'],
-    ['jichang/jinglingxueyuan/', '2026-07-11'],
+    ['jichang/dageyun/', '2026-07-15'],
+    ['jichang/feimiaoyun/', '2026-07-15'],
+    ['jichang/jinglingxueyuan/', '2026-07-15'],
   ]);
   for (const [path, date] of expectedDates) {
     const url = `https://www.jichangyun.top/${path}`;
@@ -540,7 +540,7 @@ test('airport hub and sitemap preserve 飞鸟云 evidence while 瞬云 remains i
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/feiniaoyun/']) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
 
@@ -620,7 +620,7 @@ test('airport hub and sitemap mark 飞鸟云 and 瞬云 as completed second-batc
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
 
@@ -708,11 +708,11 @@ test('airport hub and sitemap mark 红杏云 as the last completed second-batch 
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/hongxing/']) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-04<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
   for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
     const url = `https://www.jichangyun.top/${path}`;
-    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-03<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
 
@@ -847,9 +847,9 @@ test('airport hub and sitemap expose only the completed third-batch evidence', (
   const sitemap = read('sitemap.xml');
   const expectedSitemapDates = new Map([
     ['jichang/', '2026-07-13'],
-    ['jichang/yangfanyun/', '2026-07-11'],
-    ['jichang/yuzhouyun/', '2026-07-05'],
-    ['jichang/wanxiang/', '2026-07-11'],
+    ['jichang/yangfanyun/', '2026-07-15'],
+    ['jichang/yuzhouyun/', '2026-07-15'],
+    ['jichang/wanxiang/', '2026-07-15'],
   ]);
   for (const [path, date] of expectedSitemapDates) {
     const url = `https://www.jichangyun.top/${path}`;
@@ -941,7 +941,7 @@ test('Quick Cloud metadata is current while retired airport links leave active d
   assert.doesNotMatch(nav, /href:\s*['"]\/jichang\/(?:guangnian|longmiaoyun)\/['"]/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/quickcloud\/<\/loc>\s*<lastmod>2026-07-05<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/quickcloud\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
   assert.doesNotMatch(sitemap, /\/jichang\/(?:guangnian|longmiaoyun)\//);
   for (const file of ['jichang/guangnian/index.html', 'jichang/longmiaoyun/index.html']) {
     assert.ok(existsSync(join(root, file)), `${file}: retired page must remain available`);
@@ -1024,7 +1024,7 @@ test('极速云 metadata, invitation disclosure, hub card, and sitemap agree on 
   assert.match(card, /href="\/jichang\/jisuyun\/"/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/jisuyun\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/jisuyun\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
   assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
 });
 
@@ -1478,22 +1478,22 @@ test('core hubs publish complete favicon and large social card metadata', () => 
   }
 });
 
-test('repository documents one static Cloudflare Pages architecture without Waline or Vercel runtime', () => {
+test('repository documents one static-first Vercel architecture with only the approved detector runtime', () => {
   assert.ok(!existsSync(join(root, 'waline')), 'legacy Waline runtime must be removed');
-  assert.ok(!existsSync(join(root, 'vercel.json')), 'legacy Vercel config must be removed');
+  assert.ok(!existsSync(join(root, 'vercel.json')), 'unnecessary Vercel config must stay absent');
   assert.doesNotMatch(read('css/main.css'), /#waline\b/);
   assert.doesNotMatch(read('.gitignore'), /^\.vercel\/?$/m);
 
-  const deployment = read('docs/cloudflare-pages-deployment.md');
-  for (const fact of ['Cloudflare Pages', '纯静态', 'exit 0', '无需环境变量', 'favicon.ico', 'sitemap.xml', 'robots.txt', '回滚']) {
+  const deployment = read('docs/vercel-deployment.md');
+  for (const fact of ['Vercel', '静态优先', '/api/streaming-check', '无需环境变量', 'favicon.ico', 'sitemap.xml', 'robots.txt', '回滚']) {
     assert.match(deployment, new RegExp(fact, 'i'), `deployment docs: missing ${fact}`);
   }
-  assert.match(deployment, /developers\.cloudflare\.com\/pages/);
+  assert.match(deployment, /vercel\.com\/docs\/functions\/runtimes\/node-js/);
   assert.match(deployment, /撤销并轮换/);
 
   const instructions = read('CLAUDE.md');
-  assert.match(instructions, /Cloudflare Pages/);
-  assert.doesNotMatch(instructions, /deployed on Vercel|Vercel Deployment|\.vercel\/|\/download\//i);
+  assert.match(instructions, /Vercel Deployment/);
+  assert.doesNotMatch(instructions, /Cloudflare Pages|\.vercel\/|\/download\//i);
 
   const giscusPages = walkHtml('.').filter((file) => /giscus\.app\/client\.js/.test(read(file)));
   assert.ok(giscusPages.length >= 10, 'Giscus content comments must remain intact');
@@ -1684,14 +1684,14 @@ test('GitHub README documents the static workflow and only links to repository f
   assert.ok(existsSync(join(root, 'README.md')), 'README.md must document the project workflow');
   const readme = read('README.md');
   for (const fact of [
-    '纯静态',
-    'Cloudflare Pages',
+    '静态优先',
+    'Vercel',
     'HTML5',
     'CSS',
     'JavaScript',
     'python3 -m http.server 8080',
     'node --test tests/site-audit.test.mjs',
-    'docs/cloudflare-pages-deployment.md',
+    'docs/vercel-deployment.md',
   ]) {
     assert.match(readme, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${fact}`);
   }

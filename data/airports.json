@@ -1,0 +1,691 @@
+[
+  {
+    "identity": {
+      "slug": "yangfanyun",
+      "name": "扬帆云",
+      "detailUrl": "/jichang/yangfanyun/",
+      "website": "https://ml.yfqz1.net/register?code=2y3GoMfp"
+    },
+    "pricing": {
+      "monthlyFrom": 19.99,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "半年付",
+        "年付",
+        "两年付"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 65,
+      "usability": 85,
+      "riskSafety": 70
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:39.945Z",
+      "value": "最低月付 ¥19.99，五档套餐按流量、设备数与周期展开",
+      "usability": "设备数、流量、标称速率和五种付款周期资料较完整",
+      "riskSafety": "长周期与定制费用清楚，但退款规则尚未核对"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://ml.yfqz1.net/register?code=2y3GoMfp",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 526,
+      "tlsValidUntil": "2026-08-25T03:56:47.000Z",
+      "checkedAt": "2026-07-15T00:14:39.945Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；长周期与退款边界仍需购买前确认",
+      "evidence": [],
+      "reviewedAt": "2026-07-05"
+    },
+    "metadata": {
+      "sources": [
+        "扬帆云现有详情页与官方套餐页整理"
+      ],
+      "reviewedAt": "2026-07-05"
+    }
+  },
+  {
+    "identity": {
+      "slug": "hongxing",
+      "name": "红杏云",
+      "detailUrl": "/jichang/hongxing/",
+      "website": "https://hongxing1s.cc/web/#/login?code=E3W7CIDK"
+    },
+    "pricing": {
+      "monthlyFrom": 20,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 65,
+      "usability": 60,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:41.565Z",
+      "value": "最低月付 ¥20，另有两档不限时流量包",
+      "usability": "套餐档位清楚，但个人使用与家庭共享表述存在冲突，客户端政策未核对",
+      "riskSafety": "商家明确暂不支持退款，购买前需确认共享和设备边界"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://hongxing1s.cc/web/#/login?code=E3W7CIDK",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 192,
+      "tlsValidUntil": "2026-08-29T23:59:59.000Z",
+      "checkedAt": "2026-07-15T00:14:41.565Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；不退款与共享规则冲突属于购买限制",
+      "evidence": [],
+      "reviewedAt": "2026-07-04"
+    },
+    "metadata": {
+      "sources": [
+        "红杏云现有详情页与官方套餐图整理"
+      ],
+      "reviewedAt": "2026-07-04"
+    }
+  },
+  {
+    "identity": {
+      "slug": "quickcloud",
+      "name": "Quick Cloud",
+      "detailUrl": "/jichang/quickcloud/",
+      "website": "https://dash.quickcloud.pro/#/register?code=si6RBKCH"
+    },
+    "pricing": {
+      "monthlyFrom": 12.9,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "半年付",
+        "年付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [
+        "ChatGPT",
+        "Netflix",
+        "TikTok"
+      ],
+      "payments": [],
+      "regions": [
+        "日本",
+        "新加坡",
+        "台湾",
+        "韩国",
+        "法国",
+        "德国",
+        "西班牙"
+      ]
+    },
+    "scoreInputs": {
+      "websiteHealth": 95,
+      "value": 80,
+      "usability": 60,
+      "riskSafety": 60
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:42.817Z",
+      "value": "最低月付 ¥12.9，包含月付与不限时流量包",
+      "usability": "套餐与地区资料较多，但普通套餐设备、限速和退款规则未提供",
+      "riskSafety": "普通套餐退款与设备限制尚未核对，定制方案存在交付后不可追加条件"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://dash.quickcloud.pro/#/register?code=si6RBKCH",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 1222,
+      "tlsValidUntil": "2026-10-01T21:46:42.000Z",
+      "checkedAt": "2026-07-15T00:14:42.817Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；退款、设备和定制条件仍需下单前确认",
+      "evidence": [],
+      "reviewedAt": "2026-07-05"
+    },
+    "metadata": {
+      "sources": [
+        "Quick Cloud 现有详情页与官方套餐页整理；流媒体与地区为商家资料"
+      ],
+      "reviewedAt": "2026-07-05"
+    }
+  },
+  {
+    "identity": {
+      "slug": "jisuyun",
+      "name": "极速云",
+      "detailUrl": "/jichang/jisuyun/",
+      "website": "https://qa.slnioaykrfm.com:8888/#/register?code=Thby264g"
+    },
+    "pricing": {
+      "monthlyFrom": 15.99,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "半年付",
+        "年付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [
+        "ChatGPT",
+        "Netflix",
+        "TikTok"
+      ],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 95,
+      "value": 80,
+      "usability": 65,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:49.853Z",
+      "value": "最低月付 ¥15.99，另有年付特惠与不限时流量包",
+      "usability": "套餐与设备限制清楚，但 6 倍率需要换算，地区清单未核对",
+      "riskSafety": "年付特惠和不限时套餐明确不退款，普通周期套餐退款规则未提供"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://qa.slnioaykrfm.com:8888/#/register?code=Thby264g",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 1039,
+      "tlsValidUntil": "2026-08-30T06:01:27.000Z",
+      "checkedAt": "2026-07-15T00:14:49.853Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；6 倍率与部分套餐不退款需优先核对",
+      "evidence": [],
+      "reviewedAt": "2026-07-13"
+    },
+    "metadata": {
+      "sources": [
+        "极速云现有详情页与用户提供的商家套餐资料；流媒体为商家资料"
+      ],
+      "reviewedAt": "2026-07-13"
+    }
+  },
+  {
+    "identity": {
+      "slug": "feiniaoyun",
+      "name": "飞鸟云",
+      "detailUrl": "/jichang/feiniaoyun/",
+      "website": "https://321fa405.538951.xyz/#/register?code=2Qhf56HL"
+    },
+    "pricing": {
+      "monthlyFrom": 1,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "年付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [],
+      "payments": [],
+      "regions": [
+        "美国",
+        "日本",
+        "新加坡",
+        "台湾",
+        "香港"
+      ]
+    },
+    "scoreInputs": {
+      "websiteHealth": 0,
+      "value": 85,
+      "usability": 50,
+      "riskSafety": 50
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：0/3 次成功；检查于 2026-07-15T00:14:54.673Z",
+      "value": "最低方案 ¥12/年，折合 ¥1/月，另有月付与不限时流量包",
+      "usability": "商家要求自行配置，适合能处理客户端设置的用户",
+      "riskSafety": "商家明确购买后不退款，且用户需自行确认配置能力"
+    },
+    "health": {
+      "reachable": false,
+      "finalUrl": "https://321fa405.538951.xyz/#/register?code=2Qhf56HL",
+      "httpStatus": null,
+      "successfulAttempts": 0,
+      "medianResponseMs": null,
+      "tlsValidUntil": null,
+      "checkedAt": "2026-07-15T00:14:54.673Z",
+      "runner": "editorial-check darwin/x64",
+      "error": "Reachability quorum failed: 0 of 3 successful; requires 2 of 3. Request timed out after 8000ms; Request timed out after 8000ms; Request timed out after 8000ms"
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；自行配置与购买后不退款提高试错成本",
+      "evidence": [],
+      "reviewedAt": "2026-07-03"
+    },
+    "metadata": {
+      "sources": [
+        "飞鸟云现有详情页与商家套餐页整理"
+      ],
+      "reviewedAt": "2026-07-03"
+    }
+  },
+  {
+    "identity": {
+      "slug": "dageyun",
+      "name": "大哥云",
+      "detailUrl": "/jichang/dageyun/",
+      "website": "https://a03.dgy02.com/#/register?code=Q4oATPkv"
+    },
+    "pricing": {
+      "monthlyFrom": 19.9,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "年付"
+      ]
+    },
+    "capabilities": {
+      "clients": [
+        "Trojan 兼容客户端"
+      ],
+      "streaming": [],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 65,
+      "usability": 65,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:10.039Z",
+      "value": "常规套餐最低 ¥19.90/月，另有小流量年付",
+      "usability": "套餐周期与限制较清楚，但新疆地区不可用",
+      "riskSafety": "服务不支持原路退款，地区限制需要购买前确认"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://a03.dgy02.com/#/register?code=Q4oATPkv",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 162,
+      "tlsValidUntil": "2026-08-19T10:15:49.000Z",
+      "checkedAt": "2026-07-15T00:15:10.039Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；新疆不可用且不支持原路退款",
+      "evidence": [],
+      "reviewedAt": "2026-07-02"
+    },
+    "metadata": {
+      "sources": [
+        "大哥云现有详情页与商家套餐页整理"
+      ],
+      "reviewedAt": "2026-07-02"
+    }
+  },
+  {
+    "identity": {
+      "slug": "feimiaoyun",
+      "name": "肥猫云",
+      "detailUrl": "/jichang/feimiaoyun/",
+      "website": "https://w06.fcweba08.cc/register?aff=NmV1Abou"
+    },
+    "pricing": {
+      "monthlyFrom": 8,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "年付"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [],
+      "payments": [],
+      "regions": [
+        "香港",
+        "日本",
+        "美国"
+      ]
+    },
+    "scoreInputs": {
+      "websiteHealth": 0,
+      "value": 75,
+      "usability": 70,
+      "riskSafety": 65
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：0/3 次成功；检查于 2026-07-15T00:15:11.185Z",
+      "value": "年付方案 ¥96/年，折合 ¥8/月；月付从 ¥20 起",
+      "usability": "套餐流量、价格与专享节点交付条件较完整",
+      "riskSafety": "公开资料列出交付条件，但退款政策尚未核对"
+    },
+    "health": {
+      "reachable": false,
+      "finalUrl": "https://w06.fcweba08.cc/register?aff=NmV1Abou",
+      "httpStatus": null,
+      "successfulAttempts": 0,
+      "medianResponseMs": null,
+      "tlsValidUntil": null,
+      "checkedAt": "2026-07-15T00:15:11.185Z",
+      "runner": "editorial-check darwin/x64",
+      "error": "Reachability quorum failed: 0 of 3 successful; requires 2 of 3. Request timed out after 8000ms; Request timed out after 8000ms; Request timed out after 8000ms"
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；退款政策仍需购买前确认",
+      "evidence": [],
+      "reviewedAt": "2026-07-02"
+    },
+    "metadata": {
+      "sources": [
+        "肥猫云现有详情页与商家套餐页整理"
+      ],
+      "reviewedAt": "2026-07-02"
+    }
+  },
+  {
+    "identity": {
+      "slug": "jinglingxueyuan",
+      "name": "精灵学院",
+      "detailUrl": "/jichang/jinglingxueyuan/",
+      "website": "https://jump.riolu.work/register?aff=BwtH0MyU"
+    },
+    "pricing": {
+      "monthlyFrom": 8,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "半年付",
+        "年付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [
+        "ChatGPT",
+        "Netflix"
+      ],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 90,
+      "usability": 65,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:26.687Z",
+      "value": "最低 ¥8/月，周期与不限时套餐覆盖面较广",
+      "usability": "价格、流量和周期完整，但套餐覆盖原套餐的规则需要理解",
+      "riskSafety": "服务开始后不支持退款，套餐覆盖与重置需要购买前确认"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://jump.riolu.work/register?aff=BwtH0MyU",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 859,
+      "tlsValidUntil": "2026-09-20T21:54:39.000Z",
+      "checkedAt": "2026-07-15T00:15:26.687Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；服务开始后不退款且套餐可能覆盖原套餐",
+      "evidence": [],
+      "reviewedAt": "2026-07-02"
+    },
+    "metadata": {
+      "sources": [
+        "精灵学院现有详情页与商家套餐页整理；流媒体为商家资料"
+      ],
+      "reviewedAt": "2026-07-02"
+    }
+  },
+  {
+    "identity": {
+      "slug": "sy",
+      "name": "瞬云",
+      "detailUrl": "/jichang/sy/",
+      "website": "https://ccc.jichang.best/#/register?code=LSWpFh0X"
+    },
+    "pricing": {
+      "monthlyFrom": 8.25,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "年付",
+        "不限时"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [
+        "ChatGPT",
+        "TikTok"
+      ],
+      "payments": [],
+      "regions": [
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国"
+      ]
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 80,
+      "usability": 65,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:28.725Z",
+      "value": "限时年付小包 ¥99/年，折合 ¥8.25/月，另有月付与不限时流量包",
+      "usability": "套餐、重置和地区资料清楚，但一次性套餐需理解手动重置成本",
+      "riskSafety": "特殊商品不支持退换，一次性套餐不接受退款"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://ccc.jichang.best/#/register?code=LSWpFh0X",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 505,
+      "tlsValidUntil": "2026-09-13T09:29:21.000Z",
+      "checkedAt": "2026-07-15T00:15:28.725Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；特殊商品与一次性套餐不支持退款",
+      "evidence": [],
+      "reviewedAt": "2026-07-03"
+    },
+    "metadata": {
+      "sources": [
+        "瞬云现有详情页与商家套餐页整理；流媒体与地区为商家资料"
+      ],
+      "reviewedAt": "2026-07-03"
+    }
+  },
+  {
+    "identity": {
+      "slug": "yuzhouyun",
+      "name": "宇宙云",
+      "detailUrl": "/jichang/yuzhouyun/",
+      "website": "https://zfuttyky.yuzouyun.cc/#/register?code=SY7pjvwq"
+    },
+    "pricing": {
+      "monthlyFrom": 8,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "半年付",
+        "年付",
+        "两年付",
+        "三年付"
+      ]
+    },
+    "capabilities": {
+      "clients": [
+        "自研客户端"
+      ],
+      "streaming": [],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 80,
+      "usability": 65,
+      "riskSafety": 60
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:30.217Z",
+      "value": "年付小包 ¥96/年，折合 ¥8/月；常规月付从 ¥25 起",
+      "usability": "套餐周期覆盖广并标注自研客户端，但重置 9 折含义未说明",
+      "riskSafety": "退款政策未提供，重置规则存在公开信息缺口"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://zfuttyky.yuzouyun.cc/#/register?code=SY7pjvwq",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 676,
+      "tlsValidUntil": "2026-09-28T15:48:15.000Z",
+      "checkedAt": "2026-07-15T00:15:30.217Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；退款政策与重置 9 折规则尚未核对",
+      "evidence": [],
+      "reviewedAt": "2026-07-05"
+    },
+    "metadata": {
+      "sources": [
+        "宇宙云现有详情页与官方套餐页整理"
+      ],
+      "reviewedAt": "2026-07-05"
+    }
+  },
+  {
+    "identity": {
+      "slug": "wanxiang",
+      "name": "万象加速",
+      "detailUrl": "/jichang/wanxiang/",
+      "website": "https://gw4.gwxiazai.com/#/register?code=oBugd6a1"
+    },
+    "pricing": {
+      "monthlyFrom": 12,
+      "hasTrial": null,
+      "billingCycles": [
+        "月付",
+        "季付",
+        "年付"
+      ]
+    },
+    "capabilities": {
+      "clients": [],
+      "streaming": [],
+      "payments": [],
+      "regions": []
+    },
+    "scoreInputs": {
+      "websiteHealth": 100,
+      "value": 80,
+      "usability": 70,
+      "riskSafety": 55
+    },
+    "scoreEvidence": {
+      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:32.591Z",
+      "value": "最低 ¥12/月，公开套餐流量跨度较大",
+      "usability": "价格、流量、标称速率与周期规则较完整",
+      "riskSafety": "所有当前套餐均明确不设退款"
+    },
+    "health": {
+      "reachable": true,
+      "finalUrl": "https://gw4.gwxiazai.com/#/register?code=oBugd6a1",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 176,
+      "tlsValidUntil": "2026-08-26T06:40:59.000Z",
+      "checkedAt": "2026-07-15T00:15:32.591Z",
+      "runner": "editorial-check darwin/x64",
+      "error": null
+    },
+    "risk": {
+      "level": "normal",
+      "summary": "当前未记录可核验的运营异常；所有已列套餐均不设退款",
+      "evidence": [],
+      "reviewedAt": "2026-07-05"
+    },
+    "metadata": {
+      "sources": [
+        "万象加速现有详情页与官方套餐页整理"
+      ],
+      "reviewedAt": "2026-07-05"
+    }
+  }
+]

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机场榜｜官网健康度、价格与购买风险筛选</title>
+<meta name="description" content="按官网健康度、价格、易用性与购买风险整理当前站内机场榜，支持关键词、风险、价格、试用、客户端和流媒体筛选。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/rankings/">
+<meta property="og:title" content="机场榜｜官网健康度、价格与购买风险筛选">
+<meta property="og:description" content="透明展示编辑评分、官网检查时间和购买限制，支持多条件筛选。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jichangyun.top/rankings/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="机场榜｜官网健康度、价格与购买风险筛选">
+<meta name="twitter:description" content="透明展示编辑评分、官网检查时间和购买限制。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "机场榜",
+  "description": "按官网健康度、价格、易用性与购买风险整理的机场筛选页。",
+  "url": "https://www.jichangyun.top/rankings/",
+  "isPartOf": {"@type": "WebSite", "name": "优质机场推荐", "url": "https://www.jichangyun.top/"}
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div>
+    <div class="brand">公开资料 · 可复核规则 · 风险优先</div>
+  </div>
+</header>
+<nav class="top-navbar" id="top-navbar"></nav>
+
+<main class="data-page">
+  <section class="data-hero data-hero-ranking">
+    <div class="data-hero-copy">
+      <p class="data-eyebrow">EDITORIAL INDEX · 2026</p>
+      <h1>把价格放回风险之后</h1>
+      <p>榜单先按风险级别分组，再比较官网健康度、价格与使用门槛。分数来自公开规则，不是用户评分，也不是付费排名。</p>
+      <div class="data-hero-links">
+        <a href="#ranking-filters" class="data-primary-link">开始筛选</a>
+        <a href="/risk-monitor/" class="data-secondary-link">查看风险监测</a>
+      </div>
+    </div>
+    <div class="score-rule" aria-label="编辑评分权重">
+      <div class="score-rule-head"><span>评分规则</span><strong>100</strong></div>
+      <div class="score-rule-row"><span>官网健康度</span><b>35%</b></div>
+      <div class="score-rule-bar"><i style="width:35%"></i></div>
+      <div class="score-rule-row"><span>性价比</span><b>25%</b></div>
+      <div class="score-rule-bar"><i style="width:25%"></i></div>
+      <div class="score-rule-row"><span>易用性</span><b>20%</b></div>
+      <div class="score-rule-bar"><i style="width:20%"></i></div>
+      <div class="score-rule-row"><span>风险安全度</span><b>20%</b></div>
+      <div class="score-rule-bar"><i style="width:20%"></i></div>
+    </div>
+  </section>
+
+  <section class="evidence-boundary" aria-label="评分边界">
+    <strong>评分边界</strong>
+    <p>官网健康度只评价公开入口在记录时点的可达性、HTTPS 与响应时间，不代表代理节点、线路速度、晚高峰或解锁能力。商家能力资料均保留归因。</p>
+  </section>
+
+  <section class="ranking-filter-panel" id="ranking-filters" aria-labelledby="filter-title">
+    <div class="filter-heading">
+      <div><p class="data-eyebrow">FILTER DESK</p><h2 id="filter-title">按你的使用边界筛选</h2></div>
+      <button type="button" id="ranking-clear" class="filter-clear">清除筛选</button>
+    </div>
+    <div class="ranking-filter-grid">
+      <label class="filter-field filter-field-search"><span>关键词</span><input id="ranking-query" type="search" placeholder="搜索机场名称" autocomplete="off"></label>
+      <label class="filter-field"><span>风险状态</span><select id="ranking-risk"><option value="all">全部状态</option><option value="normal">正常</option><option value="watch">观察</option><option value="high">高风险</option></select></label>
+      <label class="filter-field"><span>最高月均门槛</span><select id="ranking-price"><option value="">不限价格</option><option value="10">¥10 以内</option><option value="20">¥20 以内</option><option value="30">¥30 以内</option></select></label>
+      <label class="filter-field"><span>试用资料</span><select id="ranking-trial"><option value="all">全部</option><option value="yes">已核对支持</option><option value="no">已核对不支持</option><option value="unknown">尚未核对</option></select></label>
+      <label class="filter-field"><span>客户端</span><select id="ranking-client"><option value="all">全部客户端</option></select></label>
+      <label class="filter-field"><span>流媒体 / AI</span><select id="ranking-streaming"><option value="all">全部能力</option></select></label>
+    </div>
+  </section>
+
+  <div class="ranking-toolbar" aria-live="polite">
+    <p id="ranking-summary">正在载入机场资料…</p>
+    <p>资料更新时间以每张卡片为准</p>
+  </div>
+  <section id="ranking-error" class="data-error" hidden role="alert"></section>
+  <section id="ranking-results" class="ranking-list" aria-label="机场榜单" aria-live="polite"></section>
+  <section id="ranking-empty" class="data-empty" hidden>
+    <p class="data-eyebrow">NO MATCH</p>
+    <h2>没有符合当前条件的机场</h2>
+    <p>这不是数据加载失败。清除一部分筛选条件后再看。</p>
+    <button type="button" data-clear-ranking>清除筛选</button>
+  </section>
+</main>
+
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+<script src="/js/nav.js"></script>
+<script type="module" src="/js/rankings.js"></script>
+</body>
+</html>

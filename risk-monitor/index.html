@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机场风险监测｜公开证据、核对日期与购买建议</title>
+<meta name="description" content="汇总当前站内机场的公开风险证据、核对日期与购买建议，区分正常、观察和高风险状态。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/risk-monitor/">
+<meta property="og:title" content="机场风险监测｜公开证据、核对日期与购买建议">
+<meta property="og:description" content="把退款、失联和公开异常放在推荐之前核对。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jichangyun.top/risk-monitor/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="机场风险监测">
+<meta name="twitter:description" content="公开证据、核对日期与购买建议。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "机场风险监测",
+  "description": "按公开证据整理机场风险状态、核对日期与购买建议。",
+  "url": "https://www.jichangyun.top/risk-monitor/"
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="header"><div class="container"><div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div><div class="brand">公开证据优先于推荐</div></div></header>
+<nav class="top-navbar" id="top-navbar"></nav>
+
+<main class="data-page">
+  <section class="data-hero data-hero-risk">
+    <div class="data-hero-copy">
+      <p class="data-eyebrow">RISK LEDGER · PUBLIC EVIDENCE</p>
+      <h1>先排除风险，再讨论推荐</h1>
+      <p>这里记录的是可追溯的公开事实与购买限制，不把“暂未发现异常”写成安全保证，也不根据价格高低推断是否可靠。</p>
+      <div class="data-hero-links"><a href="#risk-groups" class="data-primary-link">查看状态分组</a><a href="/rankings/" class="data-secondary-link">返回综合榜</a></div>
+    </div>
+    <div class="risk-key" aria-label="风险状态说明">
+      <div><i class="risk-dot is-high"></i><span><b>高风险</b>已有明确异常证据，暂停购买并等待复核</span></div>
+      <div><i class="risk-dot is-watch"></i><span><b>观察</b>存在需要持续核对的信号</span></div>
+      <div><i class="risk-dot is-normal"></i><span><b>正常</b>当前未记录可核验异常，不代表未来保证</span></div>
+    </div>
+  </section>
+
+  <section class="risk-method">
+    <p class="data-eyebrow">HOW TO READ</p>
+    <h2>状态与购买限制分开看</h2>
+    <div class="risk-method-grid">
+      <p><strong>运营异常</strong>官网失联、公开停运、持续投诉或明确历史异常才进入风险事件。</p>
+      <p><strong>购买限制</strong>不退款、设备限制、倍率和地区限制会影响风险安全度，但不会被直接写成“跑路”。</p>
+      <p><strong>时间边界</strong>每条结论带核对日期；当前未记录可核验异常，不等于绝对安全。</p>
+    </div>
+  </section>
+
+  <section id="risk-error" class="data-error" hidden role="alert"></section>
+  <section id="risk-groups" class="risk-groups" aria-live="polite" aria-label="机场风险分组">
+    <p class="data-loading">正在载入风险资料…</p>
+  </section>
+</main>
+
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+<script src="/js/nav.js"></script>
+<script type="module" src="/js/risk-monitor.js"></script>
+</body>
+</html>

@@ -10,6 +10,8 @@
 const NAV_ITEMS = [
   { href: '/', label: '首页' },
   { href: '/jichang/', label: '机场推荐' },
+  { href: '/rankings/', label: '机场榜' },
+  { href: '/tools/streaming-check/', label: '检测工具' },
   { href: '/tutorial/', label: '使用教程' },
   { href: '/guide/', label: '机场百科' },
   { href: '/contactus/', label: '联系我们' }

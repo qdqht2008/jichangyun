@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流媒体与 AI 基础可达性检测｜当前出口 IP 和地区</title>
+<meta name="description" content="识别当前出口 IP 与地区，并辅助检查 ChatGPT、Netflix、Claude、TikTok、Disney+ 和 HBO Max 基础资源可达性。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.jichangyun.top/tools/streaming-check/">
+<meta property="og:title" content="流媒体与 AI 基础可达性检测">
+<meta property="og:description" content="识别当前出口地区并辅助检查六个服务的基础资源可达性。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jichangyun.top/tools/streaming-check/">
+<meta property="og:site_name" content="优质机场推荐">
+<meta property="og:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="流媒体与 AI 基础可达性检测">
+<meta name="twitter:description" content="当前出口 IP、地区和基础资源可达性。">
+<meta name="twitter:image" content="https://www.jichangyun.top/img/social-share-1200x630.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "流媒体与 AI 基础可达性检测",
+  "url": "https://www.jichangyun.top/tools/streaming-check/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web"
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header class="header"><div class="container"><div class="logo"><a href="/"><img src="/img/logo.svg" alt="优质机场推荐">优质机场推荐</a></div><div class="brand">本次检测 · 不保存历史</div></div></header>
+<nav class="top-navbar" id="top-navbar"></nav>
+
+<main class="data-page streaming-page">
+  <section class="streaming-hero">
+    <div>
+      <p class="data-eyebrow">NETWORK WINDOW · LOCAL SESSION</p>
+      <h1>看看当前出口，<em>不替你下结论</em></h1>
+      <p>先识别当前出口 IP 和地区，再从浏览器探测六个服务的公开基础资源。检测只在你点击后开始，本页面不保存历史。</p>
+      <button type="button" id="streaming-start" class="streaming-start"><span>开始检测</span><i aria-hidden="true">→</i></button>
+    </div>
+    <div class="streaming-orbit" aria-hidden="true">
+      <span class="orbit-core">IP</span>
+      <span class="orbit-item orbit-1">NF</span><span class="orbit-item orbit-2">AI</span><span class="orbit-item orbit-3">D+</span><span class="orbit-item orbit-4">TT</span>
+    </div>
+  </section>
+
+  <section id="streaming-error" class="data-error" hidden role="alert"></section>
+  <section id="network-result" class="network-result" aria-live="polite">
+    <div><span class="network-label">当前出口 IP</span><strong id="network-ip">等待检测</strong></div>
+    <div><span class="network-label">出口地区</span><strong id="network-country">—</strong></div>
+    <div><span class="network-label">检测时间</span><strong id="network-time">—</strong></div>
+    <div><span class="network-label">隐私边界</span><strong>不生成历史</strong></div>
+  </section>
+
+  <section class="streaming-section" aria-labelledby="streaming-title">
+    <div class="streaming-heading"><div><p class="data-eyebrow">SERVICE PROBES</p><h2 id="streaming-title">地区参考与基础资源</h2></div><p>地区规则未收录时保持未知，不自动判为不支持。</p></div>
+    <div id="streaming-results" class="streaming-grid" aria-live="polite">
+      <article class="streaming-card" data-service="chatgpt"><span class="service-mark mark-ai">AI</span><div><h3>ChatGPT</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+      <article class="streaming-card" data-service="netflix"><span class="service-mark mark-netflix">NF</span><div><h3>Netflix</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+      <article class="streaming-card" data-service="claude"><span class="service-mark mark-claude">CL</span><div><h3>Claude</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+      <article class="streaming-card" data-service="tiktok"><span class="service-mark mark-tiktok">TT</span><div><h3>TikTok</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+      <article class="streaming-card" data-service="disney_plus"><span class="service-mark mark-disney">D+</span><div><h3>Disney+</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+      <article class="streaming-card" data-service="hbo_max"><span class="service-mark mark-max">MAX</span><div><h3>HBO Max</h3><p>等待开始检测</p></div><strong>待检测</strong></article>
+    </div>
+  </section>
+
+  <section class="streaming-boundary">
+    <p class="data-eyebrow">READ THE RESULT</p>
+    <h2>可达，不等于可用</h2>
+    <div>
+      <p><strong>地区参考</strong>只覆盖代码中明确收录的常用出口地区；其他地区显示未知。</p>
+      <p><strong>基础资源</strong>图标或公开资源能加载，只说明当前浏览器可以访问该资源。</p>
+      <p><strong>结论边界</strong>检测不能证明账号登录、完整片库或实际播放成功，也不能代替节点逐个测试。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="container"><p>&copy; 2024-2026 优质机场推荐. All rights reserved.</p></div></footer>
+<script src="/js/nav.js"></script>
+<script type="module" src="/js/streaming-check.js"></script>
+</body>
+</html>

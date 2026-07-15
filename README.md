@@ -34,7 +34,7 @@
 
 ## 项目结构
 
-项目使用 HTML5、CSS 和原生 JavaScript，是无需构建步骤的静态优先 Vercel 网站；仅“流媒体与 AI 地区检测”使用一个无状态 Serverless Function。
+项目使用 HTML5、CSS 和原生 JavaScript，是无需构建步骤的静态优先 Cloudflare Pages 网站；仅“流媒体与 AI 地区检测”使用一个无状态 Pages Function。
 
 ```text
 jichang/   机场资料与套餐评测
@@ -42,7 +42,7 @@ tutorial/  客户端与配置教程
 guide/     选购知识与故障排查
 css/       全站样式
 js/        共享导航与统计脚本
-api/       Vercel 无状态检测接口
+functions/ Cloudflare Pages 无状态检测接口
 tests/     确定性站点审计
 ```
 
@@ -56,6 +56,12 @@ python3 -m http.server 8080
 
 浏览器访问 `http://localhost:8080`。
 
+需要连同检测接口一起运行时使用：
+
+```bash
+npx wrangler pages dev . --port 8002
+```
+
 运行站点审计：
 
 ```bash
@@ -64,7 +70,7 @@ node --test tests/site-audit.test.mjs
 
 ## 部署
 
-生产环境采用 Vercel。静态资源、检测接口和回滚验证见 [Vercel 部署说明](docs/vercel-deployment.md)。
+生产环境采用 Cloudflare Pages。静态资源、检测接口和回滚验证见 [Cloudflare Pages 部署说明](docs/cloudflare-pages-deployment.md)。
 
 ## 贡献边界
 

@@ -1478,22 +1478,23 @@ test('core hubs publish complete favicon and large social card metadata', () => 
   }
 });
 
-test('repository documents one static-first Vercel architecture with only the approved detector runtime', () => {
+test('repository documents one static-first Cloudflare Pages architecture with only the approved detector function', () => {
   assert.ok(!existsSync(join(root, 'waline')), 'legacy Waline runtime must be removed');
-  assert.ok(!existsSync(join(root, 'vercel.json')), 'unnecessary Vercel config must stay absent');
+  assert.ok(!existsSync(join(root, 'api/streaming-check.js')), 'Vercel detector runtime must be removed');
+  assert.ok(existsSync(join(root, 'functions/api/streaming-check.js')), 'Cloudflare Pages detector function must exist');
   assert.doesNotMatch(read('css/main.css'), /#waline\b/);
   assert.doesNotMatch(read('.gitignore'), /^\.vercel\/?$/m);
 
-  const deployment = read('docs/vercel-deployment.md');
-  for (const fact of ['Vercel', '静态优先', '/api/streaming-check', '无需环境变量', 'favicon.ico', 'sitemap.xml', 'robots.txt', '回滚']) {
+  const deployment = read('docs/cloudflare-pages-deployment.md');
+  for (const fact of ['Cloudflare Pages', '静态优先', '/api/streaming-check', '无需环境变量', 'favicon.ico', 'sitemap.xml', 'robots.txt', '回滚']) {
     assert.match(deployment, new RegExp(fact, 'i'), `deployment docs: missing ${fact}`);
   }
-  assert.match(deployment, /vercel\.com\/docs\/functions\/runtimes\/node-js/);
+  assert.match(deployment, /developers\.cloudflare\.com\/pages\/functions/);
   assert.match(deployment, /撤销并轮换/);
 
   const instructions = read('CLAUDE.md');
-  assert.match(instructions, /Vercel Deployment/);
-  assert.doesNotMatch(instructions, /Cloudflare Pages|\.vercel\/|\/download\//i);
+  assert.match(instructions, /Cloudflare Pages Deployment/);
+  assert.doesNotMatch(instructions, /Vercel Deployment|\.vercel\/|\/download\//i);
 
   const giscusPages = walkHtml('.').filter((file) => /giscus\.app\/client\.js/.test(read(file)));
   assert.ok(giscusPages.length >= 10, 'Giscus content comments must remain intact');
@@ -1685,13 +1686,13 @@ test('GitHub README documents the static workflow and only links to repository f
   const readme = read('README.md');
   for (const fact of [
     '静态优先',
-    'Vercel',
+    'Cloudflare Pages',
     'HTML5',
     'CSS',
     'JavaScript',
     'python3 -m http.server 8080',
     'node --test tests/site-audit.test.mjs',
-    'docs/vercel-deployment.md',
+    'docs/cloudflare-pages-deployment.md',
   ]) {
     assert.match(readme, new RegExp(fact.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${fact}`);
   }

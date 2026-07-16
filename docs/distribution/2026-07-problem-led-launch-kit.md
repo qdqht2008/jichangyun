@@ -18,7 +18,7 @@
 
 Clash 提示订阅更新失败时，先别急着删配置。第一步只判断一件事：是“下载失败”，还是“下载后无法解析”。timeout、network error、401/403 通常说明请求、网络或授权方向需要核对；但不能仅凭状态码判断具体根因，应回到商家后台确认账号状态和官方订阅链接。parse、config validation 则表示内容已经返回，但客户端没有接受。接着换一个网络形成对照，再核对客户端兼容性。不要一开始同时删除配置或修改 DNS；无法确认账号或服务端状态时就停止修改，把脱敏错误信息交给服务商支持。完整分支表：
 
-https://www.jichangyun.top/guide/subscription-update-failed/
+https://vpngate.shop/guide/subscription-update-failed/
 
 ### 60 秒视频分镜
 
@@ -33,7 +33,7 @@ https://www.jichangyun.top/guide/subscription-update-failed/
 
 ### 主链接
 
-https://www.jichangyun.top/guide/subscription-update-failed/
+https://vpngate.shop/guide/subscription-update-failed/
 
 ### 可选追踪参数
 
@@ -56,7 +56,7 @@ https://www.jichangyun.top/guide/subscription-update-failed/
 
 Clash 的“已连接”只说明客户端或节点处于某种连接状态；已连接不等于应用流量已经进入代理。先切换一个节点，观察同一浏览器的结果。没有变化时，确认当前到底使用系统代理还是 TUN，并记录原状态。只有节点与接管方式形成清楚对照后，再检查 DNS。还可以换手机热点对比当前 Wi-Fi，但手机热点只用于形成网络路径对照，不能单独证明运营商或服务端故障。一次只改一个变量，每次改动都保留回退路径；如果日志涉及不熟悉的权限或配置字段，就停止修改并查客户端官方文档。完整步骤：
 
-https://www.jichangyun.top/guide/connected-but-no-internet/
+https://vpngate.shop/guide/connected-but-no-internet/
 
 ### 60 秒视频分镜
 
@@ -71,7 +71,7 @@ https://www.jichangyun.top/guide/connected-but-no-internet/
 
 ### 主链接
 
-https://www.jichangyun.top/guide/connected-but-no-internet/
+https://vpngate.shop/guide/connected-but-no-internet/
 
 ### 可选追踪参数
 
@@ -94,7 +94,7 @@ https://www.jichangyun.top/guide/connected-but-no-internet/
 
 选线路前，先把数据路径拆成三段：本地与接入段、运营商与跨网段、落地与目标段。直连、公网中转、IEPL/IPLC 这些标签只能作为提问起点，不能证明用户全链路，也不能替你回答实际表现。购买前应追问入口位置、节点地区、倍率、设备与退款规则，以及标签覆盖哪一段。比较时固定设备、客户端、本地网络和目标服务，一次只改一个变量；如果结果与预期不符，就停止修改，回到原配置和商家说明重新核对。三段链路图与核验表：
 
-https://www.jichangyun.top/tutorial/line-selection/
+https://vpngate.shop/tutorial/line-selection/
 
 ### 60 秒视频分镜
 
@@ -109,7 +109,7 @@ https://www.jichangyun.top/tutorial/line-selection/
 
 ### 主链接
 
-https://www.jichangyun.top/tutorial/line-selection/
+https://vpngate.shop/tutorial/line-selection/
 
 ### 可选追踪参数
 

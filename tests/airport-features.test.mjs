@@ -155,7 +155,7 @@ test('combined filters narrow by query, risk, price, trial, client, and streamin
 
 test('ranking page exposes transparent scoring and every agreed filter', () => {
   const html = read('rankings/index.html');
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/rankings\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/rankings\/">/);
   assert.match(html, /id="ranking-results"/);
   for (const id of ['ranking-query', 'ranking-risk', 'ranking-price', 'ranking-trial', 'ranking-client', 'ranking-streaming', 'ranking-clear']) {
     assert.match(html, new RegExp(`id="${id}"`), `ranking page: missing ${id}`);
@@ -166,7 +166,7 @@ test('ranking page exposes transparent scoring and every agreed filter', () => {
 
 test('risk monitor separates evidence-led status from promises of absolute safety', () => {
   const html = read('risk-monitor/index.html');
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/risk-monitor\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/risk-monitor\/">/);
   assert.match(html, /id="risk-groups"/);
   assert.match(html, /当前未记录可核验异常/);
   assert.match(html, /不等于绝对安全/);

@@ -56,7 +56,7 @@ test('missing Cloudflare metadata stays unknown instead of inventing an IP or re
 
 test('streaming page requires user action and explains that reachability is not playback proof', () => {
   const html = readFileSync(join(root, 'tools/streaming-check/index.html'), 'utf8');
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/tools\/streaming-check\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/tools\/streaming-check\/">/);
   assert.match(html, /id="streaming-start"/);
   assert.match(html, /id="network-result"/);
   assert.match(html, /id="streaming-results"/);

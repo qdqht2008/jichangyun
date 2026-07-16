@@ -2,27 +2,27 @@
 
 整理公开机场套餐资料、Clash 客户端教程与故障排查指南。
 
-访问网站：[jichangyun.top](https://www.jichangyun.top/)
+访问网站：[vpngate.shop](https://vpngate.shop/)
 
 本站先帮助读者理解套餐限制、客户端配置和常见故障，再由读者结合自己的网络环境作出选择。
 
 ## 机场资料
 
-- [机场套餐、价格与购买限制](https://www.jichangyun.top/jichang/)
-- [直连、公网中转与 IEPL/IPLC 核验指南](https://www.jichangyun.top/tutorial/line-selection/)
-- [购买机场前的避坑检查](https://www.jichangyun.top/guide/avoid-traps/)
+- [机场套餐、价格与购买限制](https://vpngate.shop/jichang/)
+- [直连、公网中转与 IEPL/IPLC 核验指南](https://vpngate.shop/tutorial/line-selection/)
+- [购买机场前的避坑检查](https://vpngate.shop/guide/avoid-traps/)
 
 ## 客户端教程
 
-- [Clash Verge Rev 下载与配置](https://www.jichangyun.top/tutorial/clash-verge/)
-- [FlClash 跨平台使用教程](https://www.jichangyun.top/tutorial/flclash/)
-- [Clash Meta for Android 配置教程](https://www.jichangyun.top/tutorial/clash-meta-for-android/)
+- [Clash Verge Rev 下载与配置](https://vpngate.shop/tutorial/clash-verge/)
+- [FlClash 跨平台使用教程](https://vpngate.shop/tutorial/flclash/)
+- [Clash Meta for Android 配置教程](https://vpngate.shop/tutorial/clash-meta-for-android/)
 
 ## 故障排查
 
-- [Clash 连不上或频繁断线](https://www.jichangyun.top/guide/frequent-disconnections/)
-- [Clash 订阅更新失败](https://www.jichangyun.top/guide/subscription-update-failed/)
-- [Clash 已连接但无法上网](https://www.jichangyun.top/guide/connected-but-no-internet/)
+- [Clash 连不上或频繁断线](https://vpngate.shop/guide/frequent-disconnections/)
+- [Clash 订阅更新失败](https://vpngate.shop/guide/subscription-update-failed/)
+- [Clash 已连接但无法上网](https://vpngate.shop/guide/connected-but-no-internet/)
 
 ## 内容证据原则
 

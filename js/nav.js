@@ -138,7 +138,7 @@ function renderSidebar(containerId) {
 // 外链点击统计
 // ===========================
 const INTERNAL_HOSTNAMES = new Set([
-  'jichangyun.top',
+  'vpngate.shop',
 ]);
 
 const OFFICIAL_LINK_SELECTOR = '.official-download, .tutorial-sources, .troubleshooting-sources';

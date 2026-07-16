@@ -31,8 +31,8 @@ function publicHtmlFiles() {
 }
 
 function publicUrlFor(file) {
-  if (file === 'index.html') return 'https://www.jichangyun.top/';
-  return `https://www.jichangyun.top/${file.replace(/index\.html$/, '')}`;
+  if (file === 'index.html') return 'https://vpngate.shop/';
+  return `https://vpngate.shop/${file.replace(/index\.html$/, '')}`;
 }
 
 function tags(html, name) {
@@ -86,7 +86,7 @@ function outboundClickTarget({ href, rel = '', sourceClass = '', text = 'Sensiti
 }
 
 function loadOutboundTracking({
-  hostname = 'www.jichangyun.top',
+  hostname = 'vpngate.shop',
   pathname = '/jichang/example/',
   withGtag = true,
 } = {}) {
@@ -134,6 +134,21 @@ test('category navigation sends crawl authority to all three content hubs', () =
   for (const href of ['/jichang/', '/tutorial/', '/guide/']) {
     assert.match(nav, new RegExp(`href: '${href.replaceAll('/', '\\/')}'`));
   }
+});
+
+test('current public surfaces use vpngate.shop without retaining the unavailable domain', () => {
+  const files = [
+    ...publicHtmlFiles(),
+    'sitemap.xml',
+    'robots.txt',
+    'README.md',
+    'docs/distribution/2026-07-problem-led-launch-kit.md',
+  ];
+  for (const file of files) {
+    assert.doesNotMatch(read(file), /(?:www\.)?jichangyun\.top/i, `${file}: unavailable domain must be removed`);
+  }
+  assert.match(read('robots.txt'), /Sitemap: https:\/\/vpngate\.shop\/sitemap\.xml/);
+  assert.match(read('sitemap.xml'), /<loc>https:\/\/vpngate\.shop\//);
 });
 
 test('homepage acts as a crawlable content hub instead of a three-link splash page', () => {
@@ -237,7 +252,7 @@ test('avoid-traps guide is a cautious purchase checklist instead of a promise-le
   assert.match(head, /购买机场前怎么核对/);
   assert.match(head, /降低购买风险/);
   assert.doesNotMatch(head, /避开90%|稳定可靠|远离跑路风险|机场评测/);
-  assert.match(html, /https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png/);
+  assert.match(html, /https:\/\/vpngate\.shop\/img\/social-share-1200x630\.png/);
 
   const data = structuredData(html);
   const article = data.find((entry) => entry['@type'] === 'Article');
@@ -282,7 +297,7 @@ test('airport hub explains evidence limits and drops the unsupported 优信云 c
 
   const sitemap = read('sitemap.xml');
   for (const [path, date] of [['', '2026-07-05'], ['jichang/', '2026-07-13']]) {
-    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/vpngate\\.shop\\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
 
@@ -341,8 +356,8 @@ test('sitemap covers every public page and only publishes trustworthy crawl meta
   const sitemap = read('sitemap.xml');
   const actualUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]).sort();
   const retiredRecommendationUrls = new Set([
-    'https://www.jichangyun.top/jichang/guangnian/',
-    'https://www.jichangyun.top/jichang/longmiaoyun/',
+    'https://vpngate.shop/jichang/guangnian/',
+    'https://vpngate.shop/jichang/longmiaoyun/',
   ]);
   const expectedUrls = publicHtmlFiles()
     .map(publicUrlFor)
@@ -460,7 +475,7 @@ test('sitemap dates reflect only the P1 pages changed in this batch', () => {
     ['jichang/jinglingxueyuan/', '2026-07-15'],
   ]);
   for (const [path, date] of expectedDates) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
@@ -539,7 +554,7 @@ test('airport hub and sitemap preserve 飞鸟云 evidence while 瞬云 remains i
 
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/feiniaoyun/']) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
@@ -619,7 +634,7 @@ test('airport hub and sitemap mark 飞鸟云 and 瞬云 as completed second-batc
 
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
@@ -707,11 +722,11 @@ test('airport hub and sitemap mark 红杏云 as the last completed second-batch 
 
   const sitemap = read('sitemap.xml');
   for (const path of ['jichang/hongxing/']) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
   for (const path of ['jichang/feiniaoyun/', 'jichang/sy/']) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>2026-07-15<\\/lastmod>`));
   }
 });
@@ -852,7 +867,7 @@ test('airport hub and sitemap expose only the completed third-batch evidence', (
     ['jichang/wanxiang/', '2026-07-15'],
   ]);
   for (const [path, date] of expectedSitemapDates) {
-    const url = `https://www.jichangyun.top/${path}`;
+    const url = `https://vpngate.shop/${path}`;
     assert.match(sitemap, new RegExp(`<loc>${url.replaceAll('/', '\\/')}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
@@ -941,7 +956,7 @@ test('Quick Cloud metadata is current while retired airport links leave active d
   assert.doesNotMatch(nav, /href:\s*['"]\/jichang\/(?:guangnian|longmiaoyun)\/['"]/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/quickcloud\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/jichang\/quickcloud\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
   assert.doesNotMatch(sitemap, /\/jichang\/(?:guangnian|longmiaoyun)\//);
   for (const file of ['jichang/guangnian/index.html', 'jichang/longmiaoyun/index.html']) {
     assert.ok(existsSync(join(root, file)), `${file}: retired page must remain available`);
@@ -1007,7 +1022,7 @@ test('极速云 metadata, invitation disclosure, hub card, and sitemap agree on 
   const article = data.find((entry) => entry['@type'] === 'Article');
   assert.equal(article?.author?.name, '优质机场推荐编辑部');
   assert.equal(article?.dateModified, '2026-07-13');
-  assert.equal(article?.mainEntityOfPage?.['@id'], 'https://www.jichangyun.top/jichang/jisuyun/');
+  assert.equal(article?.mainEntityOfPage?.['@id'], 'https://vpngate.shop/jichang/jisuyun/');
   assert.ok(data.some((entry) => entry['@type'] === 'BreadcrumbList'), '极速云: missing breadcrumbs');
   assert.ok(data.some((entry) => entry['@type'] === 'FAQPage'), '极速云: missing FAQPage');
 
@@ -1024,8 +1039,8 @@ test('极速云 metadata, invitation disclosure, hub card, and sitemap agree on 
   assert.match(card, /href="\/jichang\/jisuyun\/"/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/jisuyun\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/jichang\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/jichang\/jisuyun\/<\/loc>\s*<lastmod>2026-07-15<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/jichang\/<\/loc>\s*<lastmod>2026-07-13<\/lastmod>/);
 });
 
 test('subscription update troubleshooting separates download, authorization, and parsing failures', () => {
@@ -1034,7 +1049,7 @@ test('subscription update troubleshooting separates download, authorization, and
   const html = read(file);
 
   assert.match(html, /<title>Clash订阅更新失败怎么办/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/subscription-update-failed\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/guide\/subscription-update-failed\/">/);
   for (const section of [
     'troubleshooting-meta',
     'symptom-check',
@@ -1078,7 +1093,7 @@ test('connected but no internet troubleshooting isolates proxy, TUN, DNS, and no
   const html = read(file);
 
   assert.match(html, /<title>Clash显示已连接但无法上网怎么办/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/connected-but-no-internet\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/guide\/connected-but-no-internet\/">/);
   for (const section of [
     'troubleshooting-meta',
     'symptom-check',
@@ -1117,7 +1132,7 @@ test('connected but no internet troubleshooting isolates proxy, TUN, DNS, and no
 const longTailTroubleshootingPages = [
   {
     file: 'guide/tun-mode-no-internet/index.html',
-    url: 'https://www.jichangyun.top/guide/tun-mode-no-internet/',
+    url: 'https://vpngate.shop/guide/tun-mode-no-internet/',
     title: 'Clash TUN 模式开了没网怎么办',
     required: [
       'TUN',
@@ -1151,7 +1166,7 @@ const longTailTroubleshootingPages = [
   },
   {
     file: 'guide/proxy-after-quit/index.html',
-    url: 'https://www.jichangyun.top/guide/proxy-after-quit/',
+    url: 'https://vpngate.shop/guide/proxy-after-quit/',
     title: 'Clash 退出后无法上网怎么办',
     required: [
       '系统代理',
@@ -1246,7 +1261,7 @@ test('guide hub and related troubleshooting pages route users to the new long-ta
 
   const sitemap = read('sitemap.xml');
   for (const path of ['guide/', 'guide/frequent-disconnections/', 'guide/connected-but-no-internet/', 'guide/proxy-after-quit/', 'guide/tun-mode-no-internet/']) {
-    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/www\\.jichangyun\\.top\\/${path}<\\/loc>\\s*<lastmod>2026-07-10<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/vpngate\\.shop\\/${path}<\\/loc>\\s*<lastmod>2026-07-10<\\/lastmod>`));
   }
 });
 
@@ -1289,13 +1304,13 @@ test('frequent disconnections acts as a symptom-first troubleshooting hub', () =
 
 test('guide hub exposes the troubleshooting cluster with self-consistent metadata', () => {
   const html = read('guide/index.html');
-  assert.match(html, /<link rel="canonical" href="https:\/\/www\.jichangyun\.top\/guide\/">/);
-  assert.match(html, /<meta property="og:url" content="https:\/\/www\.jichangyun\.top\/guide\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/vpngate\.shop\/guide\/">/);
+  assert.match(html, /<meta property="og:url" content="https:\/\/vpngate\.shop\/guide\/">/);
 
   const collection = structuredData(html).find((entry) => entry['@type'] === 'CollectionPage');
-  assert.equal(collection?.url, 'https://www.jichangyun.top/guide/');
+  assert.equal(collection?.url, 'https://vpngate.shop/guide/');
   const breadcrumb = structuredData(html).find((entry) => entry['@type'] === 'BreadcrumbList');
-  assert.equal(breadcrumb?.itemListElement?.[1]?.item, 'https://www.jichangyun.top/guide/');
+  assert.equal(breadcrumb?.itemListElement?.[1]?.item, 'https://vpngate.shop/guide/');
 
   assert.match(html, /class="[^"]*guide-start[^"]*"/);
   for (const destination of [
@@ -1315,8 +1330,8 @@ test('guide hub exposes the troubleshooting cluster with self-consistent metadat
   assert.doesNotMatch(avoidCard, /避开90%|稳定机场|实测方法|跑路预警/);
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/avoid-traps\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/guide\/<\/loc>\s*<lastmod>2026-07-10<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/guide\/avoid-traps\/<\/loc>\s*<lastmod>2026-07-07<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/guide\/<\/loc>\s*<lastmod>2026-07-10<\/lastmod>/);
 });
 
 const maintainedTutorials = [
@@ -1412,7 +1427,7 @@ test('tutorial hub separates maintained clients from historical and general guid
     ['tutorial/clash-meta-for-android/', '2026-07-04'],
   ]);
   for (const [path, date] of expectedSitemapDates) {
-    assert.match(sitemap, new RegExp(`<loc>https:\/\/www\\.jichangyun\\.top\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
+    assert.match(sitemap, new RegExp(`<loc>https:\/\/vpngate\\.shop\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
 });
 
@@ -1441,7 +1456,7 @@ test('SwitchyOmega tutorial targets rule, Chrome, configuration, and replacement
   assert.ok(faq?.mainEntity?.length >= 3, 'SwitchyOmega: missing FAQPage questions');
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/switchyomega\/<\/loc>\s*<lastmod>2026-07-11<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/switchyomega\/<\/loc>\s*<lastmod>2026-07-11<\/lastmod>/);
 });
 
 test('brand assets provide a real favicon and a 1200 by 630 social image', () => {
@@ -1468,11 +1483,11 @@ test('core hubs publish complete favicon and large social card metadata', () => 
   for (const [file, alt] of pages) {
     const html = read(file);
     assert.match(html, /<link rel="icon" href="\/favicon\.ico"[^>]*>/, `${file}: missing favicon`);
-    assert.match(html, /<meta property="og:image" content="https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png">/);
+    assert.match(html, /<meta property="og:image" content="https:\/\/vpngate\.shop\/img\/social-share-1200x630\.png">/);
     assert.match(html, /<meta property="og:image:width" content="1200">/);
     assert.match(html, /<meta property="og:image:height" content="630">/);
     assert.match(html, new RegExp(`<meta property="og:image:alt" content="[^"]*${alt}[^"]*">`));
-    assert.match(html, /<meta name="twitter:image" content="https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png">/);
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/vpngate\.shop\/img\/social-share-1200x630\.png">/);
     assert.match(html, new RegExp(`<meta name="twitter:image:alt" content="[^"]*${alt}[^"]*">`));
     assert.doesNotMatch(html, /<meta (?:property="og:image"|name="twitter:image") content="[^"]*clash-300x300\.png">/);
   }
@@ -1550,8 +1565,8 @@ test('outbound tracking ignores internal links and non-HTTP destinations', () =>
   const tracking = loadOutboundTracking();
   for (const href of [
     '/guide/avoid-traps/?from=nav',
-    'https://www.jichangyun.top/tutorial/?from=nav',
-    'https://jichangyun.top/jichang/?from=nav',
+    'https://vpngate.shop/tutorial/?from=nav',
+    'https://vpngate.shop/jichang/?from=nav',
     'mailto:hello@example.com',
     'tel:+861234567890',
     'javascript:void(0)',
@@ -1647,16 +1662,16 @@ test('GitHub README routes readers to the official site and nine useful deep lin
     assert.match(readme, new RegExp(`^## ${heading}$`, 'm'), `README: missing ${heading}`);
   }
   for (const url of [
-    'https://www.jichangyun.top/',
-    'https://www.jichangyun.top/jichang/',
-    'https://www.jichangyun.top/tutorial/line-selection/',
-    'https://www.jichangyun.top/guide/avoid-traps/',
-    'https://www.jichangyun.top/tutorial/clash-verge/',
-    'https://www.jichangyun.top/tutorial/flclash/',
-    'https://www.jichangyun.top/tutorial/clash-meta-for-android/',
-    'https://www.jichangyun.top/guide/frequent-disconnections/',
-    'https://www.jichangyun.top/guide/subscription-update-failed/',
-    'https://www.jichangyun.top/guide/connected-but-no-internet/',
+    'https://vpngate.shop/',
+    'https://vpngate.shop/jichang/',
+    'https://vpngate.shop/tutorial/line-selection/',
+    'https://vpngate.shop/guide/avoid-traps/',
+    'https://vpngate.shop/tutorial/clash-verge/',
+    'https://vpngate.shop/tutorial/flclash/',
+    'https://vpngate.shop/tutorial/clash-meta-for-android/',
+    'https://vpngate.shop/guide/frequent-disconnections/',
+    'https://vpngate.shop/guide/subscription-update-failed/',
+    'https://vpngate.shop/guide/connected-but-no-internet/',
   ]) {
     assert.match(readme, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `README: missing ${url}`);
   }
@@ -1779,7 +1794,7 @@ test('line selection metadata and sitemap match the current evidence version', (
   assert.match(attribute(description, 'content'), /核验/);
   assert.doesNotMatch(attribute(description, 'content'), /更划算|更稳定|首选|企业级/);
   assert.match(html, /<link rel="icon" href="\/favicon\.ico"/);
-  assert.match(html, /https:\/\/www\.jichangyun\.top\/img\/social-share-1200x630\.png/);
+  assert.match(html, /https:\/\/vpngate\.shop\/img\/social-share-1200x630\.png/);
 
   const data = structuredData(html);
   const article = data.find((entry) => entry['@type'] === 'Article');
@@ -1789,8 +1804,8 @@ test('line selection metadata and sitemap match the current evidence version', (
   assert.ok(faq?.mainEntity?.length >= 3, 'line selection: missing FAQ questions');
 
   const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/line-selection\/<\/loc>\s*<lastmod>2026-07-06<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.jichangyun\.top\/tutorial\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/line-selection\/<\/loc>\s*<lastmod>2026-07-06<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
 });
 
 const distributionKit = 'docs/distribution/2026-07-problem-led-launch-kit.md';
@@ -1813,9 +1828,9 @@ test('P3 distribution kit provides three complete problem-led campaign drafts', 
     assert.equal((kit.match(new RegExp(`^### ${section}$`, 'gm')) ?? []).length, 3, `${section}: expected once per campaign`);
   }
   for (const url of [
-    'https://www.jichangyun.top/guide/subscription-update-failed/',
-    'https://www.jichangyun.top/guide/connected-but-no-internet/',
-    'https://www.jichangyun.top/tutorial/line-selection/',
+    'https://vpngate.shop/guide/subscription-update-failed/',
+    'https://vpngate.shop/guide/connected-but-no-internet/',
+    'https://vpngate.shop/tutorial/line-selection/',
   ]) {
     assert.match(kit, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `distribution kit: missing ${url}`);
     const path = new URL(url).pathname.slice(1);

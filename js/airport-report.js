@@ -1,4 +1,4 @@
-import { calculateScore, formatPrice, loadAirportRecords, riskLabel } from './airport-data.mjs';
+import { formatPrice, loadAirportRecords, riskLabel } from './airport-data.mjs';
 
 const mount = document.getElementById('airport-data-report');
 
@@ -13,14 +13,6 @@ function capabilityList(values, fallback = '未核对') {
   return values.map((value) => `<span>${escapeHtml(value)}</span>`).join('');
 }
 
-function scoreItem(label, value, evidence) {
-  return `
-    <div class="report-score-item">
-      <div><span>${escapeHtml(label)}</span><strong>${value ?? '—'}</strong></div>
-      <p>${escapeHtml(evidence)}</p>
-    </div>`;
-}
-
 function healthSummary(record) {
   if (record.health.reachable === null) return '尚未执行官网检查';
   if (!record.health.reachable) return `三次官网请求未达到 2/3 可达门槛：${record.health.error}`;
@@ -28,17 +20,14 @@ function healthSummary(record) {
 }
 
 function renderReport(record) {
-  const score = calculateScore(record.scoreInputs);
-  const scoreText = score === null ? '资料不足' : score.toFixed(1);
   const trial = record.pricing.hasTrial === null ? '未核对' : record.pricing.hasTrial ? '支持' : '不支持';
   mount.innerHTML = `
     <div class="airport-report-head">
       <div>
         <p class="data-eyebrow">AIRPORT DATA REPORT</p>
-        <h2>公开资料评分与风险快照</h2>
-        <p>评分依据来自当前详情页、公开官网检查与明确购买限制，不代表节点速度、线路稳定性或实际解锁。</p>
+        <h2>公开资料与风险快照</h2>
+        <p>资料来自当前详情页、公开官网检查与明确购买限制，不代表节点速度、线路稳定性或实际解锁。</p>
       </div>
-      <div class="airport-report-total"><strong>${escapeHtml(scoreText)}</strong><span>编辑评分</span></div>
     </div>
     <div class="airport-report-facts">
       <span><small>风险状态</small><b class="risk-text-${record.risk.level}">${escapeHtml(riskLabel(record.risk.level))}</b></span>
@@ -47,14 +36,8 @@ function renderReport(record) {
       <span><small>最近核对</small><b>${escapeHtml(record.metadata.reviewedAt)}</b></span>
     </div>
     <div class="airport-report-health ${record.health.reachable ? 'is-reachable' : 'is-unreachable'}">
-      <div><strong>官网健康度 ${record.scoreInputs.websiteHealth ?? '—'}/100</strong><span>${escapeHtml(healthSummary(record))}</span></div>
+      <div><strong>官网检查</strong><span>${escapeHtml(healthSummary(record))}</span></div>
       <time datetime="${escapeHtml(record.health.checkedAt ?? '')}">${record.health.checkedAt ? `检查于 ${escapeHtml(record.health.checkedAt.replace('T', ' ').slice(0, 16))} UTC` : '尚未检查'}</time>
-    </div>
-    <div class="airport-report-scores">
-      ${scoreItem('官网健康度 · 35%', record.scoreInputs.websiteHealth, record.scoreEvidence.websiteHealth)}
-      ${scoreItem('性价比 · 25%', record.scoreInputs.value, record.scoreEvidence.value)}
-      ${scoreItem('易用性 · 20%', record.scoreInputs.usability, record.scoreEvidence.usability)}
-      ${scoreItem('风险安全度 · 20%', record.scoreInputs.riskSafety, record.scoreEvidence.riskSafety)}
     </div>
     <div class="airport-report-capabilities">
       <div><strong>客户端</strong><p>${capabilityList(record.capabilities.clients)}</p></div>
@@ -76,7 +59,7 @@ async function init() {
     renderReport(record);
   } catch (error) {
     mount.classList.add('airport-report-error');
-    mount.innerHTML = `<strong>评分资料载入失败</strong><p>${escapeHtml(error instanceof Error ? error.message : String(error))}</p><p>原有套餐正文仍可继续阅读。</p>`;
+    mount.innerHTML = `<strong>公开资料载入失败</strong><p>${escapeHtml(error instanceof Error ? error.message : String(error))}</p><p>原有套餐正文仍可继续阅读。</p>`;
   }
 }
 

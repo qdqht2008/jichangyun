@@ -304,12 +304,22 @@ test('risk monitor separates evidence-led status from promises of absolute safet
   assert.match(html, /src="\/js\/risk-monitor\.js"/);
 });
 
-test('every active airport detail keeps its article and gains one data-report mount', () => {
+test('every active airport detail keeps factual data without exposing editorial scores', () => {
   for (const slug of expectedActiveSlugs) {
     const html = read(`jichang/${slug}/index.html`);
     assert.match(html, new RegExp(`<section id="airport-data-report" data-airport-slug="${slug}"`), `${slug}: missing report mount`);
+    assert.match(html, /aria-label="[^"]*公开资料快照"/, `${slug}: factual report label missing`);
+    assert.doesNotMatch(html, /aria-label="[^"]*公开资料评分"/, `${slug}: score label remains`);
     assert.match(html, /<script type="module" src="\/js\/airport-report\.js"><\/script>/, `${slug}: missing report module`);
     assert.match(html, /class="article-(?:content|header)"/, `${slug}: original article structure missing`);
+  }
+
+  const report = read('js/airport-report.js');
+  for (const removed of ['calculateScore', '编辑评分', '官网健康度 · 35%', '性价比 · 25%', '易用性 · 20%', '风险安全度 · 20%', '/100', '评分资料载入失败']) {
+    assert.doesNotMatch(report, new RegExp(removed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `detail report still contains ${removed}`);
+  }
+  for (const retained of ['公开资料与风险快照', '风险状态', '月均门槛', '试用资料', '最近核对', '官网检查', '客户端', '流媒体 / AI', '节点地区', '风险结论', '公开资料载入失败']) {
+    assert.match(report, new RegExp(retained.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `detail report lost ${retained}`);
   }
 });
 

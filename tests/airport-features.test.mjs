@@ -5,10 +5,14 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  appendHealthHistoryRecords,
+  applyHealthHistory,
   calculateScore,
+  calculateHealthHistoryStats,
   filterAirports,
   sortAirports,
   validateAirportRecords,
+  validateHealthHistory,
 } from '../js/airport-data.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -84,11 +88,131 @@ function fixture(overrides = {}) {
   };
 }
 
+function historyRecord(slug, checkedAt, websiteHealth, healthOverrides = {}) {
+  return {
+    slug,
+    checkedAt,
+    websiteHealth,
+    health: {
+      reachable: websiteHealth > 0,
+      finalUrl: 'https://example.com/',
+      httpStatus: websiteHealth > 0 ? 200 : null,
+      successfulAttempts: websiteHealth > 0 ? 3 : 0,
+      medianResponseMs: websiteHealth > 0 ? 500 : null,
+      tlsValidUntil: websiteHealth > 0 ? '2026-12-31T00:00:00.000Z' : null,
+      runner: 'test-runner',
+      error: websiteHealth > 0 ? null : 'Reachability quorum failed',
+      ...healthOverrides,
+    },
+  };
+}
+
 test('airport data covers every active recommendation without reviving retired pages', () => {
   const records = JSON.parse(readFileSync(join(root, 'data/airports.json'), 'utf8'));
   assert.deepEqual(validateAirportRecords(records), []);
   assert.deepEqual(records.map((record) => record.identity.slug).sort(), expectedActiveSlugs);
   assert.ok(!records.some((record) => ['guangnian', 'longmiaoyun'].includes(record.identity.slug)));
+});
+
+test('health history starts from real checks for every active recommendation', () => {
+  const history = JSON.parse(readFileSync(join(root, 'data/airport-health-history.json'), 'utf8'));
+  assert.deepEqual(validateHealthHistory(history, expectedActiveSlugs, {
+    now: new Date('2026-07-17T00:00:00.000Z'),
+  }), []);
+  assert.equal(history.version, 1);
+  assert.deepEqual([...new Set(history.records.map((record) => record.slug))].sort(), expectedActiveSlugs);
+  assert.ok(history.records.every((record) => record.checkedAt.startsWith('2026-07-15T')));
+});
+
+test('an incomplete 90-day history uses every accumulated check, including failures', () => {
+  const stats = calculateHealthHistoryStats([
+    historyRecord('fixture', '2026-07-10T00:00:00.000Z', 100),
+    historyRecord('fixture', '2026-06-20T00:00:00.000Z', 0),
+    historyRecord('fixture', '2026-06-01T00:00:00.000Z', 50),
+  ]);
+
+  assert.deepEqual(stats, {
+    websiteHealth: 50,
+    sampleCount: 3,
+    periodStart: '2026-06-01T00:00:00.000Z',
+    periodEnd: '2026-07-10T00:00:00.000Z',
+    mode: 'cumulative',
+  });
+});
+
+test('a mature history uses the inclusive 90-day window ending at the latest check', () => {
+  const stats = calculateHealthHistoryStats([
+    historyRecord('fixture', '2026-07-10T00:00:00.000Z', 100),
+    historyRecord('fixture', '2026-04-10T00:00:00.000Z', 0),
+    historyRecord('fixture', '2026-04-11T00:00:00.000Z', 40),
+  ]);
+
+  assert.equal(stats.mode, 'rolling');
+  assert.equal(stats.websiteHealth, 70);
+  assert.equal(stats.sampleCount, 2);
+  assert.equal(stats.periodStart, '2026-04-11T00:00:00.000Z');
+  assert.equal(stats.periodEnd, '2026-07-10T00:00:00.000Z');
+});
+
+test('history scoring is order-independent and counts separate checks from the same day', () => {
+  const records = [
+    historyRecord('fixture', '2026-07-10T18:00:00.000Z', 100),
+    historyRecord('fixture', '2026-07-09T00:00:00.000Z', 20),
+    historyRecord('fixture', '2026-07-10T08:00:00.000Z', 60),
+  ];
+  const forward = calculateHealthHistoryStats(records);
+  const reversed = calculateHealthHistoryStats([...records].reverse());
+
+  assert.deepEqual(forward, reversed);
+  assert.equal(forward.sampleCount, 3);
+  assert.equal(forward.websiteHealth, 60);
+});
+
+test('history averages change the published score while missing history falls back per airport', () => {
+  const historical = fixture({
+    identity: { ...fixture().identity, slug: 'historical', name: '历史机场' },
+    scoreInputs: { ...fixture().scoreInputs, websiteHealth: 100 },
+  });
+  const fallback = fixture({
+    identity: { ...fixture().identity, slug: 'fallback', name: '回退机场' },
+    scoreInputs: { ...fixture().scoreInputs, websiteHealth: 80 },
+  });
+  const merged = applyHealthHistory([historical, fallback], {
+    version: 1,
+    records: [
+      historyRecord('historical', '2026-07-01T00:00:00.000Z', 20),
+      historyRecord('historical', '2026-07-02T00:00:00.000Z', 40),
+    ],
+  });
+
+  assert.equal(merged[0].scoreInputs.websiteHealth, 30);
+  assert.equal(calculateScore(merged[0].scoreInputs), 58);
+  assert.equal(merged[0].healthHistory.sampleCount, 2);
+  assert.equal(merged[1].scoreInputs.websiteHealth, 80);
+  assert.equal(merged[1].healthHistory, null);
+});
+
+test('history appends preserve old facts and reject duplicate or unknown samples', () => {
+  const airports = [fixture()];
+  const oldRecord = historyRecord('fixture', '2026-07-15T00:00:00.000Z', 100);
+  const newRecord = historyRecord('fixture', '2026-07-17T00:00:00.000Z', 0);
+  const history = { version: 1, records: [oldRecord] };
+  const options = { now: new Date('2026-07-17T00:01:00.000Z') };
+
+  const appended = appendHealthHistoryRecords(history, [newRecord], airports, options);
+  assert.deepEqual(appended.records, [oldRecord, newRecord]);
+  assert.throws(
+    () => appendHealthHistoryRecords(history, [oldRecord], airports, options),
+    /duplicate slug and checkedAt/,
+  );
+  assert.throws(
+    () => appendHealthHistoryRecords(history, [historyRecord('unknown', '2026-07-17T00:00:00.000Z', 50)], airports, options),
+    /unknown slug/,
+  );
+  assert.throws(
+    () => appendHealthHistoryRecords(history, [historyRecord('fixture', '2026-07-17T00:07:00.000Z', 50)], airports, options),
+    /checkedAt is in the future/,
+  );
 });
 
 test('editorial score uses the published website-health formula', () => {
@@ -161,7 +285,13 @@ test('ranking page exposes transparent scoring and every agreed filter', () => {
     assert.match(html, new RegExp(`id="${id}"`), `ranking page: missing ${id}`);
   }
   assert.match(html, /官网健康度只评价公开入口/);
+  assert.match(html, /历史不足 90 天时使用全部累计样本平均/);
   assert.match(html, /src="\/js\/rankings\.js"/);
+  const script = read('js/rankings.js');
+  assert.match(script, /累计平均/);
+  assert.match(script, /近 90 天平均/);
+  assert.match(script, /暂无历史样本/);
+  assert.match(script, /sampleCount/);
 });
 
 test('risk monitor separates evidence-led status from promises of absolute safety', () => {

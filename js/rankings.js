@@ -47,6 +47,13 @@ function healthLabel(record) {
   return `官网 ${record.health.successfulAttempts}/3 次可达 · 中位 ${record.health.medianResponseMs}ms`;
 }
 
+function healthHistoryLabel(record) {
+  const history = record.healthHistory;
+  if (!history) return '暂无历史样本 · 使用当前值';
+  const mode = history.mode === 'rolling' ? '近 90 天平均' : '累计平均';
+  return `${mode} ${history.websiteHealth.toFixed(1)} · ${history.sampleCount} 次 · ${formatDate(history.periodStart)} 至 ${formatDate(history.periodEnd)}`;
+}
+
 function capabilityTags(record) {
   const tags = [
     ...record.capabilities.clients,
@@ -75,13 +82,14 @@ function renderCard(record, index) {
         <p class="ranking-conclusion">${escapeHtml(record.risk.summary)}</p>
         <div class="ranking-metrics">
           <span><small>月均门槛</small><b>${escapeHtml(formatPrice(record.pricing.monthlyFrom))}</b></span>
-          <span><small>官网健康度</small><b>${record.scoreInputs.websiteHealth ?? '未核对'}</b></span>
+          <span><small>官网健康度（历史）</small><b>${record.scoreInputs.websiteHealth ?? '未核对'}</b></span>
           <span><small>易用性</small><b>${record.scoreInputs.usability}</b></span>
           <span><small>风险安全度</small><b>${record.scoreInputs.riskSafety}</b></span>
         </div>
         <div class="ranking-tags">${capabilityTags(record)}</div>
         <div class="ranking-card-foot">
           <span class="health-note ${healthTone}">${escapeHtml(healthLabel(record))} · ${escapeHtml(formatDate(record.health.checkedAt))}</span>
+          <span>${escapeHtml(healthHistoryLabel(record))}</span>
           <span>${escapeHtml(trialLabel(record.pricing.hasTrial))}</span>
           <a href="${escapeHtml(record.identity.detailUrl)}">查看完整报告 <span aria-hidden="true">→</span></a>
         </div>

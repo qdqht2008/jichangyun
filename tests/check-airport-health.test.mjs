@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   calculateWebsiteHealth,
   checkWebsite,
+  createHealthHistoryRecord,
   median,
 } from '../scripts/check-airport-health.mjs';
 
@@ -63,4 +64,37 @@ test('median is deterministic for odd and even samples', () => {
   assert.equal(median([900, 200, 500]), 500);
   assert.equal(median([10, 30, 20, 40]), 25);
   assert.equal(median([]), null);
+});
+
+test('a completed health check becomes an auditable history sample without editorial fields', () => {
+  const sample = createHealthHistoryRecord('fixture', {
+    reachable: false,
+    finalUrl: 'https://example.com/',
+    httpStatus: null,
+    successfulAttempts: 0,
+    medianResponseMs: null,
+    tlsValidUntil: null,
+    checkedAt: '2026-07-17T00:00:00.000Z',
+    runner: 'test-runner',
+    error: 'Reachability quorum failed',
+    score: 0,
+  });
+
+  assert.deepEqual(sample, {
+    slug: 'fixture',
+    checkedAt: '2026-07-17T00:00:00.000Z',
+    websiteHealth: 0,
+    health: {
+      reachable: false,
+      finalUrl: 'https://example.com/',
+      httpStatus: null,
+      successfulAttempts: 0,
+      medianResponseMs: null,
+      tlsValidUntil: null,
+      runner: 'test-runner',
+      error: 'Reachability quorum failed',
+    },
+  });
+  assert.equal('value' in sample, false);
+  assert.equal('riskSafety' in sample, false);
 });

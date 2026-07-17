@@ -1,13 +1,20 @@
 import http from 'node:http';
 import https from 'node:https';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, rename, unlink, writeFile } from 'node:fs/promises';
 import { performance } from 'node:perf_hooks';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import {
+  appendHealthHistoryRecords,
+  applyHealthHistory,
+  validateAirportRecords,
+  validateHealthHistory,
+} from '../js/airport-data.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataFile = resolve(root, 'data/airports.json');
+const historyFile = resolve(root, 'data/airport-health-history.json');
 
 export function median(values) {
   if (!values.length) return null;
@@ -15,6 +22,24 @@ export function median(values) {
   const middle = Math.floor(sorted.length / 2);
   if (sorted.length % 2) return sorted[middle];
   return (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+export function createHealthHistoryRecord(slug, health) {
+  return {
+    slug,
+    checkedAt: health.checkedAt,
+    websiteHealth: health.score,
+    health: {
+      reachable: health.reachable,
+      finalUrl: health.finalUrl,
+      httpStatus: health.httpStatus,
+      successfulAttempts: health.successfulAttempts,
+      medianResponseMs: health.medianResponseMs,
+      tlsValidUntil: health.tlsValidUntil,
+      runner: health.runner,
+      error: health.error,
+    },
+  };
 }
 
 export function calculateWebsiteHealth(result, now = new Date()) {
@@ -174,14 +199,46 @@ export async function runHealthChecks(records, options = {}) {
   return updated;
 }
 
+async function writeJsonFiles(files) {
+  const pending = files.map(({ path, value }) => ({
+    path,
+    temporaryPath: `${path}.${process.pid}.tmp`,
+    contents: `${JSON.stringify(value, null, 2)}\n`,
+  }));
+
+  try {
+    await Promise.all(pending.map((file) => writeFile(file.temporaryPath, file.contents)));
+    for (const file of pending) await rename(file.temporaryPath, file.path);
+  } catch (error) {
+    await Promise.all(pending.map((file) => unlink(file.temporaryPath).catch(() => {})));
+    throw new Error(`Failed to replace monitoring data files: ${error instanceof Error ? error.message : error}`);
+  }
+}
+
 async function main() {
   const shouldWrite = process.argv.includes('--write');
   const records = JSON.parse(await readFile(dataFile, 'utf8'));
+  const history = JSON.parse(await readFile(historyFile, 'utf8'));
+  const airportFailures = validateAirportRecords(records);
+  if (airportFailures.length) throw new Error(`机场数据校验失败：${airportFailures.join('；')}`);
+  const validationTime = new Date();
+  const historyFailures = validateHealthHistory(history, records.map((record) => record.identity.slug), { now: validationTime });
+  if (historyFailures.length) throw new Error(`历史数据校验失败：${historyFailures.join('；')}`);
   const updated = await runHealthChecks(records);
 
   if (shouldWrite) {
-    await writeFile(dataFile, `${JSON.stringify(updated, null, 2)}\n`);
-    process.stdout.write(`Updated ${updated.length} airport health records in ${dataFile}\n`);
+    const writeTime = new Date();
+    const samples = updated.map((record) => createHealthHistoryRecord(record.identity.slug, {
+      ...record.health,
+      score: record.scoreInputs.websiteHealth,
+    }));
+    const nextHistory = appendHealthHistoryRecords(history, samples, records, { now: writeTime });
+    const nextRecords = applyHealthHistory(updated, nextHistory).map(({ healthHistory, ...record }) => record);
+    await writeJsonFiles([
+      { path: historyFile, value: nextHistory },
+      { path: dataFile, value: nextRecords },
+    ]);
+    process.stdout.write(`Updated ${updated.length} airport health records and appended ${samples.length} history samples\n`);
     return;
   }
 

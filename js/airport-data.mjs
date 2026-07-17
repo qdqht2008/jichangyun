@@ -5,8 +5,16 @@ const SCORE_WEIGHTS = Object.freeze({
   usability: 0.2,
   riskSafety: 0.2,
 });
+const HEALTH_HISTORY_VERSION = 1;
+const HEALTH_HISTORY_WINDOW_MS = 90 * 24 * 60 * 60 * 1000;
+const FUTURE_CLOCK_TOLERANCE_MS = 5 * 60 * 1000;
 
-export { RISK_ORDER, SCORE_WEIGHTS };
+export {
+  HEALTH_HISTORY_VERSION,
+  HEALTH_HISTORY_WINDOW_MS,
+  RISK_ORDER,
+  SCORE_WEIGHTS,
+};
 
 export function calculateScore(inputs) {
   const entries = Object.entries(SCORE_WEIGHTS);
@@ -27,6 +35,12 @@ function validHttpUrl(value) {
   } catch {
     return false;
   }
+}
+
+function validTimestamp(value) {
+  if (typeof value !== 'string') return false;
+  const parsed = new Date(value);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString() === value;
 }
 
 export function validateAirportRecords(records) {
@@ -73,6 +87,134 @@ export function validateAirportRecords(records) {
   return failures;
 }
 
+export function validateHealthHistory(history, knownSlugs = [], { now = null } = {}) {
+  const failures = [];
+  if (!history || typeof history !== 'object' || Array.isArray(history)) return ['health history must be an object'];
+  if (history.version !== HEALTH_HISTORY_VERSION) failures.push(`health history version must be ${HEALTH_HISTORY_VERSION}`);
+  if (!Array.isArray(history.records)) return [...failures, 'health history records must be an array'];
+
+  const allowedSlugs = new Set(knownSlugs);
+  const identities = new Set();
+  const futureLimit = now instanceof Date ? now.getTime() + FUTURE_CLOCK_TOLERANCE_MS : null;
+
+  history.records.forEach((record, index) => {
+    const prefix = `history record ${index}`;
+    if (!allowedSlugs.has(record?.slug)) failures.push(`${prefix}: unknown slug ${record?.slug ?? ''}`);
+    if (!validTimestamp(record?.checkedAt)) {
+      failures.push(`${prefix}: invalid checkedAt`);
+    } else if (futureLimit !== null && Date.parse(record.checkedAt) > futureLimit) {
+      failures.push(`${prefix}: checkedAt is in the future`);
+    }
+
+    const identity = `${record?.slug}\u0000${record?.checkedAt}`;
+    if (identities.has(identity)) failures.push(`${prefix}: duplicate slug and checkedAt`);
+    identities.add(identity);
+
+    if (typeof record?.websiteHealth !== 'number'
+      || !Number.isFinite(record.websiteHealth)
+      || record.websiteHealth < 0
+      || record.websiteHealth > 100) {
+      failures.push(`${prefix}: invalid websiteHealth`);
+    }
+
+    const health = record?.health;
+    if (!health || typeof health !== 'object' || Array.isArray(health)) {
+      failures.push(`${prefix}: invalid health`);
+      return;
+    }
+    if (typeof health.reachable !== 'boolean') failures.push(`${prefix}: invalid health.reachable`);
+    if (!validHttpUrl(health.finalUrl)) failures.push(`${prefix}: invalid health.finalUrl`);
+    if (health.httpStatus !== null && (!Number.isInteger(health.httpStatus) || health.httpStatus < 100 || health.httpStatus > 599)) {
+      failures.push(`${prefix}: invalid health.httpStatus`);
+    }
+    if (!Number.isInteger(health.successfulAttempts) || health.successfulAttempts < 0 || health.successfulAttempts > 3) {
+      failures.push(`${prefix}: invalid health.successfulAttempts`);
+    }
+    if (health.medianResponseMs !== null
+      && (typeof health.medianResponseMs !== 'number' || !Number.isFinite(health.medianResponseMs) || health.medianResponseMs < 0)) {
+      failures.push(`${prefix}: invalid health.medianResponseMs`);
+    }
+    if (health.tlsValidUntil !== null && !validTimestamp(health.tlsValidUntil)) {
+      failures.push(`${prefix}: invalid health.tlsValidUntil`);
+    }
+    if (typeof health.runner !== 'string' || !health.runner) failures.push(`${prefix}: invalid health.runner`);
+    if (health.error !== null && typeof health.error !== 'string') failures.push(`${prefix}: invalid health.error`);
+  });
+
+  return failures;
+}
+
+export function calculateHealthHistoryStats(records) {
+  if (!Array.isArray(records) || records.length === 0) return null;
+  const sorted = [...records].sort((left, right) => Date.parse(left.checkedAt) - Date.parse(right.checkedAt));
+  const firstTime = Date.parse(sorted[0].checkedAt);
+  const latestTime = Date.parse(sorted.at(-1).checkedAt);
+  const mode = latestTime - firstTime < HEALTH_HISTORY_WINDOW_MS ? 'cumulative' : 'rolling';
+  const selected = mode === 'cumulative'
+    ? sorted
+    : sorted.filter((record) => Date.parse(record.checkedAt) >= latestTime - HEALTH_HISTORY_WINDOW_MS);
+  const average = selected.reduce((total, record) => total + record.websiteHealth, 0) / selected.length;
+
+  return {
+    websiteHealth: Math.round(average * 10) / 10,
+    sampleCount: selected.length,
+    periodStart: selected[0].checkedAt,
+    periodEnd: selected.at(-1).checkedAt,
+    mode,
+  };
+}
+
+export function appendHealthHistoryRecords(history, samples, airportRecords, options = {}) {
+  const candidate = {
+    version: HEALTH_HISTORY_VERSION,
+    records: [...history.records, ...samples],
+  };
+  const failures = validateHealthHistory(
+    candidate,
+    airportRecords.map((record) => record.identity.slug),
+    options,
+  );
+  if (failures.length) throw new Error(`历史数据校验失败：${failures.join('；')}`);
+  return candidate;
+}
+
+export function applyHealthHistory(records, history) {
+  const recordsBySlug = new Map();
+  for (const record of history.records) {
+    const entries = recordsBySlug.get(record.slug) ?? [];
+    entries.push(record);
+    recordsBySlug.set(record.slug, entries);
+  }
+
+  return records.map((record) => {
+    const historicalRecords = recordsBySlug.get(record.identity.slug) ?? [];
+    const stats = calculateHealthHistoryStats(historicalRecords);
+    if (!stats) return { ...record, healthHistory: null };
+
+    const latest = [...historicalRecords]
+      .sort((left, right) => Date.parse(left.checkedAt) - Date.parse(right.checkedAt))
+      .at(-1);
+    const modeLabel = stats.mode === 'rolling' ? '近 90 天平均' : '累计平均';
+
+    return {
+      ...record,
+      scoreInputs: {
+        ...record.scoreInputs,
+        websiteHealth: stats.websiteHealth,
+      },
+      scoreEvidence: {
+        ...record.scoreEvidence,
+        websiteHealth: `${modeLabel} ${stats.websiteHealth} 分，共 ${stats.sampleCount} 次监测`,
+      },
+      health: {
+        ...latest.health,
+        checkedAt: latest.checkedAt,
+      },
+      healthHistory: stats,
+    };
+  });
+}
+
 export function sortAirports(records) {
   return [...records].sort((left, right) => {
     const riskDifference = RISK_ORDER[left.risk.level] - RISK_ORDER[right.risk.level];
@@ -104,13 +246,22 @@ export function filterAirports(records, filters = {}) {
   });
 }
 
-export async function loadAirportRecords(url = '/data/airports.json') {
-  const response = await fetch(url, { cache: 'no-store' });
+export async function loadAirportRecords(
+  url = '/data/airports.json',
+  historyUrl = '/data/airport-health-history.json',
+) {
+  const [response, historyResponse] = await Promise.all([
+    fetch(url, { cache: 'no-store' }),
+    fetch(historyUrl, { cache: 'no-store' }),
+  ]);
   if (!response.ok) throw new Error(`机场数据加载失败：HTTP ${response.status}`);
-  const records = await response.json();
+  if (!historyResponse.ok) throw new Error(`历史数据载入失败：HTTP ${historyResponse.status}`);
+  const [records, history] = await Promise.all([response.json(), historyResponse.json()]);
   const failures = validateAirportRecords(records);
   if (failures.length) throw new Error(`机场数据校验失败：${failures.join('；')}`);
-  return records;
+  const historyFailures = validateHealthHistory(history, records.map((record) => record.identity.slug));
+  if (historyFailures.length) throw new Error(`历史数据校验失败：${historyFailures.join('；')}`);
+  return applyHealthHistory(records, history);
 }
 
 export function uniqueCapabilities(records, key) {

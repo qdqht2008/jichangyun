@@ -114,14 +114,17 @@ test('airport data covers every active recommendation without reviving retired p
   assert.ok(!records.some((record) => ['guangnian', 'longmiaoyun'].includes(record.identity.slug)));
 });
 
-test('health history starts from real checks for every active recommendation', () => {
+test('health history preserves the real initial check for every active recommendation', () => {
   const history = JSON.parse(readFileSync(join(root, 'data/airport-health-history.json'), 'utf8'));
-  assert.deepEqual(validateHealthHistory(history, expectedActiveSlugs, {
-    now: new Date('2026-07-17T00:00:00.000Z'),
-  }), []);
+  assert.deepEqual(validateHealthHistory(history, expectedActiveSlugs), []);
   assert.equal(history.version, 1);
   assert.deepEqual([...new Set(history.records.map((record) => record.slug))].sort(), expectedActiveSlugs);
-  assert.ok(history.records.every((record) => record.checkedAt.startsWith('2026-07-15T')));
+  for (const slug of expectedActiveSlugs) {
+    assert.ok(
+      history.records.some((record) => record.slug === slug && record.checkedAt.startsWith('2026-07-15T')),
+      `${slug}: initial 2026-07-15 check must remain auditable`,
+    );
+  }
 });
 
 test('an incomplete 90-day history uses every accumulated check, including failures', () => {

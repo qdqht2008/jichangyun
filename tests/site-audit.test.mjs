@@ -538,7 +538,7 @@ test('飞鸟云 metadata and commercial route follow the verified merchant versi
   assert.equal(article.author?.name, '优质机场推荐编辑部');
   assert.equal(article.dateModified, '2026-07-03');
 
-  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href').includes('321fa405.538951.xyz'));
+  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href').includes('2652fb2b.436225.xyz'));
   assert.ok(commercial, '飞鸟云: missing current merchant CTA');
   assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
 });

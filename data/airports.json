@@ -30,7 +30,7 @@
       "riskSafety": 70
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:39.945Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "最低月付 ¥19.99，五档套餐按流量、设备数与周期展开",
       "usability": "设备数、流量、标称速率和五种付款周期资料较完整",
       "riskSafety": "长周期与定制费用清楚，但退款规则尚未核对"
@@ -40,11 +40,11 @@
       "finalUrl": "https://ml.yfqz1.net/register?code=2y3GoMfp",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 526,
+      "medianResponseMs": 226,
       "tlsValidUntil": "2026-08-25T03:56:47.000Z",
-      "checkedAt": "2026-07-15T00:14:39.945Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:33.194Z"
     },
     "risk": {
       "level": "normal",
@@ -87,7 +87,7 @@
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:41.565Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "最低月付 ¥20，另有两档不限时流量包",
       "usability": "套餐档位清楚，但个人使用与家庭共享表述存在冲突，客户端政策未核对",
       "riskSafety": "商家明确暂不支持退款，购买前需确认共享和设备边界"
@@ -97,11 +97,11 @@
       "finalUrl": "https://hongxing1s.cc/web/#/login?code=E3W7CIDK",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 192,
+      "medianResponseMs": 148,
       "tlsValidUntil": "2026-08-29T23:59:59.000Z",
-      "checkedAt": "2026-07-15T00:14:41.565Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:34.191Z"
     },
     "risk": {
       "level": "normal",
@@ -159,7 +159,7 @@
       "riskSafety": 60
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:42.817Z",
+      "websiteHealth": "累计平均 95 分，共 2 次监测",
       "value": "最低月付 ¥12.9，包含月付与不限时流量包",
       "usability": "套餐与地区资料较多，但普通套餐设备、限速和退款规则未提供",
       "riskSafety": "普通套餐退款与设备限制尚未核对，定制方案存在交付后不可追加条件"
@@ -169,11 +169,11 @@
       "finalUrl": "https://dash.quickcloud.pro/#/register?code=si6RBKCH",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 1222,
+      "medianResponseMs": 1226,
       "tlsValidUntil": "2026-10-01T21:46:42.000Z",
-      "checkedAt": "2026-07-15T00:14:42.817Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:34.928Z"
     },
     "risk": {
       "level": "normal",
@@ -217,13 +217,13 @@
       "regions": []
     },
     "scoreInputs": {
-      "websiteHealth": 95,
+      "websiteHealth": 97.5,
       "value": 80,
       "usability": 65,
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:14:49.853Z",
+      "websiteHealth": "累计平均 97.5 分，共 2 次监测",
       "value": "最低月付 ¥15.99，另有年付特惠与不限时流量包",
       "usability": "套餐与设备限制清楚，但 6 倍率需要换算，地区清单未核对",
       "riskSafety": "年付特惠和不限时套餐明确不退款，普通周期套餐退款规则未提供"
@@ -233,11 +233,11 @@
       "finalUrl": "https://qa.slnioaykrfm.com:8888/#/register?code=Thby264g",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 1039,
+      "medianResponseMs": 49,
       "tlsValidUntil": "2026-08-30T06:01:27.000Z",
-      "checkedAt": "2026-07-15T00:14:49.853Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:38.331Z"
     },
     "risk": {
       "level": "normal",
@@ -257,7 +257,7 @@
       "slug": "feiniaoyun",
       "name": "飞鸟云",
       "detailUrl": "/jichang/feiniaoyun/",
-      "website": "https://321fa405.538951.xyz/#/register?code=2Qhf56HL"
+      "website": "https://2652fb2b.436225.xyz/#/register?code=2Qhf56HL"
     },
     "pricing": {
       "monthlyFrom": 1,
@@ -281,27 +281,27 @@
       ]
     },
     "scoreInputs": {
-      "websiteHealth": 0,
+      "websiteHealth": 47.5,
       "value": 85,
       "usability": 50,
       "riskSafety": 50
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：0/3 次成功；检查于 2026-07-15T00:14:54.673Z",
+      "websiteHealth": "累计平均 47.5 分，共 2 次监测",
       "value": "最低方案 ¥12/年，折合 ¥1/月，另有月付与不限时流量包",
       "usability": "商家要求自行配置，适合能处理客户端设置的用户",
       "riskSafety": "商家明确购买后不退款，且用户需自行确认配置能力"
     },
     "health": {
-      "reachable": false,
-      "finalUrl": "https://321fa405.538951.xyz/#/register?code=2Qhf56HL",
-      "httpStatus": null,
-      "successfulAttempts": 0,
-      "medianResponseMs": null,
-      "tlsValidUntil": null,
-      "checkedAt": "2026-07-15T00:14:54.673Z",
+      "reachable": true,
+      "finalUrl": "https://2652fb2b.436225.xyz/#/register?code=2Qhf56HL",
+      "httpStatus": 200,
+      "successfulAttempts": 3,
+      "medianResponseMs": 1019,
+      "tlsValidUntil": "2026-10-08T02:00:30.000Z",
       "runner": "editorial-check darwin/x64",
-      "error": "Reachability quorum failed: 0 of 3 successful; requires 2 of 3. Request timed out after 8000ms; Request timed out after 8000ms; Request timed out after 8000ms"
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:38.728Z"
     },
     "risk": {
       "level": "normal",
@@ -347,7 +347,7 @@
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:10.039Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "常规套餐最低 ¥19.90/月，另有小流量年付",
       "usability": "套餐周期与限制较清楚，但新疆地区不可用",
       "riskSafety": "服务不支持原路退款，地区限制需要购买前确认"
@@ -357,11 +357,11 @@
       "finalUrl": "https://a03.dgy02.com/#/register?code=Q4oATPkv",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 162,
+      "medianResponseMs": 160,
       "tlsValidUntil": "2026-08-19T10:15:49.000Z",
-      "checkedAt": "2026-07-15T00:15:10.039Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:41.490Z"
     },
     "risk": {
       "level": "normal",
@@ -381,7 +381,7 @@
       "slug": "feimiaoyun",
       "name": "肥猫云",
       "detailUrl": "/jichang/feimiaoyun/",
-      "website": "https://w06.fcweba08.cc/register?aff=NmV1Abou"
+      "website": "https://w07.fcwebb03.cc/register?aff=NmV1Abou"
     },
     "pricing": {
       "monthlyFrom": 8,
@@ -408,7 +408,7 @@
       "riskSafety": 65
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：0/3 次成功；检查于 2026-07-15T00:15:11.185Z",
+      "websiteHealth": "累计平均 0 分，共 2 次监测",
       "value": "年付方案 ¥96/年，折合 ¥8/月；月付从 ¥20 起",
       "usability": "套餐流量、价格与专享节点交付条件较完整",
       "riskSafety": "公开资料列出交付条件，但退款政策尚未核对"
@@ -420,9 +420,9 @@
       "successfulAttempts": 0,
       "medianResponseMs": null,
       "tlsValidUntil": null,
-      "checkedAt": "2026-07-15T00:15:11.185Z",
       "runner": "editorial-check darwin/x64",
-      "error": "Reachability quorum failed: 0 of 3 successful; requires 2 of 3. Request timed out after 8000ms; Request timed out after 8000ms; Request timed out after 8000ms"
+      "error": "Reachability quorum failed: 0 of 3 successful; requires 2 of 3. Request timed out after 8000ms; Request timed out after 8000ms; Request timed out after 8000ms",
+      "checkedAt": "2026-07-19T02:08:42.574Z"
     },
     "risk": {
       "level": "normal",
@@ -471,7 +471,7 @@
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:26.687Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "最低 ¥8/月，周期与不限时套餐覆盖面较广",
       "usability": "价格、流量和周期完整，但套餐覆盖原套餐的规则需要理解",
       "riskSafety": "服务开始后不支持退款，套餐覆盖与重置需要购买前确认"
@@ -481,11 +481,11 @@
       "finalUrl": "https://jump.riolu.work/register?aff=BwtH0MyU",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 859,
+      "medianResponseMs": 755,
       "tlsValidUntil": "2026-09-20T21:54:39.000Z",
-      "checkedAt": "2026-07-15T00:15:26.687Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:57.671Z"
     },
     "risk": {
       "level": "normal",
@@ -538,7 +538,7 @@
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:28.725Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "限时年付小包 ¥99/年，折合 ¥8.25/月，另有月付与不限时流量包",
       "usability": "套餐、重置和地区资料清楚，但一次性套餐需理解手动重置成本",
       "riskSafety": "特殊商品不支持退换，一次性套餐不接受退款"
@@ -548,11 +548,11 @@
       "finalUrl": "https://ccc.jichang.best/#/register?code=LSWpFh0X",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 505,
+      "medianResponseMs": 178,
       "tlsValidUntil": "2026-09-13T09:29:21.000Z",
-      "checkedAt": "2026-07-15T00:15:28.725Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:08:59.965Z"
     },
     "risk": {
       "level": "normal",
@@ -601,7 +601,7 @@
       "riskSafety": 60
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:30.217Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "年付小包 ¥96/年，折合 ¥8/月；常规月付从 ¥25 起",
       "usability": "套餐周期覆盖广并标注自研客户端，但重置 9 折含义未说明",
       "riskSafety": "退款政策未提供，重置规则存在公开信息缺口"
@@ -611,11 +611,11 @@
       "finalUrl": "https://zfuttyky.yuzouyun.cc/#/register?code=SY7pjvwq",
       "httpStatus": 200,
       "successfulAttempts": 3,
-      "medianResponseMs": 676,
+      "medianResponseMs": 220,
       "tlsValidUntil": "2026-09-28T15:48:15.000Z",
-      "checkedAt": "2026-07-15T00:15:30.217Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:09:00.631Z"
     },
     "risk": {
       "level": "normal",
@@ -659,7 +659,7 @@
       "riskSafety": 55
     },
     "scoreEvidence": {
-      "websiteHealth": "公开官网三次请求：3/3 次成功；检查于 2026-07-15T00:15:32.591Z",
+      "websiteHealth": "累计平均 100 分，共 2 次监测",
       "value": "最低 ¥12/月，公开套餐流量跨度较大",
       "usability": "价格、流量、标称速率与周期规则较完整",
       "riskSafety": "所有当前套餐均明确不设退款"
@@ -668,12 +668,12 @@
       "reachable": true,
       "finalUrl": "https://gw4.gwxiazai.com/#/register?code=oBugd6a1",
       "httpStatus": 200,
-      "successfulAttempts": 3,
-      "medianResponseMs": 176,
+      "successfulAttempts": 2,
+      "medianResponseMs": 264.5,
       "tlsValidUntil": "2026-08-26T06:40:59.000Z",
-      "checkedAt": "2026-07-15T00:15:32.591Z",
       "runner": "editorial-check darwin/x64",
-      "error": null
+      "error": null,
+      "checkedAt": "2026-07-19T02:09:01.522Z"
     },
     "risk": {
       "level": "normal",

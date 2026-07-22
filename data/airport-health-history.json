@@ -495,6 +495,171 @@
         "runner": "editorial-check darwin/x64",
         "error": null
       }
+    },
+    {
+      "slug": "yangfanyun",
+      "checkedAt": "2026-07-22T13:38:44.227Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://ml.yfqz1.net/register?code=2y3GoMfp",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 546,
+        "tlsValidUntil": "2026-08-25T03:56:47.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "hongxing",
+      "checkedAt": "2026-07-22T13:38:45.755Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://hongxing1s.cc/web/#/login?code=E3W7CIDK",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 101,
+        "tlsValidUntil": "2026-08-29T23:59:59.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "quickcloud",
+      "checkedAt": "2026-07-22T13:38:48.421Z",
+      "websiteHealth": 95,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://dash.quickcloud.pro/#/register?code=si6RBKCH",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 1187,
+        "tlsValidUntil": "2026-10-01T21:46:42.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "jisuyun",
+      "checkedAt": "2026-07-22T13:38:53.789Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://qa.slnioaykrfm.com:8888/#/register?code=Thby264g",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 189,
+        "tlsValidUntil": "2026-08-30T06:01:27.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "feiniaoyun",
+      "checkedAt": "2026-07-22T13:38:55.489Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://2652fb2b.436225.xyz/#/register?code=2Qhf56HL",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 917,
+        "tlsValidUntil": "2026-10-08T02:00:30.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "dageyun",
+      "checkedAt": "2026-07-22T13:38:58.080Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://a03.dgy02.com/#/register?code=Q4oATPkv",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 158,
+        "tlsValidUntil": "2026-08-19T10:15:49.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "feimiaoyun",
+      "checkedAt": "2026-07-22T13:38:59.675Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://w07.fcwebb03.cc/register?aff=NmV1Abou",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 645,
+        "tlsValidUntil": "2026-10-02T08:29:08.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "jinglingxueyuan",
+      "checkedAt": "2026-07-22T13:39:02.025Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://jump.riolu.work/register?aff=BwtH0MyU",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 872,
+        "tlsValidUntil": "2026-09-20T21:54:39.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "sy",
+      "checkedAt": "2026-07-22T13:39:04.366Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://ccc.jichang.best/#/register?code=LSWpFh0X",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 188,
+        "tlsValidUntil": "2026-09-13T09:29:21.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "yuzhouyun",
+      "checkedAt": "2026-07-22T13:39:05.177Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://zfuttyky.yuzouyun.cc/#/register?code=SY7pjvwq",
+        "httpStatus": 200,
+        "successfulAttempts": 3,
+        "medianResponseMs": 608,
+        "tlsValidUntil": "2026-10-17T15:50:58.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
+    },
+    {
+      "slug": "wanxiang",
+      "checkedAt": "2026-07-22T13:39:07.833Z",
+      "websiteHealth": 100,
+      "health": {
+        "reachable": true,
+        "finalUrl": "https://gw4.gwxiazai.com/#/register?code=oBugd6a1",
+        "httpStatus": 200,
+        "successfulAttempts": 2,
+        "medianResponseMs": 273,
+        "tlsValidUntil": "2026-08-26T06:40:59.000Z",
+        "runner": "editorial-check darwin/x64",
+        "error": null
+      }
     }
   ]
 }

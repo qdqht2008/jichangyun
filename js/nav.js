@@ -56,6 +56,7 @@ const SIDEBAR_SECTIONS = {
       { href: '/jichang/yuzhouyun/', label: '宇宙云' },
       { href: '/jichang/hongxing/', label: '红杏云' },
       { href: '/jichang/quickcloud/', label: 'Quick Cloud' },
+      { href: '/jichang/jisuyun/', label: '极速云' },
       { href: '/jichang/feiniaoyun/', label: '飞鸟云' },
       { href: '/jichang/dageyun/', label: '大哥云' },
       { href: '/jichang/feimiaoyun/', label: '肥猫云' },

@@ -332,3 +332,10 @@ test('global navigation exposes the ranking and detector without replacing airpo
   assert.match(nav, /href: '\/rankings\/', label: '机场榜'/);
   assert.match(nav, /href: '\/tools\/streaming-check\/', label: '检测工具'/);
 });
+
+test('every active airport remains discoverable from the detail-page sidebar', () => {
+  const nav = read('js/nav.js');
+  for (const slug of expectedActiveSlugs) {
+    assert.match(nav, new RegExp(`href: '\\/jichang\\/${slug}\\/'`), `${slug}: missing airport sidebar link`);
+  }
+});

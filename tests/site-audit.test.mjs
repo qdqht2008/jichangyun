@@ -1439,10 +1439,15 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
       title: '安卓手机订阅 ChatGPT 套餐教程',
       required: [
         'Android 7.0',
-        'Google Play',
+        '一、开启系统自带的 Google 服务框架',
+        '设置 → 更多设置 → 账号与同步 → Google 基础服务',
+        '二、安装 Google Play',
+        '三、安装 ChatGPT',
         '发布者为 OpenAI',
-        '小米',
-        '仅作示例',
+        '四、订阅 ChatGPT Plus',
+        '付款和订阅 → 付款方式',
+        '红米 K60',
+        '不是所有 Android 手机的统一路径',
         '卸载 ChatGPT 不会取消订阅',
         '避免重复扣费',
       ],
@@ -1457,8 +1462,15 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
       url: 'https://vpngate.shop/tutorial/chatgpt-subscription-iphone/',
       title: '苹果手机订阅 ChatGPT 套餐教程',
       required: [
+        '一、准备美区 Apple ID',
+        '查看美区 Apple ID 注册流程',
+        '二、使用支付宝购买 Apple 礼品卡并充值',
+        '支付宝首页',
+        '切换到美国城市',
+        '选择 App Store',
         '礼品卡地区必须与 Apple 账户地区一致',
         '兑换充值卡或代码',
+        '三、在 ChatGPT 中订阅套餐',
         'Restore purchases',
         '某些购买仍可能要求账户中保留付款方式',
         '卸载 ChatGPT 不会取消订阅',
@@ -1482,6 +1494,9 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
     for (const term of tutorial.required) assert.match(html, new RegExp(term), `${tutorial.file}: missing ${term}`);
     for (const href of tutorial.links) {
       assert.ok(html.includes(`href="${href}"`), `${tutorial.file}: missing ${href}`);
+    }
+    for (const removed of ['WaytoAGI', 'waytoagi.feishu.cn', '整理依据', 'route-strip', 'check-grid']) {
+      assert.doesNotMatch(html, new RegExp(removed), `${tutorial.file}: must not retain ${removed}`);
     }
 
     const data = structuredData(html);

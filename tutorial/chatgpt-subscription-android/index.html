@@ -62,11 +62,10 @@ gtag('config', 'G-HPYY57ECEX');
   "description": "通过 Google Play 安装官方 ChatGPT 应用并完成应用内订阅。",
   "totalTime": "PT15M",
   "step": [
-    {"@type": "HowToStep", "position": 1, "name": "确认设备和 Google Play", "text": "确认设备运行 Android 7.0 或更高版本，并能正常使用 Google Play。"},
-    {"@type": "HowToStep", "position": 2, "name": "安装官方 ChatGPT", "text": "从 Google Play 安装发布者为 OpenAI 的 ChatGPT 应用。"},
-    {"@type": "HowToStep", "position": 3, "name": "登录原有 ChatGPT 账号", "text": "使用与网页版一致的登录方式进入 ChatGPT。"},
-    {"@type": "HowToStep", "position": 4, "name": "准备 Google Play 付款方式", "text": "在 Google Play 的付款和订阅中添加页面实际提供的付款方式。"},
-    {"@type": "HowToStep", "position": 5, "name": "确认应用内订阅", "text": "在 ChatGPT 中选择升级，并在 Google Play 付款页核对套餐、金额和续费周期。"}
+    {"@type": "HowToStep", "position": 1, "name": "开启 Google 服务框架", "text": "以红米 K60 为例，在系统设置中开启 Google 基础服务。"},
+    {"@type": "HowToStep", "position": 2, "name": "安装 Google Play", "text": "在手机自带应用商店搜索并安装 Google Play，然后登录 Google 账号。"},
+    {"@type": "HowToStep", "position": 3, "name": "安装官方 ChatGPT", "text": "从 Google Play 安装发布者为 OpenAI 的 ChatGPT 应用。"},
+    {"@type": "HowToStep", "position": 4, "name": "订阅 ChatGPT Plus", "text": "添加 Google Play 付款方式，在 ChatGPT 中进入升级入口并确认订阅。"}
   ]
 }
 </script>
@@ -100,15 +99,6 @@ gtag('config', 'G-HPYY57ECEX');
 .guide-kicker { display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:6px 12px;border:1px solid rgba(95,143,115,.25);border-radius:999px;background:var(--platform-soft);color:#467158;font-size:12px;font-weight:700;letter-spacing:.04em }
 .guide-kicker::before { content:"";width:8px;height:8px;border-radius:50%;background:var(--platform-accent);box-shadow:0 0 0 4px rgba(95,143,115,.14) }
 .guide-lead { max-width:760px;color:var(--text-secondary);font-size:17px;line-height:1.9 }
-.route-strip { display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:26px 0 34px;padding:10px;border:1px solid var(--border-color);border-radius:18px;background:var(--bg-secondary) }
-.route-stop { position:relative;padding:14px 10px;text-align:center;color:var(--text-secondary);font-size:13px }
-.route-stop strong { display:block;margin-bottom:4px;color:var(--accent-tertiary);font-family:var(--font-display);font-size:15px }
-.route-stop:not(:last-child)::after { content:"→";position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--platform-accent);font-weight:700 }
-.check-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0 28px }
-.check-card { min-height:154px;padding:22px;border:1px solid var(--border-color);border-radius:16px;background:linear-gradient(145deg,var(--bg-primary),var(--bg-secondary));box-shadow:0 8px 24px rgba(61,64,91,.04) }
-.check-card .check-index { display:block;margin-bottom:16px;color:var(--platform-accent);font-size:12px;font-weight:800;letter-spacing:.12em }
-.check-card h3 { margin:0 0 8px;color:var(--accent-tertiary);font-family:var(--font-display);font-size:18px }
-.check-card p { margin:0;color:var(--text-secondary);font-size:14px;line-height:1.7 }
 .guide-note { margin:24px 0;padding:18px 20px;border-left:4px solid var(--platform-accent);border-radius:0 14px 14px 0;background:var(--platform-soft) }
 .guide-note p:last-child { margin-bottom:0 }
 .guide-note.warning { --platform-accent:#d2765f;--platform-soft:rgba(210,118,95,.1) }
@@ -124,11 +114,6 @@ gtag('config', 'G-HPYY57ECEX');
 .faq-item p { margin:0;color:var(--text-secondary) }
 .source-list li { margin-bottom:9px }
 @media (max-width: 768px) {
-  .route-strip { grid-template-columns:1fr;padding:12px }
-  .route-stop { text-align:left;padding:10px 14px }
-  .route-stop:not(:last-child)::after { content:"↓";right:16px }
-  .check-grid { grid-template-columns:1fr }
-  .check-card { min-height:0 }
   .guide-step { padding:72px 20px 22px }
   .guide-step::before { left:20px;top:18px }
 }
@@ -149,77 +134,59 @@ gtag('config', 'G-HPYY57ECEX');
     <article class="article-content">
       <div class="tutorial-meta">
         <span><strong>作者</strong>优质机场推荐编辑部</span>
-        <span><strong>整理依据</strong>WaytoAGI 原文与官方帮助资料</span>
         <span><strong>更新</strong><time datetime="2026-07-31">2026-07-31</time></span>
-      </div>
-
-      <div class="route-strip" aria-label="安卓订阅路线">
-        <div class="route-stop"><strong>检查设备</strong>Google Play 可用</div>
-        <div class="route-stop"><strong>安装应用</strong>核对 OpenAI</div>
-        <div class="route-stop"><strong>登录账号</strong>保持同一身份</div>
-        <div class="route-stop"><strong>准备付款</strong>看实际选项</div>
-        <div class="route-stop"><strong>确认订阅</strong>核对续费周期</div>
       </div>
 
       <div class="guide-note warning">
         <p><strong>先检查是否已有订阅：</strong>Apple App Store、Google Play 和 chatgpt.com 分别管理各自购买的订阅。若你已经在其他平台订阅，不要直接再买一次；先确认原订阅的管理平台，避免重复扣费。</p>
       </div>
 
-      <h2>一、开始前先检查</h2>
-      <div class="check-grid">
-        <section class="check-card">
-          <span class="check-index">01 · DEVICE</span>
-          <h3>设备与商店</h3>
-          <p>OpenAI 当前要求设备运行 Android 7.0 或更高版本，并且能使用 Google Play。</p>
-        </section>
-        <section class="check-card">
-          <span class="check-index">02 · ACCOUNT</span>
-          <h3>两个账号</h3>
-          <p>准备 Google 账号用于商店付款，以及自己的 ChatGPT 账号用于套餐权益。</p>
-        </section>
-        <section class="check-card">
-          <span class="check-index">03 · BILLING</span>
-          <h3>付款可用性</h3>
-          <p>Google Play 会按账号地区显示可用方式。不要预设某张卡一定能用，也不要购买共享账号。</p>
-        </section>
-      </div>
+      <p>本教程适用于能够使用 Google Play、系统为 Android 7.0 或更高版本的安卓手机。不同品牌和系统版本的菜单名称可能不同，请以手机实际界面为准。</p>
 
-      <h2>二、安装与订阅步骤</h2>
+      <h2>一、开启系统自带的 Google 服务框架</h2>
       <div class="step-stack">
         <section class="guide-step">
-          <h3>确认 Google 基础服务</h3>
-          <p>多数原生支持 Google Play 的设备无需额外设置。飞书原文以红米 K60 为例，可能出现以下路径：</p>
+          <h3>打开系统设置</h3>
+          <p>以红米 K60 为例，依次进入：</p>
           <span class="path-line">设置 → 更多设置 → 账号与同步 → Google 基础服务</span>
-          <p><strong>这条小米/红米路径仅作示例，不是所有 Android 品牌的统一入口。</strong>如果系统没有 Google Play 或对应开关，请查阅手机厂商说明；本站不提供来源不明的 Google 服务框架安装包。</p>
-        </section>
-
-        <section class="guide-step">
-          <h3>从 Google Play 安装官方 ChatGPT</h3>
-          <p>打开 Google Play，搜索“OpenAI ChatGPT”，确认<strong>应用名称为 ChatGPT、发布者为 OpenAI</strong>。也可以直接打开官方商店页面：</p>
-          <p><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.openai.chatgpt" target="_blank" rel="nofollow noopener">打开 ChatGPT 的 Google Play 页面</a></p>
-          <p>不要从网盘、群聊或陌生下载站安装修改版 APK。</p>
-        </section>
-
-        <section class="guide-step">
-          <h3>登录自己的 ChatGPT 账号</h3>
-          <p>使用你在网页版采用的同一种方式登录，例如邮箱密码、Google、Microsoft 或 Apple。不要因为进入了 Google Play，就误以为套餐会自动绑定当前 Google 邮箱。</p>
-          <p>如出现登录错误，先更新 Google Play；OpenAI 目前也建议 Android 登录问题优先使用 Chrome 作为默认浏览器。</p>
-        </section>
-
-        <section class="guide-step">
-          <h3>准备 Google Play 付款方式</h3>
-          <span class="path-line">Google Play → 头像 → 付款和订阅 → 付款方式</span>
-          <p>点击添加付款方式，选择页面实际提供的选项并按提示完成验证。可用方式与 Google 账号地区、发卡机构和当地政策有关，飞书原文所说的“双币卡或全币卡”不应视为当前唯一答案。</p>
-        </section>
-
-        <section class="guide-step">
-          <h3>在 ChatGPT 内确认订阅</h3>
-          <p>打开 ChatGPT 的个人菜单或设置，进入升级入口。按钮可能显示“Get”“Upgrade”或中文对应文案。选择手机端可见的套餐后，Google Play 会弹出付款确认页。</p>
-          <p>确认前逐项核对<strong>套餐名称、实际金额、币种、续费周期和付款账号</strong>。只有在信息都正确时再完成验证。</p>
+          <p>进入后打开 Google 基础服务开关。这是红米 K60 的示例路径，不是所有 Android 手机的统一路径；如果找不到对应选项，请查看手机厂商的系统说明。</p>
         </section>
       </div>
 
-      <h2>三、如何取消或更换付款方式</h2>
+      <h2>二、安装 Google Play</h2>
+      <div class="step-stack">
+        <section class="guide-step">
+          <h3>从手机应用商店安装</h3>
+          <p>打开手机自带的应用商店，搜索“Google Play”，下载并安装。安装完成后打开 Google Play，登录自己的 Google 账号。</p>
+          <p>如果手机系统不提供 Google 基础服务或无法正常运行 Google Play，请以手机厂商的支持范围为准；不要安装来源不明的服务框架或安装包。</p>
+        </section>
+      </div>
+
+      <h2>三、安装 ChatGPT</h2>
+      <div class="step-stack">
+        <section class="guide-step">
+          <h3>从 Google Play 安装官方应用</h3>
+          <p>在 Google Play 搜索“ChatGPT”，确认<strong>应用名称为 ChatGPT、发布者为 OpenAI</strong>后安装。也可以直接打开官方商店页面：</p>
+          <p><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.openai.chatgpt" target="_blank" rel="nofollow noopener">打开 ChatGPT 的 Google Play 页面</a></p>
+        </section>
+      </div>
+
+      <h2>四、订阅 ChatGPT Plus</h2>
+      <div class="step-stack">
+        <section class="guide-step">
+          <h3>添加 Google Play 付款方式</h3>
+          <span class="path-line">Google Play → 头像 → 付款和订阅 → 付款方式 → 添加付款方式</span>
+          <p>选择页面当前提供的付款方式，并按提示完成添加。可用选项会受 Google 账号地区、发卡机构和当地政策影响，以页面实际显示为准。</p>
+        </section>
+
+        <section class="guide-step">
+          <h3>在 ChatGPT 中完成订阅</h3>
+          <p>打开 ChatGPT，登录自己的 ChatGPT 账号，再从个人菜单或设置进入升级入口。按钮可能显示“Get”“Upgrade”或相应中文文案。</p>
+          <p>Google Play 付款页面弹出后，核对<strong>套餐名称、币种、实际金额、续费周期和付款账号</strong>，确认无误后完成付款。</p>
+        </section>
+      </div>
+
+      <h2>如何取消或更换付款方式</h2>
       <div class="guide-note">
         <p><strong>通过 Google Play 购买，就在 Google Play 管理。</strong>卸载 ChatGPT 不会取消订阅；在 chatgpt.com 购买的套餐也不能在 Google Play 中取消。</p>
       </div>
@@ -231,7 +198,7 @@ gtag('config', 'G-HPYY57ECEX');
       </ol>
       <p><a href="https://support.google.com/googleplay/answer/7018481" target="_blank" rel="nofollow noopener">查看 Google Play 官方订阅管理说明</a></p>
 
-      <h2>四、常见问题</h2>
+      <h2>常见问题</h2>
       <div class="faq-list">
         <section class="faq-item">
           <h3>Google Play 搜不到 ChatGPT 怎么办？</h3>
@@ -252,9 +219,8 @@ gtag('config', 'G-HPYY57ECEX');
       </div>
 
       <section class="tutorial-sources">
-        <h2>整理依据与官方资料</h2>
+        <h2>官方资料</h2>
         <ul class="source-list">
-          <li><a href="https://waytoagi.feishu.cn/wiki/HjPJwAJJdi0sl4k9IslcoU9ZnIh" target="_blank" rel="nofollow noopener">WaytoAGI：一文教你注册、安装、订阅 ChatGPT（2024 年原文）</a></li>
           <li><a href="https://help.openai.com/en/articles/8142208-chatgpt-android-app-faq" target="_blank" rel="nofollow noopener">OpenAI：ChatGPT Android App FAQ</a></li>
           <li><a href="https://help.openai.com/en/articles/8258076-how-to-cancel-a-plus-subscription-in-the-chatgpt-android-app" target="_blank" rel="nofollow noopener">OpenAI：取消 Android 端订阅</a></li>
           <li><a href="https://help.openai.com/en/articles/20001043-how-do-i-avoid-being-charged-twice-if-i-subscribe-to-chatgpt-on-ios-android-and-the-web" target="_blank" rel="nofollow noopener">OpenAI：避免跨平台重复订阅</a></li>

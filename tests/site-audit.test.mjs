@@ -1421,7 +1421,7 @@ test('tutorial hub separates maintained clients from historical and general guid
 
   const sitemap = read('sitemap.xml');
   const expectedSitemapDates = new Map([
-    ['tutorial/', '2026-07-04'],
+    ['tutorial/', '2026-07-31'],
     ['tutorial/clash-verge/', '2026-07-11'],
     ['tutorial/flclash/', '2026-07-04'],
     ['tutorial/clash-meta-for-android/', '2026-07-04'],
@@ -1429,6 +1429,79 @@ test('tutorial hub separates maintained clients from historical and general guid
   for (const [path, date] of expectedSitemapDates) {
     assert.match(sitemap, new RegExp(`<loc>https:\/\/vpngate\\.shop\/${path}<\\/loc>\\s*<lastmod>${date}<\\/lastmod>`));
   }
+});
+
+test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone routes with current billing boundaries', () => {
+  const tutorials = [
+    {
+      file: 'tutorial/chatgpt-subscription-android/index.html',
+      url: 'https://vpngate.shop/tutorial/chatgpt-subscription-android/',
+      title: '安卓手机订阅 ChatGPT 套餐教程',
+      required: [
+        'Android 7.0',
+        'Google Play',
+        '发布者为 OpenAI',
+        '小米',
+        '仅作示例',
+        '卸载 ChatGPT 不会取消订阅',
+        '避免重复扣费',
+      ],
+      links: [
+        'https://play.google.com/store/apps/details?id=com.openai.chatgpt',
+        'https://support.google.com/googleplay/answer/7018481',
+        '/tutorial/chatgpt-subscription-iphone/',
+      ],
+    },
+    {
+      file: 'tutorial/chatgpt-subscription-iphone/index.html',
+      url: 'https://vpngate.shop/tutorial/chatgpt-subscription-iphone/',
+      title: '苹果手机订阅 ChatGPT 套餐教程',
+      required: [
+        '礼品卡地区必须与 Apple 账户地区一致',
+        '兑换充值卡或代码',
+        'Restore purchases',
+        '某些购买仍可能要求账户中保留付款方式',
+        '卸载 ChatGPT 不会取消订阅',
+        '避免重复扣费',
+      ],
+      links: [
+        '/tutorial/us-apple-id/',
+        'https://apps.apple.com/us/app/chatgpt/id6448311069',
+        'https://support.apple.com/en-us/118242',
+        'https://support.apple.com/en-us/118428',
+        '/tutorial/chatgpt-subscription-android/',
+      ],
+    },
+  ];
+
+  for (const tutorial of tutorials) {
+    const html = read(tutorial.file);
+    assert.match(html, new RegExp(`<link rel="canonical" href="${tutorial.url.replaceAll('/', '\\/')}"`));
+    assert.match(html, new RegExp(`<h1 class="article-title">${tutorial.title}<\\/h1>`));
+    assert.match(html, /<time datetime="2026-07-31">2026-07-31<\/time>/);
+    for (const term of tutorial.required) assert.match(html, new RegExp(term), `${tutorial.file}: missing ${term}`);
+    for (const href of tutorial.links) {
+      assert.ok(html.includes(`href="${href}"`), `${tutorial.file}: missing ${href}`);
+    }
+
+    const data = structuredData(html);
+    const article = data.find((entry) => entry['@type'] === 'Article');
+    assert.equal(article?.headline, tutorial.title);
+    assert.equal(article?.dateModified, '2026-07-31');
+    assert.ok(data.some((entry) => entry['@type'] === 'BreadcrumbList'));
+    assert.ok(data.some((entry) => entry['@type'] === 'HowTo'));
+    assert.ok(data.some((entry) => entry['@type'] === 'FAQPage'));
+  }
+
+  const hub = read('tutorial/index.html');
+  const nav = read('js/nav.js');
+  const sitemap = read('sitemap.xml');
+  for (const slug of ['chatgpt-subscription-android', 'chatgpt-subscription-iphone']) {
+    assert.match(hub, new RegExp(`href="\\/tutorial\\/${slug}\\/"`));
+    assert.match(nav, new RegExp(`href: '\\/tutorial\\/${slug}\\/'`));
+    assert.match(sitemap, new RegExp(`<loc>https:\\/\\/vpngate\\.shop\\/tutorial\\/${slug}\\/<\\/loc>\\s*<lastmod>2026-07-31<\\/lastmod>`));
+  }
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/<\/loc>\s*<lastmod>2026-07-31<\/lastmod>/);
 });
 
 test('SwitchyOmega tutorial targets rule, Chrome, configuration, and replacement search intents safely', () => {
@@ -1805,7 +1878,7 @@ test('line selection metadata and sitemap match the current evidence version', (
 
   const sitemap = read('sitemap.xml');
   assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/line-selection\/<\/loc>\s*<lastmod>2026-07-06<\/lastmod>/);
-  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/<\/loc>\s*<lastmod>2026-07-04<\/lastmod>/);
+  assert.match(sitemap, /<loc>https:\/\/vpngate\.shop\/tutorial\/<\/loc>\s*<lastmod>2026-07-31<\/lastmod>/);
 });
 
 const distributionKit = 'docs/distribution/2026-07-problem-led-launch-kit.md';

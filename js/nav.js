@@ -34,7 +34,9 @@ const SIDEBAR_SECTIONS = {
       { href: '/tutorial/clash-for-android/', label: 'Clash for Android 教程' },
       { href: '/tutorial/clashx/', label: 'ClashX Pro 教程' },
       { href: '/tutorial/potatso/', label: 'Potatso 教程' },
-      { href: '/tutorial/us-apple-id/', label: '美区 Apple ID 注册' }
+      { href: '/tutorial/us-apple-id/', label: '美区 Apple ID 注册' },
+      { href: '/tutorial/chatgpt-subscription-android/', label: '安卓订阅 ChatGPT' },
+      { href: '/tutorial/chatgpt-subscription-iphone/', label: '苹果订阅 ChatGPT' }
     ]
   },
   guide: {

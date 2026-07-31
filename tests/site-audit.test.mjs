@@ -1437,6 +1437,9 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
       file: 'tutorial/chatgpt-subscription-android/index.html',
       url: 'https://vpngate.shop/tutorial/chatgpt-subscription-android/',
       title: '安卓手机订阅 ChatGPT 套餐教程',
+      imageDirectory: 'img/tutorial/chatgpt-subscription-android',
+      imagePrefix: '/img/tutorial/chatgpt-subscription-android/',
+      imageCount: 19,
       required: [
         'Android 7.0',
         '一、开启系统自带的 Google 服务框架',
@@ -1461,6 +1464,8 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
       file: 'tutorial/chatgpt-subscription-iphone/index.html',
       url: 'https://vpngate.shop/tutorial/chatgpt-subscription-iphone/',
       title: '苹果手机订阅 ChatGPT 套餐教程',
+      imagePrefix: '/img/tutorial/chatgpt-subscription-iphone/',
+      imageCount: 0,
       required: [
         '一、准备美区 Apple ID',
         '查看美区 Apple ID 注册流程',
@@ -1498,6 +1503,25 @@ test('ChatGPT mobile subscription tutorials expose distinct Android and iPhone r
     for (const removed of ['WaytoAGI', 'waytoagi.feishu.cn', '整理依据', 'route-strip', 'check-grid']) {
       assert.doesNotMatch(html, new RegExp(removed), `${tutorial.file}: must not retain ${removed}`);
     }
+
+    const tutorialImages = tags(html, 'img').filter((tag) => attribute(tag, 'src').startsWith(tutorial.imagePrefix));
+    assert.equal(tutorialImages.length, tutorial.imageCount, `${tutorial.file}: all source screenshots should remain in the article`);
+    if (tutorial.imageDirectory) {
+      const imageFiles = readdirSync(join(root, tutorial.imageDirectory)).filter((file) => file.endsWith('.png')).sort();
+      assert.equal(imageFiles.length, tutorial.imageCount, `${tutorial.imageDirectory}: unexpected source screenshot count`);
+      for (const tag of tutorialImages) {
+        const src = attribute(tag, 'src');
+        assert.ok(existsSync(join(root, src)), `${tutorial.file}: missing local source screenshot ${src}`);
+        assert.match(tag, /\bwidth="\d+"/);
+        assert.match(tag, /\bheight="\d+"/);
+        assert.match(tag, /\bloading="lazy"/);
+        assert.match(tag, /\bdecoding="async"/);
+      }
+      for (const file of imageFiles) {
+        assert.ok(html.includes(`${tutorial.imagePrefix}${file}`), `${tutorial.file}: unreferenced source screenshot ${file}`);
+      }
+    }
+    assert.doesNotMatch(html, /internal-api-drive-stream\.feishu\.cn/, `${tutorial.file}: screenshots must be served locally`);
 
     const data = structuredData(html);
     const article = data.find((entry) => entry['@type'] === 'Article');

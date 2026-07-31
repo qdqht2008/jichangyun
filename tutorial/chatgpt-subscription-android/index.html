@@ -108,6 +108,8 @@ gtag('config', 'G-HPYY57ECEX');
 .guide-step h3 { margin:0 0 10px;color:var(--accent-tertiary);font-family:var(--font-display);font-size:20px }
 .guide-step p:last-child,.guide-step ul:last-child { margin-bottom:0 }
 .path-line { display:block;margin:12px 0;padding:11px 14px;border-radius:10px;background:var(--bg-secondary);color:var(--accent-tertiary);font-size:14px;font-weight:700 }
+.guide-gallery { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px }
+.guide-gallery img { display:block;width:100%;height:auto;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary) }
 .faq-list { display:grid;gap:12px;margin:20px 0 30px }
 .faq-item { padding:20px 22px;border:1px solid var(--border-color);border-radius:14px;background:var(--bg-secondary) }
 .faq-item h3 { margin:0 0 8px;color:var(--accent-tertiary);font-size:17px }
@@ -116,6 +118,10 @@ gtag('config', 'G-HPYY57ECEX');
 @media (max-width: 768px) {
   .guide-step { padding:72px 20px 22px }
   .guide-step::before { left:20px;top:18px }
+  .guide-gallery { grid-template-columns:repeat(2,minmax(0,1fr));gap:10px }
+}
+@media (max-width: 480px) {
+  .guide-gallery { grid-template-columns:1fr }
 }
 </style>
 </head>
@@ -150,6 +156,12 @@ gtag('config', 'G-HPYY57ECEX');
           <p>以红米 K60 为例，依次进入：</p>
           <span class="path-line">设置 → 更多设置 → 账号与同步 → Google 基础服务</span>
           <p>进入后打开 Google 基础服务开关。这是红米 K60 的示例路径，不是所有 Android 手机的统一路径；如果找不到对应选项，请查看手机厂商的系统说明。</p>
+          <div class="guide-gallery" aria-label="开启 Google 基础服务原文步骤截图">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-services-01.png" alt="在安卓手机中打开设置" width="538" height="1182" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-services-02.png" alt="在设置中进入更多设置" width="568" height="1170" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-services-03.png" alt="进入账号与同步设置" width="552" height="1100" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-services-04.png" alt="打开 Google 基础服务开关" width="1440" height="3200" loading="lazy" decoding="async">
+          </div>
         </section>
       </div>
 
@@ -159,6 +171,10 @@ gtag('config', 'G-HPYY57ECEX');
           <h3>从手机应用商店安装</h3>
           <p>打开手机自带的应用商店，搜索“Google Play”，下载并安装。安装完成后打开 Google Play，登录自己的 Google 账号。</p>
           <p>如果手机系统不提供 Google 基础服务或无法正常运行 Google Play，请以手机厂商的支持范围为准；不要安装来源不明的服务框架或安装包。</p>
+          <div class="guide-gallery" aria-label="安装并登录 Google Play 原文步骤截图">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-play-01.png" alt="在手机应用商店搜索并安装 Google Play" width="1440" height="3200" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-play-02.png" alt="打开 Google Play 并登录 Google 账号" width="532" height="950" loading="lazy" decoding="async">
+          </div>
         </section>
       </div>
 
@@ -168,6 +184,11 @@ gtag('config', 'G-HPYY57ECEX');
           <h3>从 Google Play 安装官方应用</h3>
           <p>在 Google Play 搜索“ChatGPT”，确认<strong>应用名称为 ChatGPT、发布者为 OpenAI</strong>后安装。也可以直接打开官方商店页面：</p>
           <p><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.openai.chatgpt" target="_blank" rel="nofollow noopener">打开 ChatGPT 的 Google Play 页面</a></p>
+          <div class="guide-gallery" aria-label="安装 ChatGPT 原文步骤截图">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-install-01.png" alt="在 Google Play 中查找应用" width="834" height="274" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-install-02.png" alt="在 Google Play 中搜索 ChatGPT" width="788" height="670" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-install-03.png" alt="在 Google Play 中安装登录所需应用" width="724" height="654" loading="lazy" decoding="async">
+          </div>
         </section>
       </div>
 
@@ -177,12 +198,26 @@ gtag('config', 'G-HPYY57ECEX');
           <h3>添加 Google Play 付款方式</h3>
           <span class="path-line">Google Play → 头像 → 付款和订阅 → 付款方式 → 添加付款方式</span>
           <p>选择页面当前提供的付款方式，并按提示完成添加。可用选项会受 Google 账号地区、发卡机构和当地政策影响，以页面实际显示为准。</p>
+          <div class="guide-gallery" aria-label="添加 Google Play 付款方式原文步骤截图">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-payment-01.png" alt="打开 Google Play 账号菜单" width="710" height="578" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-payment-02.png" alt="进入付款和订阅" width="542" height="1064" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-payment-03.png" alt="进入付款方式" width="1252" height="1004" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-payment-04.png" alt="选择添加信用卡或借记卡" width="560" height="1188" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/google-payment-05.png" alt="Google Play 付款方式添加完成提示" width="708" height="882" loading="lazy" decoding="async">
+          </div>
         </section>
 
         <section class="guide-step">
           <h3>在 ChatGPT 中完成订阅</h3>
           <p>打开 ChatGPT，登录自己的 ChatGPT 账号，再从个人菜单或设置进入升级入口。按钮可能显示“Get”“Upgrade”或相应中文文案。</p>
           <p>Google Play 付款页面弹出后，核对<strong>套餐名称、币种、实际金额、续费周期和付款账号</strong>，确认无误后完成付款。</p>
+          <div class="guide-gallery" aria-label="在 ChatGPT 中订阅套餐原文步骤截图">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-subscribe-01.png" alt="在 ChatGPT 中选择使用 Google 账号登录" width="1440" height="3200" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-subscribe-02.png" alt="选择用于登录 ChatGPT 的 Google 账号" width="1440" height="3200" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-subscribe-03.png" alt="完成 ChatGPT 首次登录设置" width="1440" height="3200" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-subscribe-04.png" alt="点击 ChatGPT 顶部的 Get Plus" width="1440" height="3200" loading="lazy" decoding="async">
+            <img src="/img/tutorial/chatgpt-subscription-android/chatgpt-subscribe-05.png" alt="在 ChatGPT 中确认升级套餐" width="1440" height="3200" loading="lazy" decoding="async">
+          </div>
         </section>
       </div>
 

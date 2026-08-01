@@ -618,7 +618,7 @@ test('瞬云 metadata and commercial route stay cautious and current', () => {
   assert.equal(article.author?.name, '优质机场推荐编辑部');
   assert.equal(article.dateModified, '2026-07-03');
 
-  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href').includes('jichang.best'));
+  const commercial = tags(html, 'a').find((anchor) => attribute(anchor, 'href') === 'https://dashboard.syjccloud.com/#/register?code=LSWpFh0X');
   assert.ok(commercial, '瞬云: missing current merchant CTA');
   assert.deepEqual(new Set(attribute(commercial, 'rel').split(/\s+/)), new Set(['sponsored', 'nofollow', 'noopener']));
 });

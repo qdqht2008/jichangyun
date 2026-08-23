@@ -25,7 +25,6 @@ const expectedActiveSlugs = [
   'jisuyun',
   'quickcloud',
   'sy',
-  'wanxiang',
   'yangfanyun',
   'yuzhouyun',
 ];

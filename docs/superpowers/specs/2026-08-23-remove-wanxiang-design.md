@@ -12,7 +12,7 @@
 - 删除 `jichang/wanxiang/` 详情页。
 - 从机场汇总页、侧栏导航、`data/airports.json` 和 `sitemap.xml` 移除万象加速。
 - 删除或更新只针对万象加速的测试预期，使测试反映公开内容已经下线。
-- 保留 `docs/superpowers/` 中的历史设计/计划，以及 `data/airport-health-history.json` 中的历史监测记录；它们不构成公开站点入口或运行时展示数据。
+- 保留 `docs/superpowers/` 中的历史设计/计划作为开发审计记录；删除健康监测记录，以免运行时数据校验重新暴露已下线机场。
 
 ## 不做
 
